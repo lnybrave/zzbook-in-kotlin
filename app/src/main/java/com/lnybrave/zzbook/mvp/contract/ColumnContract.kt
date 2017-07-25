@@ -1,7 +1,7 @@
 package com.lnybrave.zzbook.mvp.contract
 
-import com.lnybrave.zzbook.entity.Column
-import com.lnybrave.zzbook.entity.ApiList
+import com.lnybrave.zzbook.bean.Column
+import com.lnybrave.zzbook.bean.APIList
 import io.reactivex.Observable
 
 /**
@@ -16,7 +16,7 @@ interface ColumnContract {
 
     interface Model {
 
-        fun getData(): Observable<ApiList<Column>>
+        fun getData(): Observable<APIList<Column>>
     }
 
     interface Presenter {

@@ -1,8 +1,8 @@
 package com.lnybrave.zzbook.mvp.model
 
 import com.lnybrave.zzbook.api.ZZBookApi
-import com.lnybrave.zzbook.entity.Column
-import com.lnybrave.zzbook.entity.ApiList
+import com.lnybrave.zzbook.bean.Column
+import com.lnybrave.zzbook.bean.APIList
 import com.lnybrave.zzbook.mvp.contract.ColumnContract
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 class ColumnModel
 @Inject constructor(private val api: ZZBookApi) : ColumnContract.Model {
-    override fun getData(): Observable<ApiList<Column>> {
+    override fun getData(): Observable<APIList<Column>> {
         return api.getColumnList()
     }
 }

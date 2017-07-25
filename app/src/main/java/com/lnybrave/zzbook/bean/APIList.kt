@@ -1,14 +1,13 @@
-package com.lnybrave.zzbook.entity
+package com.lnybrave.zzbook.bean
 
 /**
  * Created by lny on 2017/7/17.
  */
-data class ApiBase<out T>(
+data class APIList<out T>(
         val c: Int,
         val m: String,
-        val d: T
+        val d: List<T>
 ) {
-
     fun isSuccess(): Boolean {
         return c == 0
     }

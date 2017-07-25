@@ -1,22 +1,22 @@
 package com.lnybrave.zzbook.mvp.contract
 
-import com.lnybrave.zzbook.bean.APIList
-import com.lnybrave.zzbook.bean.Topic
+import com.lnybrave.zzbook.bean.APIBase
+import com.lnybrave.zzbook.bean.Book
 import io.reactivex.Observable
 
 /**
  * Created by lny on 2017/7/24.
  */
-interface ColumnDetailContract {
+interface BookDetailContract {
 
     interface View {
 
-        fun setData(results: List<Topic>)
+        fun setData(results: Book)
     }
 
     interface Model {
 
-        fun getData(id: Int): Observable<APIList<Topic>>
+        fun getData(id: Int): Observable<APIBase<Book>>
     }
 
     interface Presenter {

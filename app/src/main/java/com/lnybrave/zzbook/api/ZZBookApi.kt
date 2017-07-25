@@ -1,6 +1,6 @@
 package com.lnybrave.zzbook.api
 
-import com.lnybrave.zzbook.entity.*
+import com.lnybrave.zzbook.bean.*
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,46 +12,43 @@ import retrofit2.http.Query
 interface ZZBookApi {
 
     @GET("api/banner")
-    fun getBannerList(): Observable<ApiList<Any>>
-
-    @GET("api/banner/bookshelf")
-    fun getBannerBookshelf(): Observable<ApiList<Any>>
+    fun getBannerList(): Observable<APIList<Banner>>
 
     @GET("api/book/{id}")
-    fun getBookDetail(@Path("id") id: Int): Observable<ApiBase<Book>>
+    fun getBookDetail(@Path("id") id: Int): Observable<APIBase<Book>>
 
     @GET("api/bookshelf")
-    fun getBookshelf(): Observable<ApiList<Book>>
+    fun getBookshelf(): Observable<APIList<Book>>
 
     @GET("api/recommendation")
-    fun getRecommendation(): Observable<ApiList<Topic>>
+    fun getRecommendation(): Observable<APIList<Topic>>
 
     @GET("api/column")
-    fun getColumnList(): Observable<ApiList<Column>>
+    fun getColumnList(): Observable<APIList<Column>>
 
     @GET("api/column/{id}")
-    fun getColumnDetail(@Path("id") id: Int): Observable<ApiList<Topic>>
+    fun getColumnDetail(@Path("id") id: Int): Observable<APIList<Topic>>
 
     @GET("api/column/topic/{id}")
-    fun getColumnTopic(@Path("id") id: Int): Observable<ApiList<Book>>
+    fun getColumnTopic(@Path("id") id: Int): Observable<APIList<Book>>
 
     @GET("api/ranking")
-    fun getRankingList(): Observable<ApiList<Ranking>>
+    fun getRankingList(): Observable<APIList<Ranking>>
 
     @GET("api/ranking/{id}")
-    fun getRankingDetail(@Path("id") id: Int, @Query("page") page: Int): Observable<ApiPage<Book>>
+    fun getRankingDetail(@Path("id") id: Int, @Query("page") page: Int): Observable<APIPage<Book>>
 
     @GET("api/classification")
-    fun getClassificationList(): Observable<ApiList<Classification>>
+    fun getClassificationList(): Observable<APIList<Classification>>
 
     @GET("api/classification/{id}")
-    fun getClassificationDetail(@Path("id") id: Int, @Query("page") page: Int): Observable<ApiPage<Book>>
+    fun getClassificationDetail(@Path("id") id: Int, @Query("page") page: Int): Observable<APIPage<Book>>
 
     @GET("api/search")
-    fun getSearch(@Query("search") search: String, @Query("offset") offset: Int): Observable<ApiList<Book>>
+    fun getSearch(@Query("search") search: String, @Query("offset") offset: Int): Observable<APIList<Book>>
 
     @GET("api/search/keyword")
-    fun getSearch(): Observable<ApiList<String>>
+    fun getSearch(): Observable<APIList<String>>
 }
 
 

@@ -1,9 +1,9 @@
-package com.lnybrave.zzbook.entity
+package com.lnybrave.zzbook.bean
 
 /**
  * Created by lny on 2017/7/17.
  */
-data class ApiPage<out T>(
+data class APIPage<out T>(
         val c: Int,
         val m: String,
         val d: List<T>,

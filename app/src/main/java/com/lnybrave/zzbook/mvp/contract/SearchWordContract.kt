@@ -1,6 +1,6 @@
 package com.lnybrave.zzbook.mvp.contract
 
-import com.lnybrave.zzbook.entity.ApiList
+import com.lnybrave.zzbook.bean.APIList
 import io.reactivex.Observable
 
 /**
@@ -15,7 +15,7 @@ interface SearchWordContract {
 
     interface Model {
 
-        fun getData(): Observable<ApiList<String>>
+        fun getData(): Observable<APIList<String>>
     }
 
     interface Presenter {

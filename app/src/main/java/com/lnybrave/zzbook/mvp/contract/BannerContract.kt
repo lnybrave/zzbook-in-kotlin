@@ -1,22 +1,22 @@
 package com.lnybrave.zzbook.mvp.contract
 
-import com.lnybrave.zzbook.bean.Classification
 import com.lnybrave.zzbook.bean.APIList
+import com.lnybrave.zzbook.bean.Banner
 import io.reactivex.Observable
 
 /**
  * Created by lny on 2017/7/24.
  */
-interface ClassificationContract {
+interface BannerContract {
 
     interface View {
 
-        fun setData(results: List<Classification>)
+        fun setData(results: List<Banner>)
     }
 
     interface Model {
 
-        fun getData(): Observable<APIList<Classification>>
+        fun getData(): Observable<APIList<Banner>>
     }
 
     interface Presenter {

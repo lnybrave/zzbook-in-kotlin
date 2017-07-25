@@ -1,7 +1,7 @@
 package com.lnybrave.zzbook.mvp.contract
 
-import com.lnybrave.zzbook.entity.ApiPage
-import com.lnybrave.zzbook.entity.Book
+import com.lnybrave.zzbook.bean.APIPage
+import com.lnybrave.zzbook.bean.Book
 import io.reactivex.Observable
 
 /**
@@ -16,7 +16,7 @@ interface RankingDetailContract {
 
     interface Model {
 
-        fun getData(id: Int, page: Int): Observable<ApiPage<Book>>
+        fun getData(id: Int, page: Int): Observable<APIPage<Book>>
     }
 
     interface Presenter {

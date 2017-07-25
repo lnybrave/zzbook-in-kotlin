@@ -18,7 +18,7 @@ interface ZZBookApi {
     fun getBookDetail(@Path("id") id: Int): Observable<APIBase<Book>>
 
     @GET("api/bookshelf")
-    fun getBookshelf(): Observable<APIList<Book>>
+    fun getBookshelf(): Observable<List<Book>>
 
     @GET("api/recommendation")
     fun getRecommendation(): Observable<APIList<Topic>>

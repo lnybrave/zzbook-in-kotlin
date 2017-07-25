@@ -1,4 +1,4 @@
-package com.lnybrave.zzbook.ui.activity;
+package com.lnybrave.zzbook.ui.activity
 
 import android.databinding.ViewDataBinding
 import android.os.Bundle

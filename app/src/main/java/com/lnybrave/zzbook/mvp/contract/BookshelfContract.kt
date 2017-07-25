@@ -16,7 +16,7 @@ interface BookshelfContract {
 
     interface Model {
 
-        fun getData(): Observable<APIList<Book>>
+        fun getData(): Observable<List<Book>>
     }
 
     interface Presenter {

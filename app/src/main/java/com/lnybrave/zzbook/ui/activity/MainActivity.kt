@@ -4,17 +4,18 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
 import com.lnybrave.zzbook.R
 import com.lnybrave.zzbook.databinding.ActivityMainBinding
 import com.lnybrave.zzbook.ui.fragment.BookshelfFragment
 import com.lnybrave.zzbook.ui.fragment.ClassificationFragment
-import com.lnybrave.zzbook.ui.fragment.MineFragment
 import com.lnybrave.zzbook.ui.fragment.RecommendationFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
     lateinit var mFragments: MutableList<Fragment>
+    var selectedPosition: Int = 0
 
 
     override fun createDataBinding(savedInstanceState: Bundle?): ActivityMainBinding {
@@ -29,7 +30,21 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             override fun getCount() = mFragments.size
         }
 
-        viewPager.offscreenPageLimit = 4
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                navigationView.menu.getItem(selectedPosition).isChecked = true
+                navigationView.menu.getItem(position).isChecked = true
+                selectedPosition = position
+            }
+        })
+
+        viewPager.offscreenPageLimit = mFragments.size
 
         navigationView.setOnNavigationItemSelectedListener { item ->
             var tab = 0
@@ -37,9 +52,8 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
                 R.id.menu_android -> tab = 0
                 R.id.menu_ios -> tab = 1
                 R.id.menu_girl -> tab = 2
-                R.id.menu_about -> tab = 3
             }
-            viewPager.currentItem = tab
+            viewPager.setCurrentItem(tab, false)
             false
         }
     }
@@ -49,6 +63,5 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         mFragments.add(BookshelfFragment.newInstance())
         mFragments.add(RecommendationFragment.newInstance())
         mFragments.add(ClassificationFragment.newInstance())
-        mFragments.add(MineFragment())
     }
 }

@@ -3,32 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_android"
+        android:enabled="true"
         android:icon="@drawable/icon_android"
-        android:enabled="true"
-        app:showAsAction="ifRoom"
-        android:title="Android"/>
+        android:title="Android"
+        app:showAsAction="ifRoom" />
 
     <item
-
         android:id="@+id/menu_ios"
+        android:enabled="true"
         android:icon="@drawable/icon_ios"
-        android:enabled="true"
-        app:showAsAction="ifRoom"
-        android:title="iOS"/>
+        android:title="iOS"
+        app:showAsAction="ifRoom" />
     <item
-
         android:id="@+id/menu_girl"
+        android:enabled="true"
         android:icon="@drawable/icon_girl"
-        android:enabled="true"
-        app:showAsAction="ifRoom"
         android:title="妹子"
-        />
-    <item
-
-        android:id="@+id/menu_about"
-        android:icon="@drawable/icon_about"
-        android:enabled="true"
-        app:showAsAction="ifRoom"
-        android:title="关于"
-        />
+        app:showAsAction="ifRoom" />
 </menu>

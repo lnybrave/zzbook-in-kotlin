@@ -12,15 +12,13 @@ import javax.inject.Inject
 class BookshelfPresenter
 @Inject constructor(private val mModel: BookshelfModel,
                     private val mView: BookshelfContract.View)
-    : BookshelfContract.Presenter {
+    : BookshelfContract.Presenter, BasePresenter() {
     override fun getData() {
         mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
-                    if (res.isSuccess()) {
-                        mView.setData(res.d)
-                    }
+                    mView.setData(res)
                 }, { e -> Log.e("lny", e.message) })
     }
 }

@@ -1,10 +1,9 @@
 package com.lnybrave.zzbook
 
 import android.app.Application
-import com.lnybrave.zzbook.di.module.ApiModule
+import com.lnybrave.zzbook.di.component.AppComponent
+import com.lnybrave.zzbook.di.component.DaggerAppComponent
 import com.lnybrave.zzbook.di.module.AppModule
-import com.wingsofts.gankclient.di.component.ApiComponent
-import com.wingsofts.gankclient.di.component.DaggerApiComponent
 import javax.inject.Inject
 
 
@@ -14,16 +13,12 @@ class App : Application() {
         instance = this
     }
 
-    @Inject lateinit var apiComponent: ApiComponent
+    @Inject lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
 
-        DaggerApiComponent.builder()
-                .apiModule(ApiModule())
-                .appModule(AppModule(this))
-                .build()
-                .inject(this)
+        DaggerAppComponent.builder().appModule(AppModule(this)).build()
     }
 
     companion object {

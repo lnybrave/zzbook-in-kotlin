@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 
 
-@Module(includes = arrayOf(AppModule::class))
+@Module
 class ApiModule {
 
     @Provides fun provideRetrofit(baseUrl: HttpUrl, client: OkHttpClient, gson: Gson) =

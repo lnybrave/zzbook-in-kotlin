@@ -6,27 +6,28 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import com.lnybrave.zzbook.R
-import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.databinding.ActivityMainBinding
 import com.lnybrave.zzbook.di.component.DaggerMainComponent
+import com.lnybrave.zzbook.di.component.MainComponent
 import com.lnybrave.zzbook.di.module.ActivityModule
-import com.lnybrave.zzbook.di.module.ApiModule
-import com.lnybrave.zzbook.di.module.AppModule
-import com.lnybrave.zzbook.di.module.MainModule
-import com.lnybrave.zzbook.mvp.contract.BookshelfContract
-import com.lnybrave.zzbook.mvp.presenter.BookshelfPresenter
+import com.lnybrave.zzbook.di.module.BookshelfModule
+import com.lnybrave.zzbook.getAppComponent
 import com.lnybrave.zzbook.ui.fragment.BookshelfFragment
 import com.lnybrave.zzbook.ui.fragment.ClassificationFragment
 import com.lnybrave.zzbook.ui.fragment.RecommendationFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
 
 
-class MainActivity : BaseBindingActivity<ActivityMainBinding>(), BookshelfContract.View {
+class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
+
+    lateinit var bookshelfFragment: BookshelfFragment
+    lateinit var recommendationFragment: RecommendationFragment
+    lateinit var classificationFragment: ClassificationFragment
 
     lateinit var mFragments: MutableList<Fragment>
     var selectedPosition: Int = 0
-    @Inject lateinit var mPresenter: BookshelfPresenter
+
+    lateinit var mainComponent: MainComponent
 
     override fun createDataBinding(savedInstanceState: Bundle?): ActivityMainBinding {
         return DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -67,23 +68,21 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), BookshelfContra
             false
         }
 
-        DaggerMainComponent.builder().appModule(AppModule(this.applicationContext))
-                .apiModule(ApiModule())
-                .mainModule(MainModule(this))
+        mainComponent = DaggerMainComponent.builder()
+                .appComponent(getAppComponent())
                 .activityModule(ActivityModule(this))
+                .bookshelfModule(BookshelfModule(bookshelfFragment))
                 .build()
-                .inject(this)
-        mPresenter.getData()
     }
+
 
     private fun initFragments() {
         mFragments = ArrayList()
-        mFragments.add(BookshelfFragment.newInstance())
-        mFragments.add(RecommendationFragment.newInstance())
-        mFragments.add(ClassificationFragment.newInstance())
-    }
-
-    override fun setData(results: List<Book>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        bookshelfFragment = BookshelfFragment.newInstance()
+        recommendationFragment = RecommendationFragment.newInstance()
+        classificationFragment = ClassificationFragment.newInstance()
+        mFragments.add(bookshelfFragment)
+        mFragments.add(recommendationFragment)
+        mFragments.add(classificationFragment)
     }
 }

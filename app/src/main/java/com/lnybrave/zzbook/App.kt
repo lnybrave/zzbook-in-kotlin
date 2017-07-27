@@ -3,6 +3,7 @@ package com.lnybrave.zzbook
 import android.app.Application
 import com.lnybrave.zzbook.di.component.AppComponent
 import com.lnybrave.zzbook.di.component.DaggerAppComponent
+import com.lnybrave.zzbook.di.module.ApiModule
 import com.lnybrave.zzbook.di.module.AppModule
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        DaggerAppComponent.builder().appModule(AppModule(this)).build()
+        DaggerAppComponent.builder().appModule(AppModule(this)).apiModule(ApiModule()).build().inject(this)
     }
 
     companion object {

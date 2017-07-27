@@ -1,19 +1,16 @@
 package com.lnybrave.zzbook.di.component
 
 import com.lnybrave.zzbook.di.module.ActivityModule
-import com.lnybrave.zzbook.di.module.ApiModule
-import com.lnybrave.zzbook.di.module.MainModule
+import com.lnybrave.zzbook.di.module.BookshelfModule
 import com.lnybrave.zzbook.di.scope.PerActivity
-import com.lnybrave.zzbook.ui.activity.MainActivity
+import com.lnybrave.zzbook.ui.fragment.BookshelfFragment
 import dagger.Component
 
 
 @PerActivity
-@Component(modules = arrayOf(MainModule::class, ActivityModule::class, ApiModule::class))
+@Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(ActivityModule::class, BookshelfModule::class))
 interface MainComponent : ActivityComponent {
 
-    fun inject(mainActivity: MainActivity)
-
-    fun plus(): MainFragmentComponent
+    fun inject(fragment: BookshelfFragment)
 }
 

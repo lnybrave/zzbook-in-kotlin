@@ -12,7 +12,7 @@ import javax.inject.Inject
 class RankingPresenter
 @Inject constructor(private val mModel: RankingModel,
                     private val mView: RankingContract.View)
-    : RankingContract.Presenter {
+    : RankingContract.Presenter, BasePresenter() {
     override fun getData() {
         mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())

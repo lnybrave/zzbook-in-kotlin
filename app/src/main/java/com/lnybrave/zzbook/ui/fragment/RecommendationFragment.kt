@@ -1,6 +1,7 @@
 package com.lnybrave.zzbook.ui.fragment
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,16 @@ import com.lnybrave.zzbook.di.component.RecommendationModule
 import com.lnybrave.zzbook.mvp.contract.RecommendationContract
 import com.lnybrave.zzbook.mvp.presenter.RecommendationPresenter
 import com.lnybrave.zzbook.ui.activity.MainActivity
+import com.lnybrave.zzbook.ui.adapter.RecommendationAdapter
+import java.util.*
 import javax.inject.Inject
 
 
 class RecommendationFragment : BaseBindingFragment<ViewRecyclerBinding>(), RecommendationContract.View {
 
 
+    private var mList = ArrayList<Topic>()
+    private lateinit var mAdapter: RecommendationAdapter
     @Inject lateinit var mPresenter: RecommendationPresenter
 
 
@@ -24,7 +29,12 @@ class RecommendationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Recom
     }
 
     override fun initView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mAdapter = RecommendationAdapter(mList)
+
+        with(mBinding) {
+            recyclerView.adapter = mAdapter
+            recyclerView.layoutManager = LinearLayoutManager(context)
+        }
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -39,7 +49,9 @@ class RecommendationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Recom
     }
 
     override fun setData(results: List<Topic>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mList.clear()
+        mList.addAll(results)
+        mAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {

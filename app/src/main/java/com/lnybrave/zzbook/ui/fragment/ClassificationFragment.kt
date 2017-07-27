@@ -1,6 +1,7 @@
 package com.lnybrave.zzbook.ui.fragment
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,15 @@ import com.lnybrave.zzbook.di.component.ClassificationModule
 import com.lnybrave.zzbook.mvp.contract.ClassificationContract
 import com.lnybrave.zzbook.mvp.presenter.ClassificationPresenter
 import com.lnybrave.zzbook.ui.activity.MainActivity
+import com.lnybrave.zzbook.ui.adapter.ClassificationAdapter
+import java.util.*
 import javax.inject.Inject
 
 
 class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), ClassificationContract.View {
 
-
+    private var mList = ArrayList<Classification>()
+    private lateinit var mAdapter: ClassificationAdapter
     @Inject lateinit var mPresenter: ClassificationPresenter
 
 
@@ -24,7 +28,12 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
     }
 
     override fun initView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mAdapter = ClassificationAdapter(mList)
+
+        with(mBinding) {
+            recyclerView.adapter = mAdapter
+            recyclerView.layoutManager = LinearLayoutManager(context)
+        }
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -39,7 +48,9 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
     }
 
     override fun setData(results: List<Classification>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mList.clear()
+        mList.addAll(results)
+        mAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {

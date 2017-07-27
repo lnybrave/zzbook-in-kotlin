@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.databinding.ViewRecyclerBinding
+import com.lnybrave.zzbook.di.module.BookshelfModule
 import com.lnybrave.zzbook.mvp.contract.BookshelfContract
 import com.lnybrave.zzbook.mvp.presenter.BookshelfPresenter
 import com.lnybrave.zzbook.toast
@@ -41,7 +42,7 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
         super.onViewCreated(view, savedInstanceState)
         if (activity is MainActivity) {
             val a: MainActivity = activity as MainActivity
-            a.mainComponent.inject(this)
+            a.mainComponent.plus(BookshelfModule(this)).inject(this)
             mPresenter.getData()
         } else {
             throw IllegalArgumentException("is not MainActivity")

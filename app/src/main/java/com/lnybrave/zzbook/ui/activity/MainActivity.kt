@@ -71,7 +71,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         mainComponent = DaggerMainComponent.builder()
                 .appComponent(getAppComponent())
                 .activityModule(ActivityModule(this))
-                .bookshelfModule(BookshelfModule(bookshelfFragment))
                 .build()
     }
 

@@ -6,7 +6,7 @@ import com.lnybrave.zzbook.di.scope.PerActivity
 import dagger.Component
 
 @PerActivity
-@Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(ActivityModule::class))
+@Component(modules = arrayOf(ActivityModule::class))
 interface ActivityComponent {
 
     fun getActivity(): Activity

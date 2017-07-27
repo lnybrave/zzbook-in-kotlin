@@ -10,7 +10,6 @@ import com.lnybrave.zzbook.databinding.ActivityMainBinding
 import com.lnybrave.zzbook.di.component.DaggerMainComponent
 import com.lnybrave.zzbook.di.component.MainComponent
 import com.lnybrave.zzbook.di.module.ActivityModule
-import com.lnybrave.zzbook.di.module.BookshelfModule
 import com.lnybrave.zzbook.getAppComponent
 import com.lnybrave.zzbook.ui.fragment.BookshelfFragment
 import com.lnybrave.zzbook.ui.fragment.ClassificationFragment

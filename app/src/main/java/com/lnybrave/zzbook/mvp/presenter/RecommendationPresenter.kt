@@ -12,7 +12,7 @@ import javax.inject.Inject
 class RecommendationPresenter
 @Inject constructor(private val mModel: RecommendationModel,
                     private val mView: RecommendationContract.View)
-    : RecommendationContract.Presenter {
+    : RecommendationContract.Presenter, BasePresenter() {
     override fun getData() {
         mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())

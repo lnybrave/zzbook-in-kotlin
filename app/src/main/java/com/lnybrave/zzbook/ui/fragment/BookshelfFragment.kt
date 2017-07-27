@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.databinding.ViewRecyclerBinding
-import com.lnybrave.zzbook.di.module.BookshelfModule
+import com.lnybrave.zzbook.di.component.BookshelfModule
 import com.lnybrave.zzbook.mvp.contract.BookshelfContract
 import com.lnybrave.zzbook.mvp.presenter.BookshelfPresenter
-import com.lnybrave.zzbook.toast
 import com.lnybrave.zzbook.ui.activity.MainActivity
 import com.lnybrave.zzbook.ui.adapter.BookshelfAdapter
 import java.util.*
@@ -18,7 +17,6 @@ import javax.inject.Inject
 
 
 class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfContract.View {
-
 
     private var mList = ArrayList<Book>()
     private lateinit var mAdapter: BookshelfAdapter
@@ -53,7 +51,6 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
         mList.clear()
         mList.addAll(results)
         mAdapter.notifyDataSetChanged()
-        toast("size=" + results.size)
     }
 
     override fun onDestroyView() {

@@ -12,7 +12,7 @@ import javax.inject.Inject
 class ClassificationPresenter
 @Inject constructor(private val mModel: ClassificationModel,
                     private val mView: ClassificationContract.View)
-    : ClassificationContract.Presenter {
+    : ClassificationContract.Presenter, BasePresenter() {
     override fun getData() {
         mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())

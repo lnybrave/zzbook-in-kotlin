@@ -1,7 +1,6 @@
 package com.lnybrave.zzbook.mvp.contract
 
-import com.lnybrave.zzbook.bean.APIList
-import com.lnybrave.zzbook.bean.Topic
+import com.lnybrave.zzbook.bean.Recommendation
 import io.reactivex.Observable
 
 /**
@@ -11,12 +10,12 @@ interface RecommendationContract {
 
     interface View {
 
-        fun setData(results: List<Topic>)
+        fun setData(results: Recommendation)
     }
 
     interface Model {
 
-        fun getData(): Observable<APIList<Topic>>
+        fun getData(): Observable<Recommendation>
     }
 
     interface Presenter {

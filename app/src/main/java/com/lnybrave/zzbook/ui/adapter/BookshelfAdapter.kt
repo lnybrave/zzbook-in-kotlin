@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.databinding.ItemBookshelfBinding
+import com.lnybrave.zzbook.utils.loadBookCover
+import kotlinx.android.synthetic.main.item_bookshelf.view.*
 
 
 class BookshelfAdapter(private val mList: List<Book>) : BaseBindingAdapter<ItemBookshelfBinding>() {
@@ -16,6 +18,7 @@ class BookshelfAdapter(private val mList: List<Book>) : BaseBindingAdapter<ItemB
         super.onBindViewHolder(holder, position)
         holder.binding.book = mList[position]
         holder.binding.executePendingBindings()
+        loadBookCover(holder.binding.book.coverUrl, holder.itemView.ivCover)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,

@@ -12,7 +12,7 @@ import retrofit2.http.Query
 interface ZZBookApi {
 
     @GET("api/banner")
-    fun getBannerList(): Observable<APIList<Banner>>
+    fun getBannerList(): Observable<List<Banner>>
 
     @GET("api/book/{id}")
     fun getBookDetail(@Path("id") id: Int): Observable<APIBase<Book>>
@@ -20,8 +20,11 @@ interface ZZBookApi {
     @GET("api/bookshelf")
     fun getBookshelf(): Observable<List<Book>>
 
-    @GET("api/recommendation")
-    fun getRecommendation(): Observable<APIList<Topic>>
+    @GET("api/subject/recommendation")
+    fun getSubjectRecommendation(): Observable<List<Subject>>
+
+    @GET("api/column/recommendation")
+    fun getRecommendation(): Observable<List<Topic>>
 
     @GET("api/column")
     fun getColumnList(): Observable<APIList<Column>>

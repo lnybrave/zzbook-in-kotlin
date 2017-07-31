@@ -42,7 +42,7 @@ interface ZZBookApi {
     fun getRankingDetail(@Path("id") id: Int, @Query("page") page: Int): Observable<APIPage<Book>>
 
     @GET("api/classification")
-    fun getClassificationList(): Observable<APIList<Classification>>
+    fun getClassificationList(): Observable<List<Classification>>
 
     @GET("api/classification/{id}")
     fun getClassificationDetail(@Path("id") id: Int, @Query("page") page: Int): Observable<APIPage<Book>>

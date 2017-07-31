@@ -11,3 +11,9 @@ fun loadBookCover(url: String?, view: ImageView) {
         Picasso.with(view.context).load(url).into(view)
     }
 }
+
+fun loadIcon(url: String?, view: ImageView) {
+    if (url != null) {
+        Picasso.with(view.context).load(url).into(view)
+    }
+}

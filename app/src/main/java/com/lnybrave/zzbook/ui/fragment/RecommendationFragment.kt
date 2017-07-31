@@ -43,6 +43,8 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
     }
 
     override fun initView() {
+        mAdapter = MultiTypeAdapter(mList)
+
         with(mBinding) {
             banner.setImageLoader(GlideImageLoader())
             banner.isAutoPlay(true)
@@ -50,7 +52,6 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
             banner.setIndicatorGravity(BannerConfig.RIGHT)
             banner.setImages(images)
 
-            mAdapter = MultiTypeAdapter(mList)
             recyclerView.adapter = mAdapter
             val layoutManager = GridLayoutManager(context, 3)
             layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

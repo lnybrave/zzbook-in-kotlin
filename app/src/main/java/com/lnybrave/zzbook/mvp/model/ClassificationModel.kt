@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 class ClassificationModel
 @Inject constructor(private val api: ZZBookApi) : ClassificationContract.Model {
-    override fun getData(): Observable<APIList<Classification>> {
+    override fun getData(): Observable<List<Classification>> {
         return api.getClassificationList()
     }
 }

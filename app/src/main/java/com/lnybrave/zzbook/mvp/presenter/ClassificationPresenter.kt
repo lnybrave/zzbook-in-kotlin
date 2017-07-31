@@ -18,9 +18,7 @@ class ClassificationPresenter
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
-                    if (res.isSuccess()) {
-                        mView.setData(res.d)
-                    }
+                    mView.setData(res)
                 }, { e -> Log.e("lny", e.message) })
     }
 }

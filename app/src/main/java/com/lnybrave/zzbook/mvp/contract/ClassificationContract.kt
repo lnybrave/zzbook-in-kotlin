@@ -16,7 +16,7 @@ interface ClassificationContract {
 
     interface Model {
 
-        fun getData(): Observable<APIList<Classification>>
+        fun getData(): Observable<List<Classification>>
     }
 
     interface Presenter {

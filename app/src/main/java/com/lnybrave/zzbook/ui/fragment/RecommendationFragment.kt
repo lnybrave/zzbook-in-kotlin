@@ -3,9 +3,7 @@ package com.lnybrave.zzbook.ui.fragment
 import android.os.Bundle
 import android.support.v7.widget.GridLayout
 import android.support.v7.widget.GridLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.lnybrave.zzbook.Constants.TOPIC_SIMPLE
 import com.lnybrave.zzbook.R
 import com.lnybrave.zzbook.bean.Book
@@ -16,6 +14,7 @@ import com.lnybrave.zzbook.databinding.FragmentRecommendationBinding
 import com.lnybrave.zzbook.di.component.RecommendationModule
 import com.lnybrave.zzbook.mvp.contract.RecommendationContract
 import com.lnybrave.zzbook.mvp.presenter.RecommendationPresenter
+import com.lnybrave.zzbook.toast
 import com.lnybrave.zzbook.ui.activity.MainActivity
 import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
 import com.lnybrave.zzbook.ui.multitype.BookSimpleViewBinder
@@ -43,6 +42,8 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
     }
 
     override fun initView() {
+        initTitle()
+
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
@@ -70,6 +71,10 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
                     .to(BookSimpleViewBinder(), BookComplexViewBinder())
                     .withLinker { book -> book.showType }
         }
+    }
+
+    private fun initTitle() {
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -121,6 +126,21 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
     override fun onDestroyView() {
         super.onDestroyView()
         mPresenter.unSubscribe()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.search, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.menu_search -> {
+                toast("search")
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

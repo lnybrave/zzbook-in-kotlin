@@ -2,14 +2,14 @@ package com.lnybrave.zzbook.ui.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import com.lnybrave.zzbook.R
 import com.lnybrave.zzbook.bean.Classification
 import com.lnybrave.zzbook.databinding.ViewRecyclerBinding
 import com.lnybrave.zzbook.di.component.ClassificationModule
 import com.lnybrave.zzbook.mvp.contract.ClassificationContract
 import com.lnybrave.zzbook.mvp.presenter.ClassificationPresenter
+import com.lnybrave.zzbook.toast
 import com.lnybrave.zzbook.ui.activity.MainActivity
 import com.lnybrave.zzbook.ui.multitype.ClassificationFirstViewBinder
 import com.lnybrave.zzbook.ui.multitype.ClassificationSecondViewBinder
@@ -30,6 +30,8 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
     }
 
     override fun initView() {
+        initTitle()
+
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
@@ -40,6 +42,10 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
                     .to(ClassificationFirstViewBinder(), ClassificationSecondViewBinder())
                     .withLinker { classification -> classification.level }
         }
+    }
+
+    private fun initTitle() {
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -69,6 +75,21 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
     override fun onDestroyView() {
         super.onDestroyView()
         mPresenter.unSubscribe()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.search, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.menu_search -> {
+                toast("search")
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

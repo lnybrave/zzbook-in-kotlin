@@ -2,14 +2,14 @@ package com.lnybrave.zzbook.ui.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import com.lnybrave.zzbook.R
 import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.databinding.ViewRecyclerBinding
 import com.lnybrave.zzbook.di.component.BookshelfModule
 import com.lnybrave.zzbook.mvp.contract.BookshelfContract
 import com.lnybrave.zzbook.mvp.presenter.BookshelfPresenter
+import com.lnybrave.zzbook.toast
 import com.lnybrave.zzbook.ui.activity.MainActivity
 import com.lnybrave.zzbook.ui.adapter.BookshelfAdapter
 import java.util.*
@@ -28,12 +28,18 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
     }
 
     override fun initView() {
+        initTitle()
+
         mAdapter = BookshelfAdapter(mList)
 
         with(mBinding) {
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
         }
+    }
+
+    private fun initTitle() {
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -56,6 +62,25 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
     override fun onDestroyView() {
         super.onDestroyView()
         mPresenter.unSubscribe()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.bookshelf, menu);
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.menu_search -> {
+                toast("search")
+                return true
+            }
+            R.id.menu_more -> {
+                toast("function")
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     companion object {

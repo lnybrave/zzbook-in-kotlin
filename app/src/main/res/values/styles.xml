@@ -8,4 +8,68 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--toolbar样式-->
+    <style name="ToolbarTheme">
+        <!--the text color displaying the name of your activity, which is the primary text of the toolbar.-->
+        <!--标题的颜色-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--the text color for subtitle and more options (3 dot) button. -->
+        <!--(Yes, it changed its color according to this property!)-->
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <!--the color for all other text including the menu.-->
+        <!--下拉menu文字的颜色-->
+        <item name="android:textColor">@android:color/white</item>
+        <!--menu下拉样式-->
+        <item name="actionOverflowMenuStyle">@style/myActionOverflowMenuStyle</item>
+        <!--menu文字颜色，不能加android:-->
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <!--Navigation Icon的颜色-->
+        <item name="drawerArrowStyle">@style/myDrawerArrowStyle</item>
+    </style>
+
+    <!--menu下拉样式-->
+    <style name="myActionOverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownVerticalOffset">0dip</item>
+        <item name="android:dropDownHorizontalOffset">0dip</item>
+        <item name="android:popupBackground">?attr/colorPrimary</item>
+    </style>
+
+    <!--Navigation Icon的颜色-->
+    <style name="myDrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <!--主页面-->
+    <style name="SideMenuItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/zz_bg_list_selector</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="SideMenuItemIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+    </style>
+
+    <style name="SideMenuItemLayout">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingBottom">24dp</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="SideMenuItemText">
+        <item name="android:textColor">@color/text_color_9</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
 </resources>

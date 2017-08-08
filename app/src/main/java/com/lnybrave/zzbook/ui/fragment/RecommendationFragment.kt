@@ -20,7 +20,7 @@ import com.lnybrave.zzbook.ui.activity.*
 import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
 import com.lnybrave.zzbook.ui.multitype.BookSimpleViewBinder
 import com.lnybrave.zzbook.ui.multitype.TopicTitleViewBinder
-import com.lnybrave.zzbook.ui.widget.GlideImageLoader
+import com.lnybrave.zzbook.utils.GlideImageLoader
 import com.lnybrave.zzbook.utils.loadBookCover
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.fragment_recommendation.*

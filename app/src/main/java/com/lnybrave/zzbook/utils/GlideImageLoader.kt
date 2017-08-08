@@ -1,4 +1,4 @@
-package com.lnybrave.zzbook.ui.widget
+package com.lnybrave.zzbook.utils
 
 import android.content.Context
 import android.widget.ImageView

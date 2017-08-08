@@ -1,14 +1,14 @@
-package com.lnybrave.zzbook.ui.adapter
+package com.lnybrave.zzbook.ui
 
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 
 
-abstract class BaseBindingAdapter<B : ViewDataBinding> : RecyclerView.Adapter<DataBoundViewHolder<B>>() {
+abstract class BaseBindingAdapter<B : ViewDataBinding> : RecyclerView.Adapter<BaseBindingViewHolder<B>>() {
 
     var mListener: ((pos: Int) -> Unit)? = null
 
-    override fun onBindViewHolder(holder: DataBoundViewHolder<B>, position: Int) {
+    override fun onBindViewHolder(holder: BaseBindingViewHolder<B>, position: Int) {
         holder.binding.root.setOnClickListener {
             mListener?.invoke(holder.adapterPosition)
         }
@@ -19,3 +19,5 @@ abstract class BaseBindingAdapter<B : ViewDataBinding> : RecyclerView.Adapter<Da
     }
 
 }
+
+class BaseBindingViewHolder<out T : ViewDataBinding>(val binding: T) : RecyclerView.ViewHolder(binding.root)

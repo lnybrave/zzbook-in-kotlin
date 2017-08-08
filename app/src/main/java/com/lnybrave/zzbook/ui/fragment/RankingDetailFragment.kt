@@ -19,7 +19,7 @@ import me.drakeet.multitype.MultiTypeAdapter
 import java.util.*
 import javax.inject.Inject
 
-class RankingFragment : BaseBindingFragment<ViewRecyclerBinding>(), RankingDetailContract.View {
+class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), RankingDetailContract.View {
 
     private var mList = ArrayList<Any>()
     private lateinit var mAdapter: MultiTypeAdapter
@@ -30,7 +30,7 @@ class RankingFragment : BaseBindingFragment<ViewRecyclerBinding>(), RankingDetai
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            rankingId = arguments.getInt(RankingFragment.ID)
+            rankingId = arguments.getInt(RankingDetailFragment.ID)
         }
     }
 
@@ -88,8 +88,8 @@ class RankingFragment : BaseBindingFragment<ViewRecyclerBinding>(), RankingDetai
 
         private val ID = "ranking_id"
 
-        fun newInstance(id: Int): RankingFragment {
-            val fragment = RankingFragment()
+        fun newInstance(id: Int): RankingDetailFragment {
+            val fragment = RankingDetailFragment()
             val args: Bundle = Bundle()
             args.putInt(ID, id)
             fragment.arguments = args

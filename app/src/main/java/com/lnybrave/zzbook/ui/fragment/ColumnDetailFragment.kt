@@ -9,7 +9,7 @@ import com.lnybrave.zzbook.Constants
 import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.bean.Topic
 import com.lnybrave.zzbook.databinding.ViewRecyclerBinding
-import com.lnybrave.zzbook.di.module.ColumnModule
+import com.lnybrave.zzbook.di.module.ColumnDetailModule
 import com.lnybrave.zzbook.mvp.contract.ColumnDetailContract
 import com.lnybrave.zzbook.mvp.presenter.ColumnDetailPresenter
 import com.lnybrave.zzbook.ui.BaseBindingFragment
@@ -22,7 +22,7 @@ import java.util.*
 import javax.inject.Inject
 
 
-class ColumnFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnDetailContract.View {
+class ColumnDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnDetailContract.View {
 
     private var columnId: Int? = null
     private var mList = ArrayList<Any>()
@@ -32,7 +32,7 @@ class ColumnFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnDetailC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            columnId = arguments.getInt(ColumnFragment.COLUMN_ID)
+            columnId = arguments.getInt(ColumnDetailFragment.COLUMN_ID)
         }
     }
 
@@ -58,7 +58,7 @@ class ColumnFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnDetailC
         super.onViewCreated(view, savedInstanceState)
         if (activity is ColumnActivity) {
             val a: ColumnActivity = activity as ColumnActivity
-            a.mainComponent.plus(ColumnModule(this)).inject(this)
+            a.mainComponent.plus(ColumnDetailModule(this)).inject(this)
             mPresenter.getData(columnId!!)
         } else {
             throw IllegalArgumentException("is not ColumnActivity")
@@ -86,8 +86,8 @@ class ColumnFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnDetailC
 
         private val COLUMN_ID = "column_id"
 
-        fun newInstance(columnId: Int): ColumnFragment {
-            val fragment = ColumnFragment()
+        fun newInstance(columnId: Int): ColumnDetailFragment {
+            val fragment = ColumnDetailFragment()
             val args = Bundle()
             args.putInt(COLUMN_ID, columnId)
             fragment.arguments = args

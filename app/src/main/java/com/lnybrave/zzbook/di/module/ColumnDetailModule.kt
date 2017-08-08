@@ -6,6 +6,6 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class ColumnModule(private val mView: ColumnDetailContract.View) {
+class ColumnDetailModule(private val mView: ColumnDetailContract.View) {
     @Provides @PerActivity fun provideView() = mView
 }

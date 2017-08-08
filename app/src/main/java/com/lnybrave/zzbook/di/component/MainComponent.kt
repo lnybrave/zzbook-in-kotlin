@@ -16,7 +16,7 @@ interface MainComponent : ActivityComponent {
 
     fun plus(recommendationModule: RecommendationModule): RecommendationComponent
 
-    fun plus(columnModule: ColumnModule): ColumnComponent
+    fun plus(columnDetailModule: ColumnDetailModule): ColumnDetailComponent
 
     fun plus(rankingModule: RankingModule): RankingComponent
 

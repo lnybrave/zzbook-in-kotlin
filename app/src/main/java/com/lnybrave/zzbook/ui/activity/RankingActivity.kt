@@ -15,7 +15,7 @@ import com.lnybrave.zzbook.getAppComponent
 import com.lnybrave.zzbook.mvp.contract.RankingContract
 import com.lnybrave.zzbook.mvp.presenter.RankingPresenter
 import com.lnybrave.zzbook.ui.BaseActivity
-import com.lnybrave.zzbook.ui.fragment.RankingFragment
+import com.lnybrave.zzbook.ui.fragment.RankingDetailFragment
 import kotlinx.android.synthetic.main.activity_ranking.*
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
@@ -51,7 +51,7 @@ class RankingActivity : BaseActivity(), RankingContract.View {
     override fun setData(results: List<Ranking>) {
         val fragments: MutableList<Fragment> = ArrayList()
         val titles: MutableList<String> = ArrayList()
-        results.mapTo(fragments) { RankingFragment.newInstance(it.id) }
+        results.mapTo(fragments) { RankingDetailFragment.newInstance(it.id) }
         results.mapTo(titles) { it.name }
 
         viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {

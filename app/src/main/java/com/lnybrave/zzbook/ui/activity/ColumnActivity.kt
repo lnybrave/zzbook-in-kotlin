@@ -8,7 +8,7 @@ import com.lnybrave.zzbook.di.component.MainComponent
 import com.lnybrave.zzbook.di.module.ActivityModule
 import com.lnybrave.zzbook.getAppComponent
 import com.lnybrave.zzbook.ui.BaseActivity
-import com.lnybrave.zzbook.ui.fragment.ColumnFragment
+import com.lnybrave.zzbook.ui.fragment.ColumnDetailFragment
 import kotlinx.android.synthetic.main.toolbar.*
 
 class ColumnActivity : BaseActivity() {
@@ -33,7 +33,7 @@ class ColumnActivity : BaseActivity() {
 
         if (!isFinishing) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment, ColumnFragment.newInstance(subject.id))
+                    .replace(R.id.fragment, ColumnDetailFragment.newInstance(subject.id))
                     .commitAllowingStateLoss()
         }
     }

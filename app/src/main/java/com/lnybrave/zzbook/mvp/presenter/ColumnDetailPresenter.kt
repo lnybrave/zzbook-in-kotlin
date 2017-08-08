@@ -10,11 +10,11 @@ import javax.inject.Inject
  * Created by lny on 2017/7/24.
  */
 class ColumnDetailPresenter
-@Inject constructor(private val mModel: ColumnDetailModel,
+@Inject constructor(private val mDetailModel: ColumnDetailModel,
                     private val mView: ColumnDetailContract.View)
     : ColumnDetailContract.Presenter, BasePresenter() {
     override fun getData(id: Int) {
-        mModel.getData(id)
+        mDetailModel.getData(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->

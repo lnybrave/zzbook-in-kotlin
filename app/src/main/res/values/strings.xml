@@ -21,4 +21,7 @@
     <string name="hint_search">搜索书名、作者、分类</string>
     <string name="title_ranking">排行</string>
     <string name="title_about">关于我们</string>
+    <string name="text_book_discount">优惠购买</string>
+    <string name="text_book_free_read">免费阅读</string>
+    <string name="text_book_add_bookshelf">加入书架</string>
 </resources>

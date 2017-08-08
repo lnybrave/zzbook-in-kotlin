@@ -1,6 +1,7 @@
 package com.lnybrave.zzbook.bean
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * Created by lny on 2017/7/17.
@@ -30,4 +31,4 @@ data class Book(
         @SerializedName(value = "charge_mode")
         val chargeMode: Int,
         var showType: Int
-)
+) : Serializable

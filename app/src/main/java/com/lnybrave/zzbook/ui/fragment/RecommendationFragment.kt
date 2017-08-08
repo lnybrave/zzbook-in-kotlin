@@ -20,7 +20,7 @@ import com.lnybrave.zzbook.ui.activity.*
 import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
 import com.lnybrave.zzbook.ui.multitype.BookSimpleViewBinder
 import com.lnybrave.zzbook.ui.multitype.TopicTitleViewBinder
-import com.lnybrave.zzbook.utils.GlideImageLoader
+import com.lnybrave.zzbook.utils.BannerImageLoader
 import com.lnybrave.zzbook.utils.loadBookCover
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.fragment_recommendation.*
@@ -48,7 +48,7 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
-            banner.setImageLoader(GlideImageLoader())
+            banner.setImageLoader(BannerImageLoader())
             banner.isAutoPlay(true)
             banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
             banner.setIndicatorGravity(BannerConfig.RIGHT)

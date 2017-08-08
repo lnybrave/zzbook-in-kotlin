@@ -6,7 +6,7 @@ import com.lnybrave.zzbook.bean.Banner
 import com.squareup.picasso.Picasso
 import com.youth.banner.loader.ImageLoader
 
-class GlideImageLoader : ImageLoader() {
+class BannerImageLoader : ImageLoader() {
     override fun displayImage(context: Context, path: Any, imageView: ImageView) {
         /**
          * 注意：

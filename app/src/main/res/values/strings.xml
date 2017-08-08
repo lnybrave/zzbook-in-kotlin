@@ -16,4 +16,9 @@
     <string name="text_settings">设置</string>
     <string name="text_day">白天</string>
     <string name="text_night">晚上</string>
+    <string name="menu_search">搜索</string>
+    <string name="text_search">搜索</string>
+    <string name="hint_search">搜索书名、作者、分类</string>
+    <string name="title_ranking">排行</string>
+    <string name="title_about">关于我们</string>
 </resources>

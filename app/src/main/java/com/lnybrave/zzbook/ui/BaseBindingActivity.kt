@@ -1,4 +1,4 @@
-package com.lnybrave.zzbook.ui.activity
+package com.lnybrave.zzbook.ui
 
 import android.databinding.ViewDataBinding
 import android.os.Bundle
@@ -23,7 +23,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
 
     fun setupToolbar(toolbar: Toolbar) {
         toolbar.title = ""
-        toolbar.setNavigationIcon(R.drawable.icon_back)
+        toolbar.setNavigationIcon(R.drawable.ic_back)
         setSupportActionBar(toolbar)
     }
 

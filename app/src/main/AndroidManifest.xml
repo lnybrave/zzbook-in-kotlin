@@ -27,7 +27,8 @@
         <activity android:name=".ui.activity.SearchActivity" />
         <activity android:name=".ui.activity.AboutActivity" />
         <activity android:name=".ui.activity.BookActivity" />
-        <activity android:name=".ui.activity.ReaderActivity"></activity>
+        <activity android:name=".ui.activity.ReaderActivity" />
+        <activity android:name=".ui.activity.ClassificationDetailActivity"></activity>
     </application>
 
 </manifest>

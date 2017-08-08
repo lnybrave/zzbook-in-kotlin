@@ -1,9 +1,8 @@
 package com.lnybrave.zzbook.di.component
 
-import com.lnybrave.zzbook.di.module.ActivityModule
+import com.lnybrave.zzbook.di.module.*
 import com.lnybrave.zzbook.di.scope.PerActivity
 import com.lnybrave.zzbook.ui.activity.MainActivity
-import com.lnybrave.zzbook.ui.activity.RankingActivity
 import dagger.Component
 
 
@@ -13,14 +12,18 @@ interface MainComponent : ActivityComponent {
 
     fun inject(mainActivity: MainActivity)
 
-    fun inject(rankingActivity: RankingActivity)
-
     fun plus(bookshelfModule: BookshelfModule): BookshelfComponent
 
     fun plus(recommendationModule: RecommendationModule): RecommendationComponent
 
-    fun plus(classificationModule: ClassificationModule): ClassificationComponent
+    fun plus(columnModule: ColumnModule): ColumnComponent
 
     fun plus(rankingModule: RankingModule): RankingComponent
+
+    fun plus(rankingDetailModule: RankingDetailModule): RankingDetailComponent
+
+    fun plus(classificationModule: ClassificationModule): ClassificationComponent
+
+    fun plus(classificationDetailModule: ClassificationDetailModule): ClassificationDetailComponent
 }
 

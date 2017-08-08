@@ -82,6 +82,9 @@ dependencies {
 
     compile 'me.drakeet.multitype:multitype:3.1.0'
     compile 'com.youth.banner:banner:1.4.9'
+
+    compile 'com.zhy:flowlayout-lib:1.0.3'
+    compile 'com.android.support:support-v4:25.3.1'
 }
 
 kapt {

@@ -1,9 +1,17 @@
 package com.lnybrave.zzbook.bean
 
+import java.io.Serializable
+
 /**
  * Created by lny on 2017/7/24.
  */
-data class Classification(val id: Int, val name: String, val icon: String, val children: List<Classification>) {
+data class Classification(
+        val id: Int,
+        val name: String,
+        val icon: String,
+        val books: List<Book>,
+        val children: List<Classification>
+) : Serializable {
 
     var level: Int = 0
 
@@ -17,4 +25,6 @@ data class Classification(val id: Int, val name: String, val icon: String, val c
         }
         return s
     }
+
+    constructor(id: Int, name: String) : this(id, name, "", ArrayList<Book>(), ArrayList<Classification>())
 }

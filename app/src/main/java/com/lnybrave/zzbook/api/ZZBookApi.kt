@@ -30,25 +30,31 @@ interface ZZBookApi {
     fun getColumnList(): Observable<APIList<Column>>
 
     @GET("api/column/{id}")
-    fun getColumnDetail(@Path("id") id: Int): Observable<APIList<Topic>>
+    fun getColumnDetail(@Path("id") id: Int): Observable<List<Topic>>
 
     @GET("api/column/topic/{id}")
     fun getColumnTopic(@Path("id") id: Int): Observable<APIList<Book>>
 
     @GET("api/ranking")
-    fun getRankingList(): Observable<APIList<Ranking>>
+    fun getRankingList(): Observable<List<Ranking>>
+
+    @GET("api/ranking")
+    fun getRankingFirst(): Observable<List<Ranking>>
 
     @GET("api/ranking/{id}")
-    fun getRankingDetail(@Path("id") id: Int, @Query("page") page: Int): Observable<APIPage<Book>>
+    fun getRankingDetail(@Path("id") id: Int, @Query("page") page: Int): Observable<Ranking>
 
     @GET("api/classification")
     fun getClassificationList(): Observable<List<Classification>>
 
-    @GET("api/classification/{id}")
-    fun getClassificationDetail(@Path("id") id: Int, @Query("page") page: Int): Observable<APIPage<Book>>
+    @GET("api/classification/{firstId}/{secondId}")
+    fun getClassificationDetail(@Path("firstId") firstId: Int,
+                                @Path("secondId") secondId: Int,
+                                @Query("page") page: Int): Observable<Classification>
 
     @GET("api/search")
-    fun getSearch(@Query("search") search: String, @Query("offset") offset: Int): Observable<APIList<Book>>
+    fun getSearch(@Query("search") search: String,
+                  @Query("offset") offset: Int): Observable<APIList<Book>>
 
     @GET("api/search/keyword")
     fun getSearch(): Observable<APIList<String>>

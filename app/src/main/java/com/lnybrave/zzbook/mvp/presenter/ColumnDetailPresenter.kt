@@ -12,15 +12,13 @@ import javax.inject.Inject
 class ColumnDetailPresenter
 @Inject constructor(private val mModel: ColumnDetailModel,
                     private val mView: ColumnDetailContract.View)
-    : ColumnDetailContract.Presenter {
+    : ColumnDetailContract.Presenter, BasePresenter() {
     override fun getData(id: Int) {
         mModel.getData(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
-                    if (res.isSuccess()) {
-                        mView.setData(res.d)
-                    }
+                    mView.setData(res)
                 }, { e -> Log.e("lny", e.message) })
     }
 }

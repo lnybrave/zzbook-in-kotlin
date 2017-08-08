@@ -15,6 +15,7 @@ import com.lnybrave.zzbook.di.component.MainComponent
 import com.lnybrave.zzbook.di.module.ActivityModule
 import com.lnybrave.zzbook.getAppComponent
 import com.lnybrave.zzbook.toast
+import com.lnybrave.zzbook.ui.BaseBindingActivity
 import com.lnybrave.zzbook.ui.fragment.BookshelfFragment
 import com.lnybrave.zzbook.ui.fragment.ClassificationFragment
 import com.lnybrave.zzbook.ui.fragment.RecommendationFragment
@@ -105,7 +106,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         ll_my_tracks.setOnClickListener { toast("track") }
         ll_feedback.setOnClickListener { toast("feedback") }
         ll_about_us.setOnClickListener { startActivity(Intent(applicationContext, AboutActivity::class.java)) }
-        ll_setting.setOnClickListener { toast("setting") }
+        tv_setting.setOnClickListener { toast("setting") }
         tv_day_night_mode.setOnClickListener {
             if (tv_day_night_mode.text == resources.getString(R.string.text_day)) {
                 tv_day_night_mode.setText(R.string.text_night)

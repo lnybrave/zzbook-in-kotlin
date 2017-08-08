@@ -11,7 +11,7 @@ import javax.inject.Inject
  */
 class ClassificationDetailModel
 @Inject constructor(private val api: ZZBookApi) : ClassificationDetailContract.Model {
-    override fun getData(id: Int, page: Int): Observable<APIPage<Book>> {
-        return api.getClassificationDetail(id, page)
+    override fun getData(firstId: Int,secondId: Int, page: Int): Observable<Classification> {
+        return api.getClassificationDetail(firstId, secondId, page)
     }
 }

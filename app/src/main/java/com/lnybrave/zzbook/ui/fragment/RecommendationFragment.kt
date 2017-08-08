@@ -1,5 +1,6 @@
 package com.lnybrave.zzbook.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayout
 import android.support.v7.widget.GridLayoutManager
@@ -11,11 +12,11 @@ import com.lnybrave.zzbook.bean.Recommendation
 import com.lnybrave.zzbook.bean.Subject
 import com.lnybrave.zzbook.bean.Topic
 import com.lnybrave.zzbook.databinding.FragmentRecommendationBinding
-import com.lnybrave.zzbook.di.component.RecommendationModule
+import com.lnybrave.zzbook.di.module.RecommendationModule
 import com.lnybrave.zzbook.mvp.contract.RecommendationContract
 import com.lnybrave.zzbook.mvp.presenter.RecommendationPresenter
-import com.lnybrave.zzbook.toast
-import com.lnybrave.zzbook.ui.activity.MainActivity
+import com.lnybrave.zzbook.ui.BaseBindingFragment
+import com.lnybrave.zzbook.ui.activity.*
 import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
 import com.lnybrave.zzbook.ui.multitype.BookSimpleViewBinder
 import com.lnybrave.zzbook.ui.multitype.TopicTitleViewBinder
@@ -120,6 +121,22 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
             val columnSpec: GridLayout.Spec = GridLayout.spec(index % 5, 1f)
             val layoutParams: GridLayout.LayoutParams = GridLayout.LayoutParams(rowSpec, columnSpec)
             gridLayout.addView(functionView, layoutParams)
+            functionView.tag = subject
+
+            functionView.setOnClickListener { v ->
+                val subject = v?.tag as Subject
+                when (subject.type) {
+                    1 -> {
+                        startActivity(Intent(context, ColumnActivity::class.java).putExtra("subject", subject))
+                    }
+                    2 -> {
+                        startActivity(Intent(context, RankingActivity::class.java).putExtra("subject", subject))
+                    }
+                    3 -> {
+                        startActivity(Intent(context, ClassificationActivity::class.java).putExtra("subject", subject))
+                    }
+                }
+            }
         }
     }
 
@@ -136,7 +153,7 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_search -> {
-                toast("search")
+                startActivity(Intent(context, SearchActivity::class.java))
                 return true
             }
         }

@@ -12,15 +12,13 @@ import javax.inject.Inject
 class RankingDetailPresenter
 @Inject constructor(private val mModel: RankingDetailModel,
                     private val mView: RankingDetailContract.View)
-    : RankingDetailContract.Presenter {
+    : RankingDetailContract.Presenter, BasePresenter() {
     override fun getData(id: Int, page: Int) {
         mModel.getData(id, page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
-                    if (res.isSuccess()) {
-                        mView.setData(res.d)
-                    }
+                    mView.setData(res)
                 }, { e -> Log.e("lny", e.message) })
     }
 }

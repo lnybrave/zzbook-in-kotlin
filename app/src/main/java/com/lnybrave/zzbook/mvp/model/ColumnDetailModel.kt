@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 class ColumnDetailModel
 @Inject constructor(private val api: ZZBookApi) : ColumnDetailContract.Model {
-    override fun getData(id: Int): Observable<APIList<Topic>> {
+    override fun getData(id: Int): Observable<List<Topic>> {
         return api.getColumnDetail(id)
     }
 }

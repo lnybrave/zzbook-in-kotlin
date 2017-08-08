@@ -129,40 +129,41 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@drawable/zz_divider"
-        android:orientation="horizontal"
-        android:showDividers="beginning">
+        android:layout_height="1dp"
+        android:background="@drawable/zz_divider" />
 
-        <LinearLayout
-            android:id="@+id/ll_setting"
-            style="@style/SideMenuItem">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            <ImageView
-                style="@style/SideMenuItemIcon"
-                android:src="@drawable/ic_sidemenu_settings" />
+        <TextView
+            android:id="@+id/tv_setting"
+            style="@style/SideMenuItemText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/zz_bg_list_selector"
+            android:drawableLeft="@drawable/ic_sidemenu_settings"
+            android:drawablePadding="16dp"
+            android:drawableStart="@drawable/ic_sidemenu_settings"
+            android:padding="16dp"
+            android:text="@string/text_settings" />
 
-            <LinearLayout style="@style/SideMenuItemLayout">
-
-                <TextView
-                    style="@style/SideMenuItemText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_settings" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_day_night_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:drawableLeft="@drawable/ic_sidemenu_day"
-                android:drawablePadding="16dp"
-                android:drawableStart="@drawable/ic_sidemenu_day"
-                android:text="@string/text_day" />
-        </LinearLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tv_day_night_mode"
+            style="@style/SideMenuItemText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/zz_bg_list_selector"
+            android:drawableLeft="@drawable/ic_sidemenu_day"
+            android:drawablePadding="16dp"
+            android:drawableStart="@drawable/ic_sidemenu_day"
+            android:padding="16dp"
+            android:text="@string/text_day" />
+    </RelativeLayout>
 </LinearLayout>

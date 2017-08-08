@@ -1,4 +1,4 @@
-package com.lnybrave.zzbook.ui.fragment
+package com.lnybrave.zzbook.ui
 
 import android.databinding.ViewDataBinding
 import android.os.Bundle

@@ -47,10 +47,13 @@ interface ZZBookApi {
     @GET("api/classification")
     fun getClassificationList(): Observable<List<Classification>>
 
-    @GET("api/classification/{firstId}/{secondId}")
-    fun getClassificationDetail(@Path("firstId") firstId: Int,
-                                @Path("secondId") secondId: Int,
-                                @Query("page") page: Int): Observable<Classification>
+    @GET("api/classification/{id}/all")
+    fun getClassificationAll(@Path("id") id: Int,
+                             @Query("page") page: Int): Observable<List<Book>>
+
+    @GET("api/classification/{id}/detail")
+    fun getClassificationDetail(@Path("id") id: Int,
+                                @Query("page") page: Int): Observable<List<Book>>
 
     @GET("api/search")
     fun getSearch(@Query("search") search: String,

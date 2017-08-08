@@ -13,12 +13,23 @@ class ClassificationDetailPresenter
 @Inject constructor(private val mModel: ClassificationDetailModel,
                     private val mView: ClassificationDetailContract.View)
     : ClassificationDetailContract.Presenter, BasePresenter() {
-    override fun getData(firstId: Int, secondId: Int, page: Int) {
-        mModel.getData(firstId, secondId, page)
+
+    override fun getAll(firstId: Int, page: Int) {
+        mModel.getAll(firstId, page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
                     mView.setData(res)
                 }, { e -> Log.e("lny", e.message) })
     }
+
+    override fun getData(secondId: Int, page: Int) {
+        mModel.getData(secondId, page)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    res ->
+                    mView.setData(res)
+                }, { e -> Log.e("lny", e.message) })
+    }
+
 }

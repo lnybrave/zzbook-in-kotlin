@@ -40,7 +40,7 @@ class ClassificationDetailActivity : BaseActivity() {
 
         val results: List<Classification> = classification.children
         if (results is ArrayList) {
-            results.add(Classification(0, "全部"))
+            results.add(0, Classification(0, "全部"))
         }
         tagFlowLayout.adapter = object : TagAdapter<Classification>(results) {
             override fun getView(parent: FlowLayout, position: Int, s: Classification): View {

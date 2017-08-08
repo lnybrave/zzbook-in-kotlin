@@ -55,16 +55,20 @@ class ClassificationDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(),
         if (activity is ClassificationDetailActivity) {
             val a: ClassificationDetailActivity = activity as ClassificationDetailActivity
             a.mainComponent.plus(ClassificationDetailModule(this)).inject(this)
-            mPresenter.getData(firstId, secondId, 10)
+            if (firstId > 0 && secondId == 0) {
+                mPresenter.getAll(firstId, 10)
+            } else {
+                mPresenter.getData(secondId, 10)
+            }
         } else {
             throw IllegalArgumentException("is not ClassificationDetailActivity")
         }
     }
 
-    override fun setData(results: Classification) {
+    override fun setData(results: List<Book>) {
         mList.clear()
-        if (results.books.isNotEmpty()) {
-            mList.addAll(results.books)
+        if (results.isNotEmpty()) {
+            mList.addAll(results)
         }
         mAdapter.notifyDataSetChanged()
     }

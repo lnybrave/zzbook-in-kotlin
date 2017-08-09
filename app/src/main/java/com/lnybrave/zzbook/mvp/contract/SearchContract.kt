@@ -1,7 +1,7 @@
 package com.lnybrave.zzbook.mvp.contract
 
+import com.lnybrave.zzbook.bean.APIPage
 import com.lnybrave.zzbook.bean.Book
-import com.lnybrave.zzbook.bean.APIList
 import io.reactivex.Observable
 
 /**
@@ -11,16 +11,16 @@ interface SearchContract {
 
     interface View {
 
-        fun setData(results: List<Book>)
+        fun setData(results: APIPage<Book>)
     }
 
     interface Model {
 
-        fun getData(search: String, offset: Int): Observable<APIList<Book>>
+        fun getData(search: String, limit: Int, offset: Int): Observable<APIPage<Book>>
     }
 
     interface Presenter {
 
-        fun getData(search: String, offset: Int)
+        fun getData(search: String, limit: Int, offset: Int)
     }
 }

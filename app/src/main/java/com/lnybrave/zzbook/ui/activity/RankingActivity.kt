@@ -78,4 +78,9 @@ class RankingActivity : BaseActivity(), RankingContract.View {
 
         tab.setupWithViewPager(viewPager)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.unSubscribe()
+    }
 }

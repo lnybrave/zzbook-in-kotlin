@@ -11,170 +11,165 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="48dp"
-                android:layout_marginRight="48dp"
-                android:background="@drawable/edit_search"
-                android:hint="@string/hint_search"
-                android:textColor="@color/text_color_2"
-                android:textSize="14sp" />
-        </RelativeLayout>
-
-        <!--搜索历史-->
-        <LinearLayout
-            android:id="@+id/ll_history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="2dp"
-                android:paddingTop="10dp">
-
-                <View
-                    android:layout_width="3dp"
-                    android:layout_height="16dp"
-                    android:layout_centerVertical="true"
-                    android:background="@color/colorAccent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="搜索历史"
-                    android:textColor="@color/text_color_2"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="清空"
-                    android:textColor="@color/text_color_9"
-                    android:textSize="12sp" />
-            </RelativeLayout>
-
-            <com.zhy.view.flowlayout.TagFlowLayout
-                android:id="@+id/historyLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                zhy:max_select="1"
-                zhy:paddingEnd="2dp"
-                zhy:paddingStart="2dp" />
-        </LinearLayout>
-
-        <!--大家都在搜-->
-        <LinearLayout
-            android:id="@+id/ll_hot_words"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="2dp"
-                android:paddingTop="10dp">
-
-                <View
-                    android:layout_width="3dp"
-                    android:layout_height="16dp"
-                    android:layout_centerVertical="true"
-                    android:background="@color/colorAccent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="大家都在搜"
-                    android:textColor="@color/text_color_2"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="换一换"
-                    android:textColor="@color/text_color_9"
-                    android:textSize="12sp" />
-            </RelativeLayout>
-
-            <com.zhy.view.flowlayout.TagFlowLayout
-                android:id="@+id/hotWordsLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                zhy:max_select="1"
-                zhy:paddingEnd="2dp"
-                zhy:paddingStart="2dp" />
-        </LinearLayout>
-
-        <!--热搜榜-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="2dp"
-            android:paddingTop="10dp">
-
-            <View
-                android:layout_width="3dp"
-                android:layout_height="16dp"
-                android:layout_centerVertical="true"
-                android:background="@color/colorAccent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:text="热搜Top榜"
-                android:textColor="@color/text_color_2"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <include
+            layout="@layout/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/llSearchWord"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--搜索历史-->
+            <LinearLayout
+                android:id="@+id/ll_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="10dp">
+
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="16dp"
+                        android:layout_centerVertical="true"
+                        android:background="@color/colorAccent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:text="搜索历史"
+                        android:textColor="@color/text_color_2"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:text="清空"
+                        android:textColor="@color/text_color_9"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <com.zhy.view.flowlayout.TagFlowLayout
+                    android:id="@+id/historyLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    zhy:max_select="1"
+                    zhy:paddingEnd="2dp"
+                    zhy:paddingStart="2dp" />
+            </LinearLayout>
+
+            <!--大家都在搜-->
+            <LinearLayout
+                android:id="@+id/ll_hot_words"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="10dp">
+
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="16dp"
+                        android:layout_centerVertical="true"
+                        android:background="@color/colorAccent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:text="大家都在搜"
+                        android:textColor="@color/text_color_2"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:text="换一换"
+                        android:textColor="@color/text_color_9"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <com.zhy.view.flowlayout.TagFlowLayout
+                    android:id="@+id/hotWordsLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    zhy:max_select="1"
+                    zhy:paddingEnd="2dp"
+                    zhy:paddingStart="2dp" />
+            </LinearLayout>
+
+            <!--热搜榜-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingTop="10dp">
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:background="@color/colorAccent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginStart="16dp"
+                    android:text="热搜Top榜"
+                    android:textColor="@color/text_color_2"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

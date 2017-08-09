@@ -22,5 +22,7 @@ interface MainComponent : ActivityComponent {
     fun plus(classificationModule: ClassificationModule): ClassificationComponent
 
     fun plus(classificationDetailModule: ClassificationDetailModule): ClassificationDetailComponent
+
+    fun plus(searchModule: SearchModule): SearchComponent
 }
 

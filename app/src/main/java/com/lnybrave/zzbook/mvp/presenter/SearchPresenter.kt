@@ -12,15 +12,13 @@ import javax.inject.Inject
 class SearchPresenter
 @Inject constructor(private val mModel: SearchModel,
                     private val mView: SearchContract.View)
-    : SearchContract.Presenter {
-    override fun getData(search: String, offset: Int) {
-        mModel.getData(search, offset)
+    : SearchContract.Presenter, BasePresenter() {
+    override fun getData(search: String, limit: Int, offset: Int) {
+        mModel.getData(search, limit, offset)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
-                    if (res.isSuccess()) {
-                        mView.setData(res.d)
-                    }
+                    mView.setData(res)
                 }, { e -> Log.e("lny", e.message) })
     }
 }

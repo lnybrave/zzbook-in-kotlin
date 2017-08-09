@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/item_search"
-        android:enabled="true"
-        android:icon="@drawable/ic_nav_text_search"
+        android:icon="@drawable/ic_nav_search"
+        android:imeOptions="actionSearch"
+        android:inputType="textCapWords"
         android:title="@string/menu_search"
-        app:showAsAction="always" />
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
 </menu>

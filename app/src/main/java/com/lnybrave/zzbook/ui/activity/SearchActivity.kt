@@ -95,14 +95,16 @@ class SearchActivity : BaseActivity() {
         menuInflater.inflate(R.menu.search2, menu)
         val search = menu?.findItem(R.id.item_search)
         if (search != null) {
-            search.collapseActionView()
-            search.expandActionView()
             initSearchView(search)
         }
         return super.onCreateOptionsMenu(menu)
     }
 
     private fun initSearchView(menuItem: MenuItem) {
+        // 展开搜索框
+        menuItem.collapseActionView()
+        menuItem.expandActionView()
+
         val searchView = menuItem.actionView as SearchView
         searchView.isIconified = false
         searchView.clearFocus()
@@ -121,6 +123,12 @@ class SearchActivity : BaseActivity() {
             }
         })
         searchView.setOnCloseListener { true }
+
+//        val id = searchView.context.resources.getIdentifier("android:id/search_src_text", null, null)
+//        val editText = searchView.findViewById(id) as EditText
+//        editText.setTextColor(resources.getColor(R.color.text_color_2))
+//        editText.textSize = resources.getDimension(R.dimen.text_size)
+//        editText.setHintTextColor(resources.getColor(R.color.text_hint))
     }
 
 }

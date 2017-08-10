@@ -146,7 +146,7 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.search, menu)
+        inflater?.inflate(R.menu.main, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

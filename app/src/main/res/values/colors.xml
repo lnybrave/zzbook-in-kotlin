@@ -3,12 +3,14 @@
     <color name="colorPrimary">#F6F5F3</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#13be7c</color>
+    <color name="colorControlNormal">#323435</color>
 
+    <color name="text_hint">#333333</color>
     <color name="text_color_2">#222222</color>
     <color name="text_color_9">#999999</color>
 
     <color name="text_dark">@color/text_color_2</color>
-    
+
     <color name="text_book_name">#3E3E3E</color>
     <color name="text_book_desc">#999999</color>
     <color name="text_book_author">@color/colorAccent</color>

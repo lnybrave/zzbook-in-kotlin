@@ -23,6 +23,6 @@ interface MainComponent : ActivityComponent {
 
     fun plus(classificationDetailModule: ClassificationDetailModule): ClassificationDetailComponent
 
-    fun plus(searchModule: SearchModule): SearchComponent
+//    fun plus(searchModule: SearchModule): SearchComponent
 }
 

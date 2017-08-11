@@ -60,8 +60,11 @@ interface ZZBookApi {
                   @Query("limit") limit: Int,
                   @Query("offset") offset: Int): Observable<APIPage<Book>>
 
-    @GET("api/search/keyword")
-    fun getSearch(): Observable<APIList<String>>
+    @GET("api/search/suggest")
+    fun getSearchSuggest(@Query("word") content: String): Observable<List<SearchWord>>
+
+    @GET("api/search/words")
+    fun getSearchWords(): Observable<List<SearchWord>>
 }
 
 

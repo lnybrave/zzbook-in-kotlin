@@ -6,7 +6,7 @@ import io.reactivex.Observable
 /**
  * Created by lny on 2017/7/24.
  */
-interface SearchWordContract {
+interface SearchSuggestContract {
 
     interface View {
 
@@ -15,11 +15,11 @@ interface SearchWordContract {
 
     interface Model {
 
-        fun getData(): Observable<List<SearchWord>>
+        fun getData(content: String): Observable<List<SearchWord>>
     }
 
     interface Presenter {
 
-        fun getData()
+        fun getData(content: String)
     }
 }

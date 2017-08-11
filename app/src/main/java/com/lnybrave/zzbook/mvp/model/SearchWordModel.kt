@@ -2,6 +2,7 @@ package com.lnybrave.zzbook.mvp.model
 
 import com.lnybrave.zzbook.api.ZZBookApi
 import com.lnybrave.zzbook.bean.APIList
+import com.lnybrave.zzbook.bean.SearchWord
 import com.lnybrave.zzbook.mvp.contract.SearchWordContract
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -11,7 +12,7 @@ import javax.inject.Inject
  */
 class SearchWordModel
 @Inject constructor(private val api: ZZBookApi) : SearchWordContract.Model {
-    override fun getData(): Observable<APIList<String>> {
-        return api.getSearch()
+    override fun getData(): Observable<List<SearchWord>> {
+        return api.getSearchWords()
     }
 }

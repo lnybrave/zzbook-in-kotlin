@@ -1,20 +1,21 @@
 package com.lnybrave.zzbook.mvp.presenter
 
 import android.util.Log
+import com.lnybrave.zzbook.mvp.contract.SearchSuggestContract
 import com.lnybrave.zzbook.mvp.contract.SearchWordContract
-import com.lnybrave.zzbook.mvp.model.SearchWordModel
+import com.lnybrave.zzbook.mvp.model.SearchSuggestModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 /**
  * Created by lny on 2017/7/24.
  */
-class SearchWordPresenter
-@Inject constructor(private val mModel: SearchWordModel,
-                    private val mView: SearchWordContract.View)
-    : SearchWordContract.Presenter, BasePresenter() {
-    override fun getData() {
-        mModel.getData()
+class SearchSuggestPresenter
+@Inject constructor(private val mModel: SearchSuggestModel,
+                    private val mView: SearchSuggestContract.View)
+    : SearchSuggestContract.Presenter, BasePresenter() {
+    override fun getData(content: String) {
+        mModel.getData(content)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->

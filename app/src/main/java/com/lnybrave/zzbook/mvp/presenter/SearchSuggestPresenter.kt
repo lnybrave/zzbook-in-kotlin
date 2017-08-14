@@ -2,7 +2,6 @@ package com.lnybrave.zzbook.mvp.presenter
 
 import android.util.Log
 import com.lnybrave.zzbook.mvp.contract.SearchSuggestContract
-import com.lnybrave.zzbook.mvp.contract.SearchWordContract
 import com.lnybrave.zzbook.mvp.model.SearchSuggestModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject

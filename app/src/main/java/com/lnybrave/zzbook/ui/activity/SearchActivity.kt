@@ -4,10 +4,11 @@ import android.content.Context
 import android.database.AbstractCursor
 import android.os.Build
 import android.os.Bundle
+import android.provider.CalendarContract
 import android.support.v4.widget.SimpleCursorAdapter
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.SearchView
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -15,34 +16,37 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import com.lnybrave.zzbook.R
+import com.lnybrave.zzbook.bean.Book
+import com.lnybrave.zzbook.bean.Search
 import com.lnybrave.zzbook.bean.SearchWord
 import com.lnybrave.zzbook.di.component.DaggerSearchActivityComponent
 import com.lnybrave.zzbook.di.component.SearchActivityComponent
 import com.lnybrave.zzbook.di.module.ActivityModule
+import com.lnybrave.zzbook.di.module.SearchHotModule
 import com.lnybrave.zzbook.di.module.SearchSuggestModule
-import com.lnybrave.zzbook.di.module.SearchWordModule
 import com.lnybrave.zzbook.getAppComponent
+import com.lnybrave.zzbook.mvp.contract.SearchHotContract
 import com.lnybrave.zzbook.mvp.contract.SearchSuggestContract
-import com.lnybrave.zzbook.mvp.contract.SearchWordContract
+import com.lnybrave.zzbook.mvp.presenter.SearchHotPresenter
 import com.lnybrave.zzbook.mvp.presenter.SearchSuggestPresenter
-import com.lnybrave.zzbook.mvp.presenter.SearchWordPresenter
 import com.lnybrave.zzbook.ui.BaseActivity
 import com.lnybrave.zzbook.ui.fragment.SearchFragment
+import com.lnybrave.zzbook.ui.multitype.BookSimpleViewBinder
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
-import io.reactivex.FlowableEmitter
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.toolbar.*
+import me.drakeet.multitype.MultiTypeAdapter
 import javax.inject.Inject
 
 
-class SearchActivity : BaseActivity(), SearchWordContract.View {
+class SearchActivity : BaseActivity(), SearchHotContract.View {
 
-    lateinit var emitter: FlowableEmitter<String>
     lateinit var mainComponent: SearchActivityComponent
     lateinit var suggestAdapter: SearchSuggestAdapter
-    @Inject lateinit var wordPresenter: SearchWordPresenter
+    @Inject lateinit var hotPresenter: SearchHotPresenter
     @Inject lateinit var suggestPresenter: SearchSuggestPresenter
+    private lateinit var adapter: MultiTypeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,32 +57,41 @@ class SearchActivity : BaseActivity(), SearchWordContract.View {
     override fun initView() {
         setupToolbar(toolbar)
 
-        val mVals = ArrayList<String>()
-        mVals.add("大秦帝国")
-        mVals.add("我的极品女老师")
+        ll_history_words.visibility = View.GONE
+        ll_hot_words.visibility = View.GONE
 
-        historyLayout.adapter = object : TagAdapter<String>(mVals) {
-            override fun getView(parent: FlowLayout, position: Int, s: String): View {
-                val tv = LayoutInflater.from(applicationContext).inflate(R.layout.item_search_word, historyLayout, false) as TextView
-                tv.text = s
-                return tv
+        val layoutManager = GridLayoutManager(this, 5)
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                val obj = adapter.items[position]
+                if (obj is Book) {
+                    return 1
+                }
+                return 5
             }
         }
+        rv_hot_books.layoutManager = layoutManager
+        ll_hot_books.visibility = View.GONE
+
+
+        adapter = MultiTypeAdapter()
+        rv_hot_books.adapter = adapter
+        adapter.register(Book::class.java, BookSimpleViewBinder())
 
         suggestAdapter = SearchSuggestAdapter(this)
         mainComponent = DaggerSearchActivityComponent.builder()
                 .appComponent(getAppComponent())
                 .activityModule(ActivityModule(this))
                 .searchSuggestModule(SearchSuggestModule(suggestAdapter))
-                .searchWordModule(SearchWordModule(this))
+                .searchHotModule(SearchHotModule(this))
                 .build()
         mainComponent.inject(this)
-        wordPresenter.getData()
+        hotPresenter.getData()
     }
 
-    override fun setData(results: List<SearchWord>) {
-        if (results.isNotEmpty()) {
-            hotWordsLayout.adapter = object : TagAdapter<SearchWord>(results) {
+    override fun setData(results: Search) {
+        if (results.words.isNotEmpty()) {
+            hotWordsLayout.adapter = object : TagAdapter<SearchWord>(results.words) {
                 override fun getView(parent: FlowLayout, position: Int, s: SearchWord): View {
                     val tv = LayoutInflater.from(applicationContext).inflate(R.layout.item_search_word, historyLayout, false) as TextView
                     tv.text = s.word
@@ -88,6 +101,14 @@ class SearchActivity : BaseActivity(), SearchWordContract.View {
             ll_hot_words.visibility = View.VISIBLE
         } else {
             ll_hot_words.visibility = View.GONE
+        }
+
+        if (results.books.isNotEmpty()) {
+            adapter.items = results.books
+            adapter.notifyDataSetChanged()
+            ll_hot_books.visibility = View.VISIBLE
+        } else {
+            ll_hot_books.visibility = View.GONE
         }
     }
 
@@ -134,7 +155,6 @@ class SearchActivity : BaseActivity(), SearchWordContract.View {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (!newText.isBlank()) {
-                    Log.d("lny", newText)
                     suggestPresenter.getData(newText)
                 }
                 return true

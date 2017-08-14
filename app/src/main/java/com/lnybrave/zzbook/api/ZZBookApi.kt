@@ -63,6 +63,9 @@ interface ZZBookApi {
     @GET("api/search/suggest")
     fun getSearchSuggest(@Query("word") content: String): Observable<List<SearchWord>>
 
+    @GET("api/search/top/{count}")
+    fun getSearchTop(@Path("count") count: Int): Observable<List<Book>>
+
     @GET("api/search/words")
     fun getSearchWords(): Observable<List<SearchWord>>
 }

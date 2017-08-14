@@ -1,21 +1,21 @@
 package com.lnybrave.zzbook.mvp.contract
 
-import com.lnybrave.zzbook.bean.SearchWord
+import com.lnybrave.zzbook.bean.Search
 import io.reactivex.Observable
 
 /**
  * Created by lny on 2017/7/24.
  */
-interface SearchWordContract {
+interface SearchHotContract {
 
     interface View {
 
-        fun setData(results: List<SearchWord>)
+        fun setData(results: Search)
     }
 
     interface Model {
 
-        fun getData(): Observable<List<SearchWord>>
+        fun getData(): Observable<Search>
     }
 
     interface Presenter {

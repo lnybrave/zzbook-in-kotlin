@@ -23,7 +23,7 @@
             android:orientation="vertical">
             <!--搜索历史-->
             <LinearLayout
-                android:id="@+id/ll_history"
+                android:id="@+id/ll_history_words"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -136,35 +136,42 @@
             </LinearLayout>
 
             <!--热搜榜-->
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/ll_hot_books"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="2dp"
-                android:paddingTop="10dp">
+                android:orientation="vertical">
 
-                <View
-                    android:layout_width="3dp"
-                    android:layout_height="16dp"
-                    android:layout_centerVertical="true"
-                    android:background="@color/colorAccent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="热搜Top榜"
-                    android:textColor="@color/text_color_2"
-                    android:textSize="16sp" />
-            </RelativeLayout>
+                    android:paddingBottom="2dp"
+                    android:paddingTop="10dp">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="16dp"
+                        android:layout_centerVertical="true"
+                        android:background="@color/colorAccent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:text="热搜Top榜"
+                        android:textColor="@color/text_color_2"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_hot_books"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
 
         <FrameLayout

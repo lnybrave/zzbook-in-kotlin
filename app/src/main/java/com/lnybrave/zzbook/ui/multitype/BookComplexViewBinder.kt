@@ -26,7 +26,8 @@ class BookComplexViewBinder : ItemViewBinder<Book, BookComplexViewBinder.ViewHol
     override fun onBindViewHolder(holder: ViewHolder, book: Book) {
         holder.itemView.tvName.text = book.name
         holder.itemView.tvDesc.text = book.desc
-        holder.itemView.tvChapterCount.text = book.chapterSize.toString()
+        holder.itemView.tvChapterCount.text = "${book.chapterSize}章"
+        holder.itemView.tvCatalog.text = book.wordSize
         loadBookCover(book.coverUrl, holder.itemView.ivCover)
         holder.book = book
     }

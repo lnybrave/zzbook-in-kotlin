@@ -4,9 +4,8 @@ import android.content.Context
 import android.database.AbstractCursor
 import android.os.Build
 import android.os.Bundle
-import android.provider.CalendarContract
 import android.support.v4.widget.SimpleCursorAdapter
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.text.Html
 import android.view.LayoutInflater
@@ -31,7 +30,7 @@ import com.lnybrave.zzbook.mvp.presenter.SearchHotPresenter
 import com.lnybrave.zzbook.mvp.presenter.SearchSuggestPresenter
 import com.lnybrave.zzbook.ui.BaseActivity
 import com.lnybrave.zzbook.ui.fragment.SearchFragment
-import com.lnybrave.zzbook.ui.multitype.BookSimpleViewBinder
+import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import kotlinx.android.synthetic.main.activity_search.*
@@ -47,6 +46,7 @@ class SearchActivity : BaseActivity(), SearchHotContract.View {
     @Inject lateinit var hotPresenter: SearchHotPresenter
     @Inject lateinit var suggestPresenter: SearchSuggestPresenter
     private lateinit var adapter: MultiTypeAdapter
+    private lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,23 +60,13 @@ class SearchActivity : BaseActivity(), SearchHotContract.View {
         ll_history_words.visibility = View.GONE
         ll_hot_words.visibility = View.GONE
 
-        val layoutManager = GridLayoutManager(this, 5)
-        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                val obj = adapter.items[position]
-                if (obj is Book) {
-                    return 1
-                }
-                return 5
-            }
-        }
-        rv_hot_books.layoutManager = layoutManager
+        rv_hot_books.layoutManager = LinearLayoutManager(this)
         ll_hot_books.visibility = View.GONE
 
 
         adapter = MultiTypeAdapter()
         rv_hot_books.adapter = adapter
-        adapter.register(Book::class.java, BookSimpleViewBinder())
+        adapter.register(Book::class.java, BookComplexViewBinder())
 
         suggestAdapter = SearchSuggestAdapter(this)
         mainComponent = DaggerSearchActivityComponent.builder()
@@ -97,6 +87,10 @@ class SearchActivity : BaseActivity(), SearchHotContract.View {
                     tv.text = s.word
                     return tv
                 }
+            }
+            hotWordsLayout.setOnTagClickListener { view, position, parent ->
+                searchView.setQuery(results.words[position].word, true)
+                true
             }
             ll_hot_words.visibility = View.VISIBLE
         } else {
@@ -139,7 +133,7 @@ class SearchActivity : BaseActivity(), SearchHotContract.View {
         menuItem.collapseActionView()
         menuItem.expandActionView()
 
-        val searchView = menuItem.actionView as SearchView
+        searchView = menuItem.actionView as SearchView
         searchView.isIconified = false
         // 设置搜索图标是否显示在搜索框内
         searchView.setIconifiedByDefault(true)
@@ -156,6 +150,8 @@ class SearchActivity : BaseActivity(), SearchHotContract.View {
             override fun onQueryTextChange(newText: String): Boolean {
                 if (!newText.isBlank()) {
                     suggestPresenter.getData(newText)
+                } else {
+                    llSearchWord.visibility = View.VISIBLE
                 }
                 return true
             }

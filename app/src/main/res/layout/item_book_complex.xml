@@ -53,17 +53,32 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="@color/text_book_author" />
+                android:textColor="@color/text_book_author"
+                android:textSize="12sp" />
+
             <!--章节数-->
             <TextView
                 android:id="@+id/tvChapterCount"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_item_chapter_count"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@color/item_chapter_count"
+                android:textSize="12sp" />
+
             <!--类别-->
             <TextView
                 android:id="@+id/tvCatalog"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_item_catalog"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@color/item_catalog"
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

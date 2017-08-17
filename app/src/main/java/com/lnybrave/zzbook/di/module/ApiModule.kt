@@ -29,7 +29,7 @@ class ApiModule {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                     .build()
 
-    @Provides fun provideBaseUrl() = HttpUrl.parse("http://192.168.1.159:8000/")
+    @Provides fun provideBaseUrl() = HttpUrl.parse("http://106.15.206.82/")
 
     @Provides fun provideOkhttp(context: Context, interceptor: HttpLoggingInterceptor): OkHttpClient {
         val cacheSize = 1024 * 1024 * 10L

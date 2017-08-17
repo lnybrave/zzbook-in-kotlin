@@ -16,6 +16,7 @@ import com.lnybrave.zzbook.ui.activity.MainActivity
 import com.lnybrave.zzbook.ui.activity.SearchActivity
 import com.lnybrave.zzbook.ui.multitype.ClassificationFirstViewBinder
 import com.lnybrave.zzbook.ui.multitype.ClassificationSecondViewBinder
+import kotlinx.android.synthetic.main.view_recycler.*
 import me.drakeet.multitype.MultiTypeAdapter
 import java.util.*
 import javax.inject.Inject
@@ -38,6 +39,9 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
+            refreshLayout.isEnableLoadmore = false
+            refreshLayout.setOnRefreshListener({ layout -> mPresenter.getData() })
+
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -48,7 +52,9 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
     }
 
     private fun initTitle() {
-        setHasOptionsMenu(true)
+        if (activity is MainActivity) {
+            setHasOptionsMenu(true)
+        }
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -62,11 +68,13 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
             a.mainComponent.plus(ClassificationModule(this)).inject(this)
             mPresenter.getData()
         } else {
-            throw IllegalArgumentException("is not MainActivity")
+            throw IllegalArgumentException("is not MainActivity or ClassificationActivity")
         }
     }
 
     override fun setData(results: List<Classification>) {
+        refreshLayout.finishRefresh()
+
         mList.clear()
         for (item in results) {
             item.level = 0

@@ -11,10 +11,13 @@ package com.lnybrave.zzbook.bean
 data class APIPage<out T>(
         val results: List<T>,
         val count: Int,
-        var next: String,
-        var previous: String
+        var next: String?,
+        var previous: String?
 ) {
-    fun hasNext(): Boolean = next != null
+    fun hasNext(): Boolean {
+        if (next == null) return false
+        return next?.isNotEmpty()!!
+    }
 
-    fun hasPrev(): Boolean = previous != null
+    fun hasPrev(): Boolean = previous == null
 }

@@ -1,5 +1,6 @@
 package com.lnybrave.zzbook.mvp.contract
 
+import com.lnybrave.zzbook.bean.APIPage
 import com.lnybrave.zzbook.bean.Book
 import io.reactivex.Observable
 
@@ -10,20 +11,16 @@ interface ClassificationDetailContract {
 
     interface View {
 
-        fun setData(results: List<Book>)
+        fun setData(page: APIPage<Book>)
     }
 
     interface Model {
 
-        fun getAll(firstId: Int, page: Int): Observable<List<Book>>
-
-        fun getData(secondId: Int, page: Int): Observable<List<Book>>
+        fun getData(firstId: Int, secondId: Int, limit: Int, offset:Int): Observable<APIPage<Book>>
     }
 
     interface Presenter {
 
-        fun getAll(firstId: Int, page: Int)
-
-        fun getData(secondId: Int, page: Int)
+        fun getData(firstId: Int, secondId: Int, limit: Int, offset:Int)
     }
 }

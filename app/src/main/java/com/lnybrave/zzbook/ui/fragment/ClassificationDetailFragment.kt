@@ -5,8 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.lnybrave.zzbook.bean.APIPage
 import com.lnybrave.zzbook.bean.Book
-import com.lnybrave.zzbook.bean.Classification
 import com.lnybrave.zzbook.databinding.ViewRecyclerBinding
 import com.lnybrave.zzbook.di.module.ClassificationDetailModule
 import com.lnybrave.zzbook.mvp.contract.ClassificationDetailContract
@@ -14,6 +14,7 @@ import com.lnybrave.zzbook.mvp.presenter.ClassificationDetailPresenter
 import com.lnybrave.zzbook.ui.BaseBindingFragment
 import com.lnybrave.zzbook.ui.activity.ClassificationDetailActivity
 import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
+import kotlinx.android.synthetic.main.view_recycler.*
 import me.drakeet.multitype.MultiTypeAdapter
 import java.util.*
 import javax.inject.Inject
@@ -43,6 +44,9 @@ class ClassificationDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(),
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
+            refreshLayout.isEnableRefresh = false
+            refreshLayout.setOnLoadmoreListener { layout -> getData() }
+
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -55,21 +59,26 @@ class ClassificationDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(),
         if (activity is ClassificationDetailActivity) {
             val a: ClassificationDetailActivity = activity as ClassificationDetailActivity
             a.mainComponent.plus(ClassificationDetailModule(this)).inject(this)
-            if (firstId > 0 && secondId == 0) {
-                mPresenter.getAll(firstId, 10)
-            } else {
-                mPresenter.getData(secondId, 10)
-            }
+            getData()
         } else {
             throw IllegalArgumentException("is not ClassificationDetailActivity")
         }
     }
 
-    override fun setData(results: List<Book>) {
-        mList.clear()
-        if (results.isNotEmpty()) {
-            mList.addAll(results)
+    private fun getData() {
+        mPresenter.getData(firstId, secondId, 10, mList.size)
+    }
+
+    override fun setData(page: APIPage<Book>) {
+        refreshLayout.finishLoadmore()
+        if (!page.hasNext()) {
+            refreshLayout.isEnableLoadmore = false
         }
+
+        if (page.results.isNotEmpty()) {
+            mList.addAll(page.results)
+        }
+
         mAdapter.notifyDataSetChanged()
     }
 

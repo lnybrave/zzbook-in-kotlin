@@ -12,11 +12,7 @@ import javax.inject.Inject
 class ClassificationDetailModel
 @Inject constructor(private val api: ZZBookApi) : ClassificationDetailContract.Model {
 
-    override fun getAll(firstId: Int, page: Int): Observable<List<Book>> {
-        return api.getClassificationAll(firstId, page)
-    }
-
-    override fun getData(secondId: Int, page: Int): Observable<List<Book>> {
-        return api.getClassificationDetail(secondId, page)
+    override fun getData(firstId: Int,secondId: Int, limit: Int, offset:Int): Observable<APIPage<Book>> {
+        return api.getClassificationBooks(firstId, secondId, limit, offset)
     }
 }

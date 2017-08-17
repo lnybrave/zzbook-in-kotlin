@@ -48,6 +48,9 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
+            refreshLayout.setOnRefreshListener({ layout -> layout.finishRefresh(2000) })
+            refreshLayout.setOnLoadmoreListener({ layout -> layout.finishLoadmore(2000) })
+
             banner.setImageLoader(BannerImageLoader())
             banner.isAutoPlay(true)
             banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)

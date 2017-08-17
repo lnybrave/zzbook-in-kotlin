@@ -19,6 +19,7 @@ import me.drakeet.multitype.MultiTypeAdapter
 import java.util.*
 import javax.inject.Inject
 
+
 class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), RankingDetailContract.View {
 
     private var mList = ArrayList<Any>()
@@ -42,6 +43,9 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
+            refreshLayout.setOnRefreshListener({ layout -> layout.finishRefresh(2000) })
+            refreshLayout.setOnLoadmoreListener({ layout -> layout.finishLoadmore(2000) })
+
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
 

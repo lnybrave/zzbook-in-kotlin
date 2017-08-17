@@ -34,6 +34,8 @@
             android:id="@+id/tvThirdList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/text_color_9"
             android:textSize="12sp" />
     </LinearLayout>

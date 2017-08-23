@@ -10,7 +10,7 @@ interface RankingDetailContract {
 
     interface View {
 
-        fun setData(results: List<Ranking>)
+        fun setData(data: List<Ranking>)
     }
 
     interface Model {

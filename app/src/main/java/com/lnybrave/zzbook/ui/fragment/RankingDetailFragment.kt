@@ -15,6 +15,7 @@ import com.lnybrave.zzbook.ui.BaseBindingFragment
 import com.lnybrave.zzbook.ui.activity.RankingActivity
 import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
 import com.lnybrave.zzbook.ui.multitype.RankingTitleViewBinder
+import kotlinx.android.synthetic.main.view_recycler.*
 import me.drakeet.multitype.MultiTypeAdapter
 import java.util.*
 import javax.inject.Inject
@@ -43,8 +44,8 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
-            refreshLayout.setOnRefreshListener({ layout -> layout.finishRefresh(2000) })
-            refreshLayout.setOnLoadmoreListener({ layout -> layout.finishLoadmore(2000) })
+            refreshLayout.setOnRefreshListener({ mPresenter.getData(rankingId) })
+            refreshLayout.isEnableLoadmore = false
 
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
@@ -65,19 +66,21 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
         }
     }
 
-    override fun setData(results: List<Ranking>) {
+    override fun setData(data: List<Ranking>) {
         mList.clear()
-        if (results.isNotEmpty()) {
-            addRanking(mList, results)
+        if (data.isNotEmpty()) {
+            addRanking(mList, data)
         }
         mAdapter.notifyDataSetChanged()
+        refreshLayout.finishRefresh()
     }
 
     private fun addRanking(list: ArrayList<Any>, results: List<Ranking>) {
         for (ranking in results) {
             list.add(ranking)
             list.addAll(ranking.books)
-            if (ranking.children.isNotEmpty()) {
+            if (ranking.children != null
+                    && ranking.children.isNotEmpty()) {
                 addRanking(mList, ranking.children)
             }
         }

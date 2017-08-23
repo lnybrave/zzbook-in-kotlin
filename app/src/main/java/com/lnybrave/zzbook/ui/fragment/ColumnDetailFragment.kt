@@ -1,7 +1,7 @@
 package com.lnybrave.zzbook.ui.fragment
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,7 +51,17 @@ class ColumnDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnD
             refreshLayout.setOnLoadmoreListener({ mPresenter.getData(columnId!!) })
 
             recyclerView.adapter = mAdapter
-            recyclerView.layoutManager = LinearLayoutManager(context)
+            val layoutManager = GridLayoutManager(context, 3)
+            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    val obj = mList[position]
+                    if (obj is Book) {
+                        return if (obj.showType == 0) 1 else 3
+                    }
+                    return 3
+                }
+            }
+            recyclerView.layoutManager = layoutManager
 
             mAdapter.register(Topic::class.java, TopicTitleViewBinder())
             mAdapter.register(Book::class.java)

@@ -21,7 +21,7 @@ interface ZZBookApi {
     fun getBookshelf(): Observable<List<Book>>
 
     @GET("api/bookshelf/banner")
-    fun getBookshelfBannerList(): Observable<List<Banner>>
+    fun getBookshelfBanner(): Observable<List<Banner>>
 
     @GET("api/stack/menu")
     fun getStackMenu(): Observable<List<StackMenu>>
@@ -31,10 +31,7 @@ interface ZZBookApi {
                           @Query("limit") limit: Int?): Observable<APIPage<MixedBean>>
 
     @GET("api/stack/column")
-    fun getColumn(): Observable<List<Column>>
-
-    @GET("api/stack/column/{id}")
-    fun getColumnDetail(@Path("id") id: Int,
+    fun getColumnDetail(@Query("item") id: Int,
                         @Query("offset") offset: Int?,
                         @Query("limit") limit: Int?): Observable<APIPage<MixedBean>>
 

@@ -7,5 +7,5 @@ data class Ranking(
         val id: Int,
         val name: String,
         val books: List<Book>,
-        val children: List<Ranking>
+        val children: List<Ranking>?
 )

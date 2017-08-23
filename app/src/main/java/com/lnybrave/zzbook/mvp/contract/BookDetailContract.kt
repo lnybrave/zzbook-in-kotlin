@@ -1,6 +1,5 @@
 package com.lnybrave.zzbook.mvp.contract
 
-import com.lnybrave.zzbook.bean.APIBase
 import com.lnybrave.zzbook.bean.Book
 import io.reactivex.Observable
 
@@ -16,7 +15,7 @@ interface BookDetailContract {
 
     interface Model {
 
-        fun getData(id: Int): Observable<APIBase<Book>>
+        fun getData(id: Int): Observable<Book>
     }
 
     interface Presenter {

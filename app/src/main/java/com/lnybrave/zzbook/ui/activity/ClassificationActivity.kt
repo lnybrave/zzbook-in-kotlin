@@ -2,7 +2,7 @@ package com.lnybrave.zzbook.ui.activity
 
 import android.os.Bundle
 import com.lnybrave.zzbook.R
-import com.lnybrave.zzbook.bean.Subject
+import com.lnybrave.zzbook.bean.StackMenu
 import com.lnybrave.zzbook.di.component.DaggerMainComponent
 import com.lnybrave.zzbook.di.component.MainComponent
 import com.lnybrave.zzbook.di.module.ActivityModule
@@ -23,7 +23,7 @@ class ClassificationActivity : BaseActivity() {
 
     override fun initView() {
         setupToolbar(toolbar)
-        val subject = intent.getSerializableExtra("subject") as Subject
+        val subject = intent.getSerializableExtra("subject") as StackMenu
         tvTitle.text = subject.name
 
         mainComponent = DaggerMainComponent.builder()

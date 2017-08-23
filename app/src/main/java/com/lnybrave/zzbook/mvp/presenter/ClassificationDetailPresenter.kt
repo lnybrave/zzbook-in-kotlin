@@ -14,8 +14,8 @@ class ClassificationDetailPresenter
                     private val mView: ClassificationDetailContract.View)
     : ClassificationDetailContract.Presenter, BasePresenter() {
 
-    override fun getData(firstId: Int, secondId: Int, limit: Int, offset:Int) {
-        mModel.getData(firstId, secondId, limit, offset)
+    override fun getData(firstId: Int, secondId: Int, offset: Int, limit: Int) {
+        mModel.getData(firstId, secondId, offset, limit)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->

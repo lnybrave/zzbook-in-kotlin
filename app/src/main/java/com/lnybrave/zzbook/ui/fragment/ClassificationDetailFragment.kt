@@ -66,7 +66,7 @@ class ClassificationDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(),
     }
 
     private fun getData() {
-        mPresenter.getData(firstId, secondId, 10, mList.size)
+        mPresenter.getData(firstId, secondId, mList.size)
     }
 
     override fun setData(page: APIPage<Book>) {

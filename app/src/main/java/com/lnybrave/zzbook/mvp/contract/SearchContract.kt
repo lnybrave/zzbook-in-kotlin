@@ -16,11 +16,11 @@ interface SearchContract {
 
     interface Model {
 
-        fun getData(search: String, limit: Int, offset: Int): Observable<APIPage<Book>>
+        fun getData(search: String, offset: Int = 0, limit: Int = 10): Observable<APIPage<Book>>
     }
 
     interface Presenter {
 
-        fun getData(search: String, limit: Int, offset: Int)
+        fun getData(search: String, offset: Int = 0, limit: Int = 10)
     }
 }

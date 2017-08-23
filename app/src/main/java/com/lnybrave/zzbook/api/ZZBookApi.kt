@@ -15,48 +15,56 @@ interface ZZBookApi {
     fun getBannerList(): Observable<List<Banner>>
 
     @GET("api/book/{id}")
-    fun getBookDetail(@Path("id") id: Int): Observable<APIBase<Book>>
+    fun getBookDetail(@Path("id") id: Int): Observable<Book>
 
     @GET("api/bookshelf")
     fun getBookshelf(): Observable<List<Book>>
 
-    @GET("api/subject/recommendation")
-    fun getSubjectRecommendation(): Observable<List<Subject>>
+    @GET("api/bookshelf/banner")
+    fun getBookshelfBannerList(): Observable<List<Banner>>
 
-    @GET("api/column/recommendation")
-    fun getRecommendation(): Observable<List<Topic>>
+    @GET("api/stack/menu")
+    fun getStackMenu(): Observable<List<StackMenu>>
 
-    @GET("api/column")
-    fun getColumnList(): Observable<APIList<Column>>
+    @GET("api/stack/recommendation")
+    fun getRecommendation(@Query("offset") offset: Int?,
+                          @Query("limit") limit: Int?): Observable<APIPage<MixedBean>>
 
-    @GET("api/column/{id}")
-    fun getColumnDetail(@Path("id") id: Int): Observable<List<Topic>>
+    @GET("api/stack/column")
+    fun getColumn(): Observable<List<Column>>
 
-    @GET("api/column/topic/{id}")
-    fun getColumnTopic(@Path("id") id: Int): Observable<APIList<Book>>
+    @GET("api/stack/column/{id}")
+    fun getColumnDetail(@Path("id") id: Int,
+                        @Query("offset") offset: Int?,
+                        @Query("limit") limit: Int?): Observable<APIPage<MixedBean>>
 
-    @GET("api/ranking")
-    fun getRankingList(): Observable<List<Ranking>>
+    @GET("api/stack/topic/{id}")
+    fun getTopicDetail(@Path("id") id: Int): Observable<APIList<Book>>
 
-    @GET("api/ranking")
-    fun getRankingFirst(): Observable<List<Ranking>>
+    @GET("api/stack/ranking")
+    fun getRanking(@Query("parent") parent: Int?): Observable<List<Ranking>>
 
-    @GET("api/ranking/{id}")
-    fun getRankingDetail(@Path("id") id: Int, @Query("page") page: Int): Observable<Ranking>
+    @GET("api/stack/ranking/with_books")
+    fun getRankingWithBooks(@Query("parent") parent: Int?): Observable<List<Ranking>>
 
-    @GET("api/classification")
-    fun getClassificationList(): Observable<List<Classification>>
+    @GET("api/stack/ranking/{id}/books")
+    fun getRankingBooks(@Path("id") id: Int,
+                        @Query("offset") offset: Int?,
+                        @Query("limit") limit: Int?): Observable<APIPage<Book>>
 
-    @GET("api/classification/{parent_id}/{id}/books")
+    @GET("api/stack/classification")
+    fun getClassification(@Query("parent") parent: Int?): Observable<List<Classification>>
+
+    @GET("api/stack/classification/{parent_id}/{id}/books")
     fun getClassificationBooks(@Path("parent_id") parentId: Int,
                                @Path("id") id: Int,
-                               @Query("limit") limit: Int?,
-                               @Query("offset") offset: Int?): Observable<APIPage<Book>>
+                               @Query("offset") offset: Int?,
+                               @Query("limit") limit: Int?): Observable<APIPage<Book>>
 
     @GET("api/search")
     fun getSearch(@Query("search") search: String,
-                  @Query("limit") limit: Int,
-                  @Query("offset") offset: Int): Observable<APIPage<Book>>
+                  @Query("offset") offset: Int,
+                  @Query("limit") limit: Int): Observable<APIPage<Book>>
 
     @GET("api/search/suggest")
     fun getSearchSuggest(@Query("word") content: String): Observable<List<SearchWord>>

@@ -14,11 +14,22 @@ class RecommendationPresenter
                     private val mView: RecommendationContract.View)
     : RecommendationContract.Presenter, BasePresenter() {
     override fun getData() {
-        mModel.getData()
+        val subscribe = mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
                     mView.setData(res)
                 }, { e -> Log.e("lny", e.message) })
+        addDisposable(subscribe)
+    }
+
+    override fun getData(offset: Int, limit: Int) {
+        val subscribe = mModel.getData(offset, limit)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    res ->
+                    mView.setData(res)
+                }, { e -> Log.e("lny", e.message) })
+        addDisposable(subscribe)
     }
 }

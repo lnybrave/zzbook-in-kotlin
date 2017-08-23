@@ -13,8 +13,8 @@ class SearchPresenter
 @Inject constructor(private val mModel: SearchModel,
                     private val mView: SearchContract.View)
     : SearchContract.Presenter, BasePresenter() {
-    override fun getData(search: String, limit: Int, offset: Int) {
-        mModel.getData(search, limit, offset)
+    override fun getData(search: String, offset: Int, limit: Int) {
+        mModel.getData(search, offset, limit)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->

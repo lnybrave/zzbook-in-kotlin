@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 class BookDetailModel
 @Inject constructor(private val api: ZZBookApi) : BookDetailContract.Model {
-    override fun getData(id: Int): Observable<APIBase<Book>> {
+    override fun getData(id: Int): Observable<Book> {
         return api.getBookDetail(id)
     }
 }

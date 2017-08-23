@@ -1,7 +1,9 @@
 package com.lnybrave.zzbook.mvp.model
 
 import com.lnybrave.zzbook.api.ZZBookApi
-import com.lnybrave.zzbook.bean.Recommendation
+import com.lnybrave.zzbook.bean.APIPage
+import com.lnybrave.zzbook.bean.MixedBean
+import com.lnybrave.zzbook.bean.RecommendationZip
 import com.lnybrave.zzbook.mvp.contract.RecommendationContract
 import io.reactivex.Observable
 import io.reactivex.functions.Function3
@@ -12,10 +14,14 @@ import javax.inject.Inject
  */
 class RecommendationModel
 @Inject constructor(private val api: ZZBookApi) : RecommendationContract.Model {
-    override fun getData(): Observable<Recommendation> {
+    override fun getData(): Observable<RecommendationZip> {
         return Observable.zip(api.getBannerList(),
-                api.getSubjectRecommendation(),
-                api.getRecommendation(),
-                Function3 { t1, t2, t3 -> Recommendation(banners = t1, subjects = t2, topics = t3, books = null) })
+                api.getStackMenu(),
+                api.getRecommendation(null, null),
+                Function3 { t1, t2, t3 -> RecommendationZip(banners = t1, menus = t2, page = t3) })
+    }
+
+    override fun getData(offset: Int, limit: Int): Observable<APIPage<MixedBean>> {
+        return api.getRecommendation(offset, limit)
     }
 }

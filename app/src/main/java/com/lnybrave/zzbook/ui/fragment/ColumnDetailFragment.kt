@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lnybrave.zzbook.Constants
+import com.lnybrave.zzbook.bean.APIPage
 import com.lnybrave.zzbook.bean.Book
+import com.lnybrave.zzbook.bean.MixedBean
 import com.lnybrave.zzbook.bean.Topic
 import com.lnybrave.zzbook.databinding.ViewRecyclerBinding
 import com.lnybrave.zzbook.di.module.ColumnDetailModule
@@ -17,6 +19,7 @@ import com.lnybrave.zzbook.ui.activity.ColumnActivity
 import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
 import com.lnybrave.zzbook.ui.multitype.BookSimpleViewBinder
 import com.lnybrave.zzbook.ui.multitype.TopicTitleViewBinder
+import kotlinx.android.synthetic.main.view_recycler.*
 import me.drakeet.multitype.MultiTypeAdapter
 import java.util.*
 import javax.inject.Inject
@@ -44,6 +47,9 @@ class ColumnDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnD
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
+            refreshLayout.setOnRefreshListener({ mPresenter.getData(columnId!!) })
+            refreshLayout.setOnLoadmoreListener({ mPresenter.getData(columnId!!) })
+
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -65,16 +71,32 @@ class ColumnDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnD
         }
     }
 
-    override fun setData(results: List<Topic>) {
-        mList.clear()
-        for (topic in results) {
-            mList.add(topic)
-            for (book in topic.books) {
-                book.showType = if (topic.type == Constants.TOPIC_SIMPLE) 0 else 1
-            }
-            mList.addAll(topic.books)
+    override fun setData(page: APIPage<MixedBean>) {
+        if (!page.hasPrev()) {
+            mList.clear()
         }
+
+        for ((book, topic) in page.results) {
+            if (book != null) {
+                mList.add(book)
+            }
+            if (topic != null) {
+                if (topic.books != null) {
+                    if (topic.books.isNotEmpty()) {
+                        mList.add(topic)
+                        for (b in topic.books) {
+                            b.showType = if (topic.type == Constants.TOPIC_SIMPLE) 0 else 1
+                        }
+                        mList.addAll(topic.books)
+                    }
+                }
+            }
+        }
+
         mAdapter.notifyDataSetChanged()
+
+        refreshLayout.finishRefresh()
+        refreshLayout.finishLoadmore()
     }
 
     override fun onDestroyView() {

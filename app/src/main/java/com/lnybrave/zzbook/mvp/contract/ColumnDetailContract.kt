@@ -1,6 +1,7 @@
 package com.lnybrave.zzbook.mvp.contract
 
-import com.lnybrave.zzbook.bean.Topic
+import com.lnybrave.zzbook.bean.APIPage
+import com.lnybrave.zzbook.bean.MixedBean
 import io.reactivex.Observable
 
 /**
@@ -10,16 +11,16 @@ interface ColumnDetailContract {
 
     interface View {
 
-        fun setData(results: List<Topic>)
+        fun setData(page: APIPage<MixedBean>)
     }
 
     interface Model {
 
-        fun getData(id: Int): Observable<List<Topic>>
+        fun getData(id: Int, offset: Int = 0, limit: Int = 10): Observable<APIPage<MixedBean>>
     }
 
     interface Presenter {
 
-        fun getData(id: Int)
+        fun getData(id: Int, offset: Int= 0, limit: Int= 10)
     }
 }

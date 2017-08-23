@@ -56,7 +56,7 @@ class SearchFragment : BaseBindingFragment<ViewRecyclerBinding>(), SearchContrac
         if (activity is SearchActivity) {
             val a: SearchActivity = activity as SearchActivity
             a.mainComponent.plus(SearchModule(this)).inject(this)
-            mPresenter.getData(keyword, 1, 0)
+            mPresenter.getData(keyword)
         } else {
             throw IllegalArgumentException("is not SearchActivity")
         }

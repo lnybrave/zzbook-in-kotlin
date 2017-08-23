@@ -10,16 +10,16 @@ interface RankingDetailContract {
 
     interface View {
 
-        fun setData(results: Ranking)
+        fun setData(results: List<Ranking>)
     }
 
     interface Model {
 
-        fun getData(id: Int, page: Int): Observable<Ranking>
+        fun getData(id: Int): Observable<List<Ranking>>
     }
 
     interface Presenter {
 
-        fun getData(id: Int, page: Int)
+        fun getData(id: Int)
     }
 }

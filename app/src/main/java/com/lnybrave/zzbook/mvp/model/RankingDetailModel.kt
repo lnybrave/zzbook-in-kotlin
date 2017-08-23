@@ -1,8 +1,6 @@
 package com.lnybrave.zzbook.mvp.model
 
 import com.lnybrave.zzbook.api.ZZBookApi
-import com.lnybrave.zzbook.bean.APIPage
-import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.bean.Ranking
 import com.lnybrave.zzbook.mvp.contract.RankingDetailContract
 import io.reactivex.Observable
@@ -13,7 +11,7 @@ import javax.inject.Inject
  */
 class RankingDetailModel
 @Inject constructor(private val api: ZZBookApi) : RankingDetailContract.Model {
-    override fun getData(id: Int, page: Int): Observable<Ranking> {
-        return api.getRankingDetail(id, page)
+    override fun getData(id: Int): Observable<List<Ranking>> {
+        return api.getRankingWithBooks(id)
     }
 }

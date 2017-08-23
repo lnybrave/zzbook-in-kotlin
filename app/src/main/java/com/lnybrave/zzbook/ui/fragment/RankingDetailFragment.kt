@@ -59,16 +59,16 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
         if (activity is RankingActivity) {
             val a: RankingActivity = activity as RankingActivity
             a.mainComponent.plus(RankingDetailModule(this)).inject(this)
-            mPresenter.getData(rankingId, 10)
+            mPresenter.getData(rankingId)
         } else {
             throw IllegalArgumentException("is not RankingActivity")
         }
     }
 
-    override fun setData(results: Ranking) {
+    override fun setData(results: List<Ranking>) {
         mList.clear()
-        if (results.children.isNotEmpty()) {
-            addRanking(mList, results.children)
+        if (results.isNotEmpty()) {
+            addRanking(mList, results)
         }
         mAdapter.notifyDataSetChanged()
     }

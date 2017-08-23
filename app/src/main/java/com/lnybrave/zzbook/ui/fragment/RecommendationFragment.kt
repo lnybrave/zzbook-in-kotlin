@@ -7,10 +7,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.*
 import com.lnybrave.zzbook.Constants.TOPIC_SIMPLE
 import com.lnybrave.zzbook.R
-import com.lnybrave.zzbook.bean.Book
-import com.lnybrave.zzbook.bean.Recommendation
-import com.lnybrave.zzbook.bean.Subject
-import com.lnybrave.zzbook.bean.Topic
+import com.lnybrave.zzbook.bean.*
 import com.lnybrave.zzbook.databinding.FragmentRecommendationBinding
 import com.lnybrave.zzbook.di.module.RecommendationModule
 import com.lnybrave.zzbook.mvp.contract.RecommendationContract
@@ -48,8 +45,8 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
-            refreshLayout.setOnRefreshListener({ layout -> layout.finishRefresh(2000) })
-            refreshLayout.setOnLoadmoreListener({ layout -> layout.finishLoadmore(2000) })
+            refreshLayout.setOnRefreshListener({ mPresenter.getData() })
+            refreshLayout.setOnLoadmoreListener({ mPresenter.getData() })
 
             banner.setImageLoader(BannerImageLoader())
             banner.isAutoPlay(true)
@@ -92,30 +89,48 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
         }
     }
 
-    override fun setData(results: Recommendation) {
-        var titles = ArrayList<String>()
-        results.banners.mapTo(titles) { it.name }
-        banner.update(results.banners, titles)
+    override fun setData(data: RecommendationZip) {
+        val titles = ArrayList<String>()
+        data.banners.mapTo(titles) { it.name }
+        banner.update(data.banners, titles)
 
-        addSubjectViews(results.subjects)
+        addSubjectViews(data.menus)
 
-        mList.clear()
-        for (topic in results.topics) {
-            mList.add(topic)
-            for (book in topic.books) {
-                book.showType = if (topic.type == TOPIC_SIMPLE) 0 else 1
-            }
-            mList.addAll(topic.books)
-        }
-        if (results.books != null) {
-            mList.addAll(results.books!!)
-        }
-        mAdapter.notifyDataSetChanged()
+        setData(data.page)
     }
 
-    fun addSubjectViews(subjects: List<Subject>) {
+    override fun setData(page: APIPage<MixedBean>) {
+        if (!page.hasPrev()) {
+            mList.clear()
+        }
+        addPage(page.results)
+        mAdapter.notifyDataSetChanged()
+        refreshLayout.finishRefresh()
+        refreshLayout.finishLoadmore()
+    }
+
+    private fun addPage(list: List<MixedBean>) {
+        for ((book, topic) in list) {
+            if (book != null) {
+                mList.add(book)
+            }
+            if (topic != null) {
+                if (topic.books != null) {
+                    if (topic.books.isNotEmpty()) {
+                        mList.add(topic)
+                        for (b in topic.books) {
+                            b.showType = if (topic.type == TOPIC_SIMPLE) 0 else 1
+                        }
+                        mList.addAll(topic.books)
+                    }
+                }
+            }
+        }
+    }
+
+    fun addSubjectViews(menus: List<StackMenu>) {
         gridLayout.removeAllViews()
-        for ((index, subject) in subjects.withIndex()) {
+        for ((index, subject) in menus.withIndex()) {
             val functionView: View = LayoutInflater.from(context).inflate(R.layout.item_subject, gridLayout, false)
             functionView.tvName.text = subject.name
             loadBookCover(subject.icon, functionView.ivIcon)
@@ -127,7 +142,7 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
             functionView.tag = subject
 
             functionView.setOnClickListener { v ->
-                val subject = v?.tag as Subject
+                val subject = v?.tag as StackMenu
                 when (subject.type) {
                     1 -> {
                         startActivity(Intent(context, ColumnActivity::class.java).putExtra("subject", subject))

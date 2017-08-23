@@ -13,6 +13,6 @@ import javax.inject.Inject
 class RankingModel
 @Inject constructor(private val api: ZZBookApi) : RankingContract.Model {
     override fun getData(): Observable<List<Ranking>> {
-        return api.getRankingFirst()
+        return api.getRanking(null)
     }
 }

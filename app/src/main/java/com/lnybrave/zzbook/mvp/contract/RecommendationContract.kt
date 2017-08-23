@@ -1,6 +1,8 @@
 package com.lnybrave.zzbook.mvp.contract
 
-import com.lnybrave.zzbook.bean.Recommendation
+import com.lnybrave.zzbook.bean.APIPage
+import com.lnybrave.zzbook.bean.MixedBean
+import com.lnybrave.zzbook.bean.RecommendationZip
 import io.reactivex.Observable
 
 /**
@@ -10,16 +12,22 @@ interface RecommendationContract {
 
     interface View {
 
-        fun setData(results: Recommendation)
+        fun setData(data: RecommendationZip)
+
+        fun setData(page: APIPage<MixedBean>)
     }
 
     interface Model {
 
-        fun getData(): Observable<Recommendation>
+        fun getData(): Observable<RecommendationZip>
+
+        fun getData(offset: Int, limit: Int): Observable<APIPage<MixedBean>>
     }
 
     interface Presenter {
 
         fun getData()
+
+        fun getData(offset: Int, limit: Int)
     }
 }

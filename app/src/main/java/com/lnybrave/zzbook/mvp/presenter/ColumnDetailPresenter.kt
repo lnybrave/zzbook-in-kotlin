@@ -13,8 +13,8 @@ class ColumnDetailPresenter
 @Inject constructor(private val mDetailModel: ColumnDetailModel,
                     private val mView: ColumnDetailContract.View)
     : ColumnDetailContract.Presenter, BasePresenter() {
-    override fun getData(id: Int) {
-        mDetailModel.getData(id)
+    override fun getData(id: Int, offset: Int, limit: Int) {
+        mDetailModel.getData(id, offset, limit)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->

@@ -5,7 +5,10 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import com.lnybrave.zzbook.Constants
+import com.lnybrave.zzbook.DOMAIN
 import com.lnybrave.zzbook.api.ZZBookApi
+import com.lnybrave.zzbook.getDomain
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
@@ -29,7 +32,7 @@ class ApiModule {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                     .build()
 
-    @Provides fun provideBaseUrl() = HttpUrl.parse("http://106.15.206.82/")
+    @Provides fun provideBaseUrl() = HttpUrl.parse(getDomain())
 
     @Provides fun provideOkhttp(context: Context, interceptor: HttpLoggingInterceptor): OkHttpClient {
         val cacheSize = 1024 * 1024 * 10L

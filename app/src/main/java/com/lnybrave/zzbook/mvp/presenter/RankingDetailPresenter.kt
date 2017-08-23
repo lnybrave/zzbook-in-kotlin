@@ -13,8 +13,8 @@ class RankingDetailPresenter
 @Inject constructor(private val mModel: RankingDetailModel,
                     private val mView: RankingDetailContract.View)
     : RankingDetailContract.Presenter, BasePresenter() {
-    override fun getData(id: Int, page: Int) {
-        mModel.getData(id, page)
+    override fun getData(id: Int) {
+        mModel.getData(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->

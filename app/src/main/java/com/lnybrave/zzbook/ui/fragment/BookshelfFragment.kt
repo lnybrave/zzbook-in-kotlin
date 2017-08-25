@@ -36,6 +36,9 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
         mAdapter = BookshelfAdapter(mList)
 
         with(mBinding) {
+            refreshLayout.setOnRefreshListener({ mPresenter.getData() })
+            refreshLayout.setOnLoadmoreListener({ mPresenter.getData() })
+
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
         }

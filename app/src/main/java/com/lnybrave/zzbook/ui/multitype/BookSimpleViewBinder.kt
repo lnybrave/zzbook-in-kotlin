@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.lnybrave.zzbook.R
 import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.ui.activity.BookActivity
-import com.lnybrave.zzbook.utils.loadBookCover
+import com.lnybrave.zzbook.utils.ImageUtils
 import kotlinx.android.synthetic.main.item_book_simple.view.*
 import me.drakeet.multitype.ItemViewBinder
 
@@ -25,7 +25,7 @@ class BookSimpleViewBinder : ItemViewBinder<Book, BookSimpleViewBinder.ViewHolde
 
     override fun onBindViewHolder(holder: ViewHolder, book: Book) {
         holder.itemView.tvName.text = book.name
-        loadBookCover(book.coverUrl, holder.itemView.ivCover)
+        ImageUtils.loadBookCover(book.coverUrl, holder.itemView.ivCover)
         holder.book = book
     }
 

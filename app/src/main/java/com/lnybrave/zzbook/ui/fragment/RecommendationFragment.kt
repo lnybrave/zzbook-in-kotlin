@@ -19,7 +19,7 @@ import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
 import com.lnybrave.zzbook.ui.multitype.BookSimpleViewBinder
 import com.lnybrave.zzbook.ui.multitype.TopicTitleViewBinder
 import com.lnybrave.zzbook.utils.BannerImageLoader
-import com.lnybrave.zzbook.utils.loadBookCover
+import com.lnybrave.zzbook.utils.ImageUtils
 import com.malinskiy.materialicons.IconDrawable
 import com.malinskiy.materialicons.Iconify
 import com.youth.banner.BannerConfig
@@ -142,7 +142,7 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
         for ((index, subject) in menus.withIndex()) {
             val functionView: View = LayoutInflater.from(context).inflate(R.layout.item_subject, gridLayout, false)
             functionView.tvName.text = subject.name
-            loadBookCover(subject.icon, functionView.ivIcon)
+            ImageUtils.loadBookCover(subject.icon, functionView.ivIcon)
 
             val rowSpec: GridLayout.Spec = GridLayout.spec(index / 5, 1f)
             val columnSpec: GridLayout.Spec = GridLayout.spec(index % 5, 1f)

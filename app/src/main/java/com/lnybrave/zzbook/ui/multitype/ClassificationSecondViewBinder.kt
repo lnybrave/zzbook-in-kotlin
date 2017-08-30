@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.lnybrave.zzbook.R
 import com.lnybrave.zzbook.bean.Classification
 import com.lnybrave.zzbook.ui.activity.ClassificationDetailActivity
-import com.lnybrave.zzbook.utils.loadIcon
+import com.lnybrave.zzbook.utils.ImageUtils
 import kotlinx.android.synthetic.main.item_classification_second.view.*
 import me.drakeet.multitype.ItemViewBinder
 
@@ -24,7 +24,7 @@ class ClassificationSecondViewBinder : ItemViewBinder<Classification, Classifica
     }
 
     override fun onBindViewHolder(holder: ViewHolder, classification: Classification) {
-        loadIcon(classification.icon, holder.itemView.ivIcon)
+        ImageUtils.loadIcon(classification.icon, holder.itemView.ivIcon)
         holder.itemView.tvName.text = classification.name
         holder.itemView.tvThirdList.text = classification.getChildrenList()
         holder.classification = classification

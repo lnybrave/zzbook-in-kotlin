@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.lnybrave.zzbook.R
 import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.ui.activity.BookActivity
-import com.lnybrave.zzbook.utils.loadBookCover
+import com.lnybrave.zzbook.utils.ImageUtils
 import kotlinx.android.synthetic.main.item_book_complex.view.*
 import me.drakeet.multitype.ItemViewBinder
 
@@ -28,7 +28,7 @@ class BookComplexViewBinder : ItemViewBinder<Book, BookComplexViewBinder.ViewHol
         holder.itemView.tvDesc.text = book.desc
         holder.itemView.tvChapterCount.text = "${book.chapterSize}章"
         holder.itemView.tvCatalog.text = book.wordSize
-        loadBookCover(book.coverUrl, holder.itemView.ivCover)
+        ImageUtils.loadBookCover(book.coverUrl, holder.itemView.ivCover)
         holder.book = book
     }
 

@@ -11,13 +11,14 @@ import com.lnybrave.zzbook.di.module.ClassificationModule
 import com.lnybrave.zzbook.mvp.IPresenter
 import com.lnybrave.zzbook.mvp.contract.ClassificationContract
 import com.lnybrave.zzbook.mvp.presenter.ClassificationPresenter
-import com.lnybrave.zzbook.toast
 import com.lnybrave.zzbook.ui.BaseBindingFragment
 import com.lnybrave.zzbook.ui.activity.ClassificationActivity
 import com.lnybrave.zzbook.ui.activity.MainActivity
 import com.lnybrave.zzbook.ui.activity.SearchActivity
 import com.lnybrave.zzbook.ui.multitype.ClassificationFirstViewBinder
 import com.lnybrave.zzbook.ui.multitype.ClassificationSecondViewBinder
+import com.malinskiy.materialicons.IconDrawable
+import com.malinskiy.materialicons.Iconify
 import kotlinx.android.synthetic.main.view_recycler.*
 import me.drakeet.multitype.MultiTypeAdapter
 import java.util.*
@@ -41,6 +42,8 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
+            setProgressActivity(progress)
+
             refreshLayout.isEnableLoadmore = false
             refreshLayout.setOnRefreshListener({ layout -> mPresenter.getData() })
 
@@ -64,14 +67,18 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
         if (activity is MainActivity) {
             val a: MainActivity = activity as MainActivity
             a.mainComponent.plus(ClassificationModule(this)).inject(this)
-            mPresenter.getData()
+            initData()
         } else if (activity is ClassificationActivity) {
             val a: ClassificationActivity = activity as ClassificationActivity
             a.mainComponent.plus(ClassificationModule(this)).inject(this)
-            mPresenter.getData()
+            initData()
         } else {
             throw IllegalArgumentException("is not MainActivity or ClassificationActivity")
         }
+    }
+
+    private fun initData() {
+        mPresenter.getData()
     }
 
     override fun setData(results: List<Classification>) {
@@ -90,11 +97,33 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
     }
 
     override fun onEmpty(presenter: IPresenter) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val emptyDrawable = IconDrawable(this.activity, Iconify.IconValue.zmdi_shopping_basket)
+                .colorRes(android.R.color.white)
+
+        showEmpty(emptyDrawable,
+                "Empty Shopping Cart",
+                "Please add things in the cart to continue.")
     }
 
     override fun onError(presenter: IPresenter, message: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val errorDrawable = IconDrawable(this.activity, Iconify.IconValue.zmdi_wifi_off)
+                .colorRes(android.R.color.white)
+
+        showError(errorDrawable,
+                "No Connection",
+                "We could not establish a connection with our servers. Please try again when you are connected to the internet.",
+                "重试",
+                View.OnClickListener {
+                    initData()
+                })
+    }
+
+    override fun onBegin(presenter: IPresenter) {
+        showLoading()
+    }
+
+    override fun onEnd(presenter: IPresenter) {
+        showContent()
     }
 
     override fun onDestroyView() {

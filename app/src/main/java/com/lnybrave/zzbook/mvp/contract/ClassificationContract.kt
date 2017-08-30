@@ -13,7 +13,7 @@ import io.reactivex.Observable
  */
 interface ClassificationContract {
 
-    interface View : EmptyView, ErrorView {
+    interface View : EmptyView, ErrorView, ProgressView {
 
         fun setData(results: List<Classification>)
     }

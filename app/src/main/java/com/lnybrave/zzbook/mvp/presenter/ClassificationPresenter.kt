@@ -18,6 +18,8 @@ class ClassificationPresenter
         mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe { mView.onBegin(this@ClassificationPresenter) }
+                .doOnComplete { mView.onEnd(this@ClassificationPresenter) }
                 .subscribe({
                     res ->
                     if (res.isNotEmpty()) {

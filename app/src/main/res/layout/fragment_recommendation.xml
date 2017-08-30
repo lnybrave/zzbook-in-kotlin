@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.vlonjatg.progressactivity.ProgressLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/progressFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        app:emptyBackgroundColor="#fbc02d"
+        app:emptyContentTextColor="#FFFFFF"
+        app:emptyTitleTextColor="#FFFFFF"
+        app:errorBackgroundColor="#42a5f5"
+        app:errorButtonBackgroundColor="#9C27B0"
+        app:errorButtonTextColor="#FFFFFF"
+        app:errorContentTextColor="#FFFFFF"
+        app:errorTitleTextColor="#FFFFFF"
+        app:loadingBackgroundColor="#FFFFFF"
+        app:loadingProgressBarColor="#9C27B0"
         tools:context="com.lnybrave.zzbook.ui.fragment.RecommendationFragment">
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -54,5 +65,5 @@
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </android.support.design.widget.CoordinatorLayout>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    </LinearLayout>
+    </com.vlonjatg.progressactivity.ProgressLinearLayout>
 </layout>

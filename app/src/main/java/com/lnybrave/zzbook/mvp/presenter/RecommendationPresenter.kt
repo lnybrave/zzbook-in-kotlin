@@ -4,6 +4,7 @@ import android.util.Log
 import com.lnybrave.zzbook.mvp.contract.RecommendationContract
 import com.lnybrave.zzbook.mvp.model.RecommendationModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -16,6 +17,9 @@ class RecommendationPresenter
     override fun getData() {
         val subscribe = mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe { mView.onBegin(this@RecommendationPresenter) }
+                .doOnComplete { mView.onEnd(this@RecommendationPresenter) }
                 .subscribe({
                     res ->
                     mView.setBannerList(res.banners)

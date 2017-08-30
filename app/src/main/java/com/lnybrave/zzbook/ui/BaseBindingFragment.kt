@@ -2,13 +2,12 @@ package com.lnybrave.zzbook.ui
 
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 
-abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
+abstract class BaseBindingFragment<B : ViewDataBinding> : ProgressFragment() {
 
     lateinit var mBinding: B
 

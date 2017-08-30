@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.vlonjatg.progressactivity.ProgressLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:emptyBackgroundColor="#fbc02d"
+        app:emptyContentTextColor="#FFFFFF"
+        app:emptyTitleTextColor="#FFFFFF"
+        app:errorBackgroundColor="#42a5f5"
+        app:errorButtonBackgroundColor="#9C27B0"
+        app:errorButtonTextColor="#FFFFFF"
+        app:errorContentTextColor="#FFFFFF"
+        app:errorTitleTextColor="#FFFFFF"
+        app:loadingBackgroundColor="#FFFFFF"
+        app:loadingProgressBarColor="#9C27B0">
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"

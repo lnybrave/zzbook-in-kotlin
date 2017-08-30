@@ -46,7 +46,7 @@ class RankingActivity : ProgressActivity(), RankingContract.View {
         skipIds = ArrayList()
         skipIds.add(R.id.rl_toolbar)
 
-        setProgressActivity(progress_activity)
+        setProgressActivity(progress)
 
         mainComponent = DaggerMainComponent.builder()
                 .appComponent(getAppComponent())

@@ -16,6 +16,8 @@ import com.lnybrave.zzbook.ui.BaseBindingFragment
 import com.lnybrave.zzbook.ui.activity.RankingActivity
 import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
 import com.lnybrave.zzbook.ui.multitype.RankingTitleViewBinder
+import com.malinskiy.materialicons.IconDrawable
+import com.malinskiy.materialicons.Iconify
 import kotlinx.android.synthetic.main.view_recycler.*
 import me.drakeet.multitype.MultiTypeAdapter
 import java.util.*
@@ -61,10 +63,14 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
         if (activity is RankingActivity) {
             val a: RankingActivity = activity as RankingActivity
             a.mainComponent.plus(RankingDetailModule(this)).inject(this)
-            mPresenter.getData(rankingId)
+            initData()
         } else {
             throw IllegalArgumentException("is not RankingActivity")
         }
+    }
+
+    private fun initData() {
+        mPresenter.getData(rankingId)
     }
 
     override fun setData(data: List<Ranking>) {
@@ -76,12 +82,26 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
         refreshLayout.finishRefresh()
     }
 
-    override fun onEmpty(presenter: IPresenter) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onError(presenter: IPresenter, message: String?) {
+        val errorDrawable = IconDrawable(this.activity, Iconify.IconValue.zmdi_wifi_off)
+                .colorRes(android.R.color.white)
+
+        showError(errorDrawable,
+                "No Connection",
+                "We could not establish a connection with our servers. Please try again when you are connected to the internet.",
+                "重试",
+                View.OnClickListener {
+                    initData()
+                })
     }
 
-    override fun onError(presenter: IPresenter, message: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onEmpty(presenter: IPresenter) {
+        val emptyDrawable = IconDrawable(this.activity, Iconify.IconValue.zmdi_shopping_basket)
+                .colorRes(android.R.color.white)
+
+        showEmpty(emptyDrawable,
+                "Empty Shopping Cart",
+                "Please add things in the cart to continue.")
     }
 
     private fun addRanking(list: ArrayList<Any>, results: List<Ranking>) {

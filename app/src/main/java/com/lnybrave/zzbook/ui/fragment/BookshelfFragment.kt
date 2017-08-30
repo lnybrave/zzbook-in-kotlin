@@ -8,21 +8,24 @@ import com.lnybrave.zzbook.R
 import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.databinding.ViewRecyclerBinding
 import com.lnybrave.zzbook.di.module.BookshelfModule
+import com.lnybrave.zzbook.mvp.IPresenter
 import com.lnybrave.zzbook.mvp.contract.BookshelfContract
 import com.lnybrave.zzbook.mvp.presenter.BookshelfPresenter
 import com.lnybrave.zzbook.toast
 import com.lnybrave.zzbook.ui.BaseBindingFragment
 import com.lnybrave.zzbook.ui.activity.MainActivity
 import com.lnybrave.zzbook.ui.activity.SearchActivity
-import com.lnybrave.zzbook.ui.adapter.BookshelfAdapter
+import com.lnybrave.zzbook.ui.multitype.BookshelfViewBinder
+import kotlinx.android.synthetic.main.view_recycler.*
+import me.drakeet.multitype.MultiTypeAdapter
 import java.util.*
 import javax.inject.Inject
 
 
 class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfContract.View {
 
-    private var mList = ArrayList<Book>()
-    private lateinit var mAdapter: BookshelfAdapter
+    private var mList = ArrayList<Any>()
+    private lateinit var mAdapter: MultiTypeAdapter
     @Inject lateinit var mPresenter: BookshelfPresenter
 
     override fun createDataBinding(inflater: LayoutInflater?, container: ViewGroup?,
@@ -33,7 +36,7 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
     override fun initView() {
         initTitle()
 
-        mAdapter = BookshelfAdapter(mList)
+        mAdapter = MultiTypeAdapter()
 
         with(mBinding) {
             refreshLayout.setOnRefreshListener({ mPresenter.getData() })
@@ -41,6 +44,7 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
 
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
+            mAdapter.register(Book::class.java, BookshelfViewBinder())
         }
     }
 
@@ -57,6 +61,18 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
         } else {
             throw IllegalArgumentException("is not MainActivity")
         }
+    }
+
+    override fun onError(presenter: IPresenter, message: String?) {
+        refreshLayout.finishRefresh()
+    }
+
+    override fun onBegin(presenter: IPresenter) {
+
+    }
+
+    override fun onEnd(presenter: IPresenter) {
+        refreshLayout.finishRefresh()
     }
 
     override fun setData(results: List<Book>) {

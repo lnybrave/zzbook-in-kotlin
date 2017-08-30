@@ -4,6 +4,7 @@ import android.util.Log
 import com.lnybrave.zzbook.mvp.contract.BookshelfContract
 import com.lnybrave.zzbook.mvp.model.BookshelfModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -16,9 +17,15 @@ class BookshelfPresenter
     override fun getData() {
         mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe { mView.onBegin(this@BookshelfPresenter) }
+                .doOnComplete { mView.onEnd(this@BookshelfPresenter) }
                 .subscribe({
                     res ->
                     mView.setData(res)
-                }, { e -> Log.e("lny", e.message) })
+                }, { e ->
+                    Log.e("lny", e.message)
+                    mView.onError(this@BookshelfPresenter, e.message)
+                })
     }
 }

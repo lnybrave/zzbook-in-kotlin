@@ -19,6 +19,9 @@ class BookDetailPresenter
                 .subscribe({
                     res ->
                     mView.setData(res)
-                }, { e -> Log.e("lny", e.message) })
+                }, { e ->
+                    Log.e("lny", e.message)
+                    mView.onError(this@BookDetailPresenter, e.message)
+                })
     }
 }

@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.vlonjatg.progressactivity.ProgressLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/progress_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    progressActivity:emptyBackgroundColor="#fbc02d"
+    progressActivity:emptyContentTextColor="#FFFFFF"
+    progressActivity:emptyTitleTextColor="#FFFFFF"
+    progressActivity:errorBackgroundColor="#42a5f5"
+    progressActivity:errorButtonBackgroundColor="#9C27B0"
+    progressActivity:errorButtonTextColor="#FFFFFF"
+    progressActivity:errorContentTextColor="#FFFFFF"
+    progressActivity:errorTitleTextColor="#FFFFFF"
+    progressActivity:loadingBackgroundColor="#FFFFFF"
+    progressActivity:loadingProgressBarColor="#9C27B0"
     tools:context="com.lnybrave.zzbook.ui.activity.RankingActivity">
 
     <include
@@ -21,4 +33,4 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-</LinearLayout>
+</com.vlonjatg.progressactivity.ProgressLinearLayout>

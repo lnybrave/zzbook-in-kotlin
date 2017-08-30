@@ -18,8 +18,13 @@ class RecommendationPresenter
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
-                    mView.setData(res)
-                }, { e -> Log.e("lny", e.message) })
+                    mView.setBannerList(res.banners)
+                    mView.setMenuList(res.menus)
+                    mView.setData(res.page)
+                }, { e ->
+                    Log.e("lny", e.message)
+                    mView.onError(this@RecommendationPresenter, e.message)
+                })
         addDisposable(subscribe)
     }
 
@@ -29,7 +34,10 @@ class RecommendationPresenter
                 .subscribe({
                     res ->
                     mView.setData(res)
-                }, { e -> Log.e("lny", e.message) })
+                }, { e ->
+                    Log.e("lny", e.message)
+                    mView.onError(this@RecommendationPresenter, e.message)
+                })
         addDisposable(subscribe)
     }
 }

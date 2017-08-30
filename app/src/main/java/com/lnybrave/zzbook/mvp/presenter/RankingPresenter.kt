@@ -4,6 +4,7 @@ import android.util.Log
 import com.lnybrave.zzbook.mvp.contract.RankingContract
 import com.lnybrave.zzbook.mvp.model.RankingModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -14,11 +15,22 @@ class RankingPresenter
                     private val mView: RankingContract.View)
     : RankingContract.Presenter, BasePresenter() {
     override fun getData() {
-        mModel.getData()
+        val subscribe = mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe { mView.onBegin(this@RankingPresenter) }
+                .doOnComplete { mView.onEnd(this@RankingPresenter) }
                 .subscribe({
                     res ->
-                    mView.setData(res)
-                }, { e -> Log.e("lny", e.message) })
+                    if (res.isNotEmpty()) {
+                        mView.setData(res)
+                    } else {
+                        mView.onEmpty(this@RankingPresenter)
+                    }
+                }, { e ->
+                    Log.e("lny", e.message)
+                    mView.onError(this@RankingPresenter, e.message)
+                })
+        addDisposable(subscribe)
     }
 }

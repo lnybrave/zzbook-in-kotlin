@@ -18,7 +18,14 @@ class RankingDetailPresenter
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
-                    mView.setData(res)
-                }, { e -> Log.e("lny", e.message) })
+                    if (res.isNotEmpty()) {
+                        mView.setData(res)
+                    } else {
+                        mView.onEmpty(this@RankingDetailPresenter)
+                    }
+                }, { e ->
+                    Log.e("lny", e.message)
+                    mView.onError(this@RankingDetailPresenter, e.message)
+                })
     }
 }

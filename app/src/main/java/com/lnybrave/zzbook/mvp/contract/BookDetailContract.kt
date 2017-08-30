@@ -1,6 +1,8 @@
 package com.lnybrave.zzbook.mvp.contract
 
 import com.lnybrave.zzbook.bean.Book
+import com.lnybrave.zzbook.mvp.ErrorView
+import com.lnybrave.zzbook.mvp.IPresenter
 import io.reactivex.Observable
 
 /**
@@ -8,7 +10,7 @@ import io.reactivex.Observable
  */
 interface BookDetailContract {
 
-    interface View {
+    interface View : ErrorView {
 
         fun setData(results: Book)
     }
@@ -18,7 +20,7 @@ interface BookDetailContract {
         fun getData(id: Int): Observable<Book>
     }
 
-    interface Presenter {
+    interface Presenter : IPresenter {
 
         fun getData(id: Int)
     }

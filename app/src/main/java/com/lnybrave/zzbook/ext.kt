@@ -7,11 +7,14 @@ import android.widget.Toast
 
 fun Context.getAppComponent() = App.instance.appComponent
 
-fun Context.toast(msg: String, length: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, msg, length).show()
+fun Context.toast(msg: String?, length: Int = Toast.LENGTH_SHORT) {
+    if (msg != null) {
+        Toast.makeText(this, msg, length).show()
+    }
 }
 
-fun Fragment.toast(msg: String, length: Int = Toast.LENGTH_SHORT) {
-    if (activity != null)
+fun Fragment.toast(msg: String?, length: Int = Toast.LENGTH_SHORT) {
+    if (activity != null && msg != null) {
         Toast.makeText(activity, msg, length).show()
+    }
 }

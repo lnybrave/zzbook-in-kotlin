@@ -9,6 +9,7 @@ import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.bean.Ranking
 import com.lnybrave.zzbook.databinding.ViewRecyclerBinding
 import com.lnybrave.zzbook.di.module.RankingDetailModule
+import com.lnybrave.zzbook.mvp.IPresenter
 import com.lnybrave.zzbook.mvp.contract.RankingDetailContract
 import com.lnybrave.zzbook.mvp.presenter.RankingDetailPresenter
 import com.lnybrave.zzbook.ui.BaseBindingFragment
@@ -73,6 +74,14 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
         }
         mAdapter.notifyDataSetChanged()
         refreshLayout.finishRefresh()
+    }
+
+    override fun onEmpty(presenter: IPresenter) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onError(presenter: IPresenter, message: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun addRanking(list: ArrayList<Any>, results: List<Ranking>) {

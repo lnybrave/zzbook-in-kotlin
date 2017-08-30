@@ -1,8 +1,9 @@
 package com.lnybrave.zzbook.mvp.contract
 
-import com.lnybrave.zzbook.bean.APIPage
-import com.lnybrave.zzbook.bean.MixedBean
-import com.lnybrave.zzbook.bean.RecommendationZip
+import com.lnybrave.zzbook.bean.*
+import com.lnybrave.zzbook.mvp.EmptyView
+import com.lnybrave.zzbook.mvp.ErrorView
+import com.lnybrave.zzbook.mvp.IPresenter
 import io.reactivex.Observable
 
 /**
@@ -10,9 +11,11 @@ import io.reactivex.Observable
  */
 interface RecommendationContract {
 
-    interface View {
+    interface View : EmptyView, ErrorView {
 
-        fun setData(data: RecommendationZip)
+        fun setBannerList(data: List<Banner>)
+
+        fun setMenuList(data: List<StackMenu>)
 
         fun setData(page: APIPage<MixedBean>)
     }
@@ -24,7 +27,7 @@ interface RecommendationContract {
         fun getData(offset: Int, limit: Int): Observable<APIPage<MixedBean>>
     }
 
-    interface Presenter {
+    interface Presenter : IPresenter {
 
         fun getData()
 

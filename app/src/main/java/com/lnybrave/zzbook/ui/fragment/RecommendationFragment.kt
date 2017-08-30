@@ -10,6 +10,7 @@ import com.lnybrave.zzbook.R
 import com.lnybrave.zzbook.bean.*
 import com.lnybrave.zzbook.databinding.FragmentRecommendationBinding
 import com.lnybrave.zzbook.di.module.RecommendationModule
+import com.lnybrave.zzbook.mvp.IPresenter
 import com.lnybrave.zzbook.mvp.contract.RecommendationContract
 import com.lnybrave.zzbook.mvp.presenter.RecommendationPresenter
 import com.lnybrave.zzbook.ui.BaseBindingFragment
@@ -89,14 +90,14 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
         }
     }
 
-    override fun setData(data: RecommendationZip) {
+    override fun setBannerList(data: List<Banner>) {
         val titles = ArrayList<String>()
-        data.banners.mapTo(titles) { it.name }
-        banner.update(data.banners, titles)
+        data.mapTo(titles) { it.name }
+        banner.update(data, titles)
+    }
 
-        addSubjectViews(data.menus)
-
-        setData(data.page)
+    override fun setMenuList(data: List<StackMenu>) {
+        addSubjectViews(data)
     }
 
     override fun setData(page: APIPage<MixedBean>) {
@@ -156,6 +157,14 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
                 }
             }
         }
+    }
+
+    override fun onEmpty(presenter: IPresenter) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onError(presenter: IPresenter, message: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onDestroyView() {

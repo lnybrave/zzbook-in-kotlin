@@ -8,8 +8,10 @@ import com.lnybrave.zzbook.R
 import com.lnybrave.zzbook.bean.Classification
 import com.lnybrave.zzbook.databinding.ViewRecyclerBinding
 import com.lnybrave.zzbook.di.module.ClassificationModule
+import com.lnybrave.zzbook.mvp.IPresenter
 import com.lnybrave.zzbook.mvp.contract.ClassificationContract
 import com.lnybrave.zzbook.mvp.presenter.ClassificationPresenter
+import com.lnybrave.zzbook.toast
 import com.lnybrave.zzbook.ui.BaseBindingFragment
 import com.lnybrave.zzbook.ui.activity.ClassificationActivity
 import com.lnybrave.zzbook.ui.activity.MainActivity
@@ -85,6 +87,14 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
             mList.addAll(item.children)
         }
         mAdapter.notifyDataSetChanged()
+    }
+
+    override fun onEmpty(presenter: IPresenter) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onError(presenter: IPresenter, message: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onDestroyView() {

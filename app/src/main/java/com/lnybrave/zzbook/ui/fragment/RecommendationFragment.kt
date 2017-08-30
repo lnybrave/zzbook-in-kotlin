@@ -48,7 +48,7 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
-            setProgressActivity(progressFragment)
+            setProgressActivity(progress)
 
             refreshLayout.setOnRefreshListener({ mPresenter.getData() })
             refreshLayout.setOnLoadmoreListener({ mPresenter.getData() })

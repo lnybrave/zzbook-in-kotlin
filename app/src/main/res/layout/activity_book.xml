@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.lnybrave.zzbook.ui.activity.BookActivity">
 
-    <LinearLayout
+    <com.vlonjatg.progressactivity.ProgressLinearLayout
+        android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -16,6 +17,7 @@
             android:layout_height="wrap_content" />
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
@@ -60,5 +62,5 @@
                 android:paddingBottom="6dp"
                 android:text="@string/text_book_discount" />
         </LinearLayout>
-    </LinearLayout>
+    </com.vlonjatg.progressactivity.ProgressLinearLayout>
 </android.support.constraint.ConstraintLayout>

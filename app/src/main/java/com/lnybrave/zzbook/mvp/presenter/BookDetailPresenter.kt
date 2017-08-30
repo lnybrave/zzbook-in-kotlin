@@ -4,6 +4,7 @@ import android.util.Log
 import com.lnybrave.zzbook.mvp.contract.BookDetailContract
 import com.lnybrave.zzbook.mvp.model.BookDetailModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -16,6 +17,9 @@ class BookDetailPresenter
     override fun getData(id: Int) {
         mModel.getData(id)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe { mView.onBegin(this@BookDetailPresenter) }
+                .doOnComplete { mView.onEnd(this@BookDetailPresenter) }
                 .subscribe({
                     res ->
                     mView.setData(res)

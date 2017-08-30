@@ -52,10 +52,10 @@ class RankingActivity : ProgressActivity(), RankingContract.View {
                 .appComponent(getAppComponent())
                 .activityModule(ActivityModule(this))
                 .build()
+        mainComponent.plus(RankingModule(this)).inject(this)
     }
 
     fun initData() {
-        mainComponent.plus(RankingModule(this)).inject(this)
         mPresenter.getData()
     }
 

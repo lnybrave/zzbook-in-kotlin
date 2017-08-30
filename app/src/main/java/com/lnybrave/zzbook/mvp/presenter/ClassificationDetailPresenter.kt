@@ -4,6 +4,7 @@ import android.util.Log
 import com.lnybrave.zzbook.mvp.contract.ClassificationDetailContract
 import com.lnybrave.zzbook.mvp.model.ClassificationDetailModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -17,9 +18,16 @@ class ClassificationDetailPresenter
     override fun getData(firstId: Int, secondId: Int, offset: Int, limit: Int) {
         mModel.getData(firstId, secondId, offset, limit)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe { mView.onBegin(this@ClassificationDetailPresenter) }
                 .subscribe({
                     res ->
-                    mView.setData(res)
+                    if (!res.hasPrev() && res.results.isEmpty()) {
+                        mView.onEmpty(this@ClassificationDetailPresenter)
+                    } else {
+                        mView.setData(res)
+                        mView.onEnd(this@ClassificationDetailPresenter)
+                    }
                 }, { e -> Log.e("lny", e.message) })
     }
 

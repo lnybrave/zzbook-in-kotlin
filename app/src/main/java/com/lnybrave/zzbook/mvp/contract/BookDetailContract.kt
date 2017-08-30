@@ -3,6 +3,7 @@ package com.lnybrave.zzbook.mvp.contract
 import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.mvp.ErrorView
 import com.lnybrave.zzbook.mvp.IPresenter
+import com.lnybrave.zzbook.mvp.ProgressView
 import io.reactivex.Observable
 
 /**
@@ -10,9 +11,9 @@ import io.reactivex.Observable
  */
 interface BookDetailContract {
 
-    interface View : ErrorView {
+    interface View : ErrorView, ProgressView {
 
-        fun setData(results: Book)
+        fun setData(data: Book)
     }
 
     interface Model {

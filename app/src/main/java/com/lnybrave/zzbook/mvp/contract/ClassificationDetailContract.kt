@@ -2,6 +2,10 @@ package com.lnybrave.zzbook.mvp.contract
 
 import com.lnybrave.zzbook.bean.APIPage
 import com.lnybrave.zzbook.bean.Book
+import com.lnybrave.zzbook.mvp.EmptyView
+import com.lnybrave.zzbook.mvp.ErrorView
+import com.lnybrave.zzbook.mvp.IPresenter
+import com.lnybrave.zzbook.mvp.ProgressView
 import io.reactivex.Observable
 
 /**
@@ -9,7 +13,7 @@ import io.reactivex.Observable
  */
 interface ClassificationDetailContract {
 
-    interface View {
+    interface View : EmptyView, ErrorView, ProgressView {
 
         fun setData(page: APIPage<Book>)
     }
@@ -19,7 +23,7 @@ interface ClassificationDetailContract {
         fun getData(firstId: Int, secondId: Int, offset: Int = 0, limit: Int = 10): Observable<APIPage<Book>>
     }
 
-    interface Presenter {
+    interface Presenter : IPresenter {
 
         fun getData(firstId: Int, secondId: Int, offset: Int = 0, limit: Int = 10)
     }

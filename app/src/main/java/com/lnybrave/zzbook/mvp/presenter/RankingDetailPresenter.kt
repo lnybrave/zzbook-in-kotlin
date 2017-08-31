@@ -14,7 +14,7 @@ class RankingDetailPresenter
                     private val mView: RankingDetailContract.View)
     : RankingDetailContract.Presenter, BasePresenter() {
     override fun getData(id: Int) {
-        mModel.getData(id)
+        val subscribe = mModel.getData(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
@@ -27,5 +27,6 @@ class RankingDetailPresenter
                     Log.e("lny", e.message)
                     mView.onError(this@RankingDetailPresenter, e.message)
                 })
+        addDisposable(subscribe)
     }
 }

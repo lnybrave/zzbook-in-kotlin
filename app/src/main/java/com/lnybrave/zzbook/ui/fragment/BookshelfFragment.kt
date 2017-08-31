@@ -36,7 +36,7 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
     override fun initView() {
         initTitle()
 
-        mAdapter = MultiTypeAdapter()
+        mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
             refreshLayout.setOnRefreshListener({ mPresenter.getData() })

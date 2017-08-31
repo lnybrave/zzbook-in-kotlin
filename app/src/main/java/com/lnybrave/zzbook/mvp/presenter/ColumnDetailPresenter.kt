@@ -14,11 +14,12 @@ class ColumnDetailPresenter
                     private val mView: ColumnDetailContract.View)
     : ColumnDetailContract.Presenter, BasePresenter() {
     override fun getData(id: Int, offset: Int, limit: Int) {
-        mDetailModel.getData(id, offset, limit)
+        val subscribe = mDetailModel.getData(id, offset, limit)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
                     mView.setData(res)
                 }, { e -> Log.e("lny", e.message) })
+        addDisposable(subscribe)
     }
 }

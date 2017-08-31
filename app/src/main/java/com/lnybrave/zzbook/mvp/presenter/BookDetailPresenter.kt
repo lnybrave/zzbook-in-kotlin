@@ -13,9 +13,9 @@ import javax.inject.Inject
 class BookDetailPresenter
 @Inject constructor(private val mModel: BookDetailModel,
                     private val mView: BookDetailContract.View)
-    : BookDetailContract.Presenter {
+    : BookDetailContract.Presenter, BasePresenter() {
     override fun getData(id: Int) {
-        mModel.getData(id)
+        val subscribe = mModel.getData(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe { mView.onLoadStart(this@BookDetailPresenter) }
@@ -27,5 +27,6 @@ class BookDetailPresenter
                     Log.e("lny", e.message)
                     mView.onError(this@BookDetailPresenter, e.message)
                 })
+        addDisposable(subscribe)
     }
 }

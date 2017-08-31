@@ -14,11 +14,12 @@ class SearchHotPresenter
                     private val mView: SearchHotContract.View)
     : SearchHotContract.Presenter, BasePresenter() {
     override fun getData() {
-        mModel.getData()
+        val subscribe = mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
                     mView.setData(res)
                 }, { e -> Log.e("lny", e.message) })
+        addDisposable(subscribe)
     }
 }

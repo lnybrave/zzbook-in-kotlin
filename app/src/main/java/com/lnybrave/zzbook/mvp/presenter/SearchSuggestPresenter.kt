@@ -14,11 +14,12 @@ class SearchSuggestPresenter
                     private val mView: SearchSuggestContract.View)
     : SearchSuggestContract.Presenter, BasePresenter() {
     override fun getData(content: String) {
-        mModel.getData(content)
+        val subscribe = mModel.getData(content)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     res ->
                     mView.setData(res)
                 }, { e -> Log.e("lny", e.message) })
+        addDisposable(subscribe)
     }
 }

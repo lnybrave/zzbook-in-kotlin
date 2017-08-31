@@ -15,7 +15,7 @@ class BookshelfPresenter
                     private val mView: BookshelfContract.View)
     : BookshelfContract.Presenter, BasePresenter() {
     override fun getData() {
-        mModel.getData()
+        val subscribe = mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe { mView.onLoadStart(this@BookshelfPresenter) }
@@ -27,5 +27,6 @@ class BookshelfPresenter
                     Log.e("lny", e.message)
                     mView.onError(this@BookshelfPresenter, e.message)
                 })
+        addDisposable(subscribe)
     }
 }

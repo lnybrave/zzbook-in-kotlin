@@ -15,7 +15,7 @@ class ClassificationPresenter
                     private val mView: ClassificationContract.View)
     : ClassificationContract.Presenter, BasePresenter() {
     override fun getData() {
-        mModel.getData()
+        val subscribe = mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe { mView.onLoadStart(this@ClassificationPresenter) }
@@ -31,5 +31,6 @@ class ClassificationPresenter
                     Log.e("lny", e.message)
                     mView.onError(this@ClassificationPresenter, e.message)
                 })
+        addDisposable(subscribe)
     }
 }

@@ -5,7 +5,7 @@ package com.lnybrave.zzbook
  */
 val DOMAIN = "http://106.15.206.82/"
 
-fun getDomain(): String = DOMAIN
+fun getDomain(): String = if (BuildConfig.DEBUG) "http://192.168.1.163:8000/" else DOMAIN
 
 internal object Constants {
     val TOPIC_SIMPLE = 1

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.lnybrave.zzbook.R
 import com.lnybrave.zzbook.bean.Book
-import com.lnybrave.zzbook.ui.activity.BookActivity
+import com.lnybrave.zzbook.ui.activity.BookDetailActivity
 import com.lnybrave.zzbook.utils.ImageUtils
 import kotlinx.android.synthetic.main.item_book_complex.view.*
 import me.drakeet.multitype.ItemViewBinder
@@ -37,7 +37,7 @@ class BookComplexViewBinder : ItemViewBinder<Book, BookComplexViewBinder.ViewHol
 
         init {
             itemView.setOnClickListener { v ->
-                val intent = Intent(v.context, BookActivity::class.java)
+                val intent = Intent(v.context, BookDetailActivity::class.java)
                 intent.putExtra("book", book)
                 v.context.startActivity(intent)
             }

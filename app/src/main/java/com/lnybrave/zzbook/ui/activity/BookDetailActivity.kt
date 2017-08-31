@@ -17,13 +17,13 @@ import com.lnybrave.zzbook.ui.ProgressActivity
 import com.lnybrave.zzbook.ui.multitype.BookDetailViewBinder
 import com.malinskiy.materialicons.IconDrawable
 import com.malinskiy.materialicons.Iconify
-import kotlinx.android.synthetic.main.activity_book.*
+import kotlinx.android.synthetic.main.activity_book_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
 import me.drakeet.multitype.MultiTypeAdapter
 import java.util.*
 import javax.inject.Inject
 
-class BookActivity : ProgressActivity(), BookDetailContract.View {
+class BookDetailActivity : ProgressActivity(), BookDetailContract.View {
 
     private lateinit var book: Book
     private lateinit var skipIds: ArrayList<Int>
@@ -34,7 +34,7 @@ class BookActivity : ProgressActivity(), BookDetailContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_book)
+        setContentView(R.layout.activity_book_detail)
         book = intent.getSerializableExtra("book") as Book
         initView()
         initData()

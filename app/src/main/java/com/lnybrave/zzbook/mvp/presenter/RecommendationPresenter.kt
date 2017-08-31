@@ -14,8 +14,8 @@ class RecommendationPresenter
 @Inject constructor(private val mModel: RecommendationModel,
                     private val mView: RecommendationContract.View)
     : RecommendationContract.Presenter, BasePresenter() {
-    override fun getData() {
-        val subscribe = mModel.getData()
+    override fun initData(limit: Int) {
+        val subscribe = mModel.getData(limit)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe { mView.onLoadStart(this@RecommendationPresenter) }
@@ -39,9 +39,15 @@ class RecommendationPresenter
     override fun getData(offset: Int, limit: Int) {
         val subscribe = mModel.getData(offset, limit)
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { mView.onLoadStart(this@RecommendationPresenter) }
                 .subscribe({
                     res ->
-                    mView.setData(res)
+                    if (res.results.isEmpty()) {
+                        mView.onEmpty(this@RecommendationPresenter)
+                    } else {
+                        mView.setData(res)
+                        mView.onLoadStop(this@RecommendationPresenter)
+                    }
                 }, { e ->
                     Log.e("lny", e.message)
                     mView.onError(this@RecommendationPresenter, e.message)

@@ -34,6 +34,7 @@ class ColumnDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnD
     private var mList = ArrayList<Any>()
     private lateinit var mAdapter: MultiTypeAdapter
     @Inject lateinit var mPresenter: ColumnDetailPresenter
+    private var offset: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +54,7 @@ class ColumnDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnD
             setupProgressWidget(progress)
 
             refreshLayout.setOnRefreshListener({ mPresenter.getData(columnId!!) })
-            refreshLayout.setOnLoadmoreListener({ mPresenter.getData(columnId!!) })
+            refreshLayout.setOnLoadmoreListener({ initData() })
 
             recyclerView.adapter = mAdapter
             val layoutManager = GridLayoutManager(context, 3)
@@ -87,7 +88,7 @@ class ColumnDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnD
     }
 
     private fun initData() {
-        mPresenter.getData(columnId!!)
+        mPresenter.getData(columnId!!, offset)
     }
 
     override fun onEmpty(presenter: IPresenter) {
@@ -115,7 +116,10 @@ class ColumnDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnD
     override fun setData(page: APIPage<MixedBean>) {
         if (!page.hasPrev()) {
             mList.clear()
+            offset = 0
         }
+
+        refreshLayout.isEnableLoadmore = page.hasNext()
 
         for ((book, topic) in page.results) {
             if (book != null) {
@@ -134,10 +138,9 @@ class ColumnDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnD
             }
         }
 
-        mAdapter.notifyDataSetChanged()
+        offset += page.results.size
 
-        refreshLayout.finishRefresh()
-        refreshLayout.finishLoadmore()
+        mAdapter.notifyDataSetChanged()
     }
 
     override fun onLoadStart(presenter: IPresenter) {

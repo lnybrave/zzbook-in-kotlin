@@ -20,7 +20,7 @@ interface ColumnDetailContract {
 
     interface Model {
 
-        fun getData(id: Int, offset: Int = 0, limit: Int = 10): Observable<APIPage<MixedBean>>
+        fun getData(id: Int, offset: Int, limit: Int): Observable<APIPage<MixedBean>>
     }
 
     interface Presenter : IPresenter {

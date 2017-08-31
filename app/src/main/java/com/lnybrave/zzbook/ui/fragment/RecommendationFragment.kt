@@ -37,6 +37,8 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
     private lateinit var mAdapter: MultiTypeAdapter
     @Inject lateinit var mPresenter: RecommendationPresenter
 
+    private var offset: Int = 0
+
 
     override fun createDataBinding(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): FragmentRecommendationBinding {
         return FragmentRecommendationBinding.inflate(inflater, container, false)
@@ -50,8 +52,8 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
         with(mBinding) {
             setupProgressWidget(progress)
 
-            refreshLayout.setOnRefreshListener({ mPresenter.getData() })
-            refreshLayout.setOnLoadmoreListener({ mPresenter.getData() })
+            refreshLayout.setOnRefreshListener({ initData() })
+            refreshLayout.setOnLoadmoreListener({ loadData() })
 
             banner.setImageLoader(BannerImageLoader())
             banner.isAutoPlay(true)
@@ -95,7 +97,33 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
     }
 
     private fun initData() {
-        mPresenter.getData()
+        mPresenter.initData()
+    }
+
+    private fun loadData() {
+        mPresenter.getData(offset)
+    }
+
+    override fun onEmpty(presenter: IPresenter) {
+        val emptyDrawable = IconDrawable(this.activity, Iconify.IconValue.zmdi_shopping_basket)
+                .colorRes(android.R.color.white)
+
+        showEmpty(emptyDrawable,
+                "Empty Shopping Cart",
+                "Please add things in the cart to continue.")
+    }
+
+    override fun onError(presenter: IPresenter, message: String?) {
+        val errorDrawable = IconDrawable(this.activity, Iconify.IconValue.zmdi_wifi_off)
+                .colorRes(android.R.color.white)
+
+        showError(errorDrawable,
+                "No Connection",
+                "We could not establish a connection with our servers. Please try again when you are connected to the internet.",
+                "重试",
+                View.OnClickListener {
+                    initData()
+                })
     }
 
     override fun setBannerList(data: List<Banner>) {
@@ -111,11 +139,14 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
     override fun setData(page: APIPage<MixedBean>) {
         if (!page.hasPrev()) {
             mList.clear()
+            offset = 0
         }
+        refreshLayout.isEnableLoadmore = page.hasNext()
+
         addPage(page.results)
+        offset += page.results.size
+
         mAdapter.notifyDataSetChanged()
-        refreshLayout.finishRefresh()
-        refreshLayout.finishLoadmore()
     }
 
     private fun addPage(list: List<MixedBean>) {
@@ -165,28 +196,6 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
                 }
             }
         }
-    }
-
-    override fun onEmpty(presenter: IPresenter) {
-        val emptyDrawable = IconDrawable(this.activity, Iconify.IconValue.zmdi_shopping_basket)
-                .colorRes(android.R.color.white)
-
-        showEmpty(emptyDrawable,
-                "Empty Shopping Cart",
-                "Please add things in the cart to continue.")
-    }
-
-    override fun onError(presenter: IPresenter, message: String?) {
-        val errorDrawable = IconDrawable(this.activity, Iconify.IconValue.zmdi_wifi_off)
-                .colorRes(android.R.color.white)
-
-        showError(errorDrawable,
-                "No Connection",
-                "We could not establish a connection with our servers. Please try again when you are connected to the internet.",
-                "重试",
-                View.OnClickListener {
-                    initData()
-                })
     }
 
     override fun onLoadStart(presenter: IPresenter) {

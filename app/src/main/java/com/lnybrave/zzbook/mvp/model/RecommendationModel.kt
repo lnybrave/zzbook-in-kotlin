@@ -14,10 +14,10 @@ import javax.inject.Inject
  */
 class RecommendationModel
 @Inject constructor(private val api: ZZBookApi) : RecommendationContract.Model {
-    override fun getData(): Observable<RecommendationZip> {
+    override fun getData(limit: Int): Observable<RecommendationZip> {
         return Observable.zip(api.getBannerList(),
                 api.getStackMenu(),
-                api.getRecommendation(null, null),
+                api.getRecommendation(0, 10),
                 Function3 { t1, t2, t3 -> RecommendationZip(banners = t1, menus = t2, page = t3) })
     }
 

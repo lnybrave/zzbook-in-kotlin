@@ -96,6 +96,20 @@ class ClassificationDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(),
                 "Please add things in the cart to continue.")
     }
 
+    override fun setData(page: APIPage<Book>) {
+        if (!page.hasPrev()) {
+            mList.clear()
+        }
+
+        refreshLayout.isEnableLoadmore = page.hasNext()
+
+        if (page.results.isNotEmpty()) {
+            mList.addAll(page.results)
+        }
+
+        mAdapter.notifyDataSetChanged()
+    }
+
     override fun onLoadStart(presenter: IPresenter) {
         if (!refreshLayout.isRefreshing && !refreshLayout.isLoading) {
             showLoading()
@@ -106,19 +120,6 @@ class ClassificationDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(),
         refreshLayout.finishRefresh()
         refreshLayout.finishLoadmore()
         showContent()
-    }
-
-    override fun setData(page: APIPage<Book>) {
-        refreshLayout.finishLoadmore()
-        if (!page.hasNext()) {
-            refreshLayout.isEnableLoadmore = false
-        }
-
-        if (page.results.isNotEmpty()) {
-            mList.addAll(page.results)
-        }
-
-        mAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {

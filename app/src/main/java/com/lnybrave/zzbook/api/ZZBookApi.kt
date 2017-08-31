@@ -33,8 +33,8 @@ interface ZZBookApi {
     @GET("api/stack/column")
     fun getColumn(): Observable<List<Column>>
 
-    @GET("api/stack/column/detail")
-    fun getColumnDetail(@Query("item") id: Int,
+    @GET("api/stack/column/{id}/detail")
+    fun getColumnDetail(@Path("id") id: Int,
                         @Query("offset") offset: Int?,
                         @Query("limit") limit: Int?): Observable<APIPage<MixedBean>>
 

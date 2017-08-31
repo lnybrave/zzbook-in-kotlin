@@ -16,7 +16,7 @@ interface SearchContract {
 
     interface Model {
 
-        fun getData(search: String, offset: Int = 0, limit: Int = 10): Observable<APIPage<Book>>
+        fun getData(search: String, offset: Int, limit: Int): Observable<APIPage<Book>>
     }
 
     interface Presenter {

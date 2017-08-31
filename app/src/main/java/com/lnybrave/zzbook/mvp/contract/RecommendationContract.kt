@@ -23,15 +23,15 @@ interface RecommendationContract {
 
     interface Model {
 
-        fun getData(): Observable<RecommendationZip>
+        fun getData(limit: Int): Observable<RecommendationZip>
 
         fun getData(offset: Int, limit: Int): Observable<APIPage<MixedBean>>
     }
 
     interface Presenter : IPresenter {
 
-        fun getData()
+        fun initData(limit: Int = 10)
 
-        fun getData(offset: Int, limit: Int)
+        fun getData(offset: Int = 0, limit: Int = 10)
     }
 }

@@ -5,6 +5,8 @@
     <color name="colorAccent">#13be7c</color>
     <color name="colorControlNormal">#323435</color>
 
+    <color name="bg_window">#F7F6F4</color>
+
     <color name="text_hint">#333333</color>
     <color name="text_color_2">#222222</color>
     <color name="text_color_9">#999999</color>
@@ -17,4 +19,5 @@
     <color name="text_topic_name">@color/text_color_2</color>
     <color name="item_catalog">#84ACBE</color>
     <color name="item_chapter_count">#9EC89D</color>
+
 </resources>

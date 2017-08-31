@@ -14,7 +14,7 @@ import com.lnybrave.zzbook.mvp.IPresenter
 import com.lnybrave.zzbook.mvp.contract.BookDetailContract
 import com.lnybrave.zzbook.mvp.presenter.BookDetailPresenter
 import com.lnybrave.zzbook.ui.ProgressActivity
-import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
+import com.lnybrave.zzbook.ui.multitype.BookDetailViewBinder
 import com.malinskiy.materialicons.IconDrawable
 import com.malinskiy.materialicons.Iconify
 import kotlinx.android.synthetic.main.activity_book.*
@@ -48,11 +48,11 @@ class BookActivity : ProgressActivity(), BookDetailContract.View {
         skipIds = ArrayList()
         skipIds.add(R.id.rl_toolbar)
 
-        mAdapter = MultiTypeAdapter()
+        mAdapter = MultiTypeAdapter(mList)
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        mAdapter.register(Book::class.java, BookComplexViewBinder())
+        mAdapter.register(Book::class.java, BookDetailViewBinder())
 
         mainComponent = DaggerMainComponent.builder()
                 .appComponent(getAppComponent())
@@ -79,16 +79,16 @@ class BookActivity : ProgressActivity(), BookDetailContract.View {
                 skipIds)
     }
 
+    override fun setData(data: Book) {
+        mList.add(data)
+        mAdapter.notifyDataSetChanged()
+    }
+
     override fun onLoadStart(presenter: IPresenter) {
         showLoading(skipIds)
     }
 
     override fun onLoadStop(presenter: IPresenter) {
         showContent()
-    }
-
-    override fun setData(data: Book) {
-        mList.add(data)
-        mAdapter.notifyDataSetChanged()
     }
 }

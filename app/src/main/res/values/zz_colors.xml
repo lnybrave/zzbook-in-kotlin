@@ -2,5 +2,6 @@
 <resources>
 
     <color name="zz_divider">#D9D9D9</color>
+    <color name="zz_divider_12dp">#EDEDED</color>
 
 </resources>

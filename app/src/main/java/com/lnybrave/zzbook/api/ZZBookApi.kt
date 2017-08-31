@@ -14,14 +14,14 @@ interface ZZBookApi {
     @GET("api/banner")
     fun getBannerList(): Observable<List<Banner>>
 
-    @GET("api/book/{id}")
-    fun getBookDetail(@Path("id") id: Int): Observable<Book>
-
     @GET("api/bookshelf")
     fun getBookshelf(): Observable<List<Book>>
 
     @GET("api/bookshelf/banner")
     fun getBookshelfBanner(): Observable<List<Banner>>
+
+    @GET("api/stack/book/{id}/")
+    fun getBookDetail(@Path("id") id: Int): Observable<Book>
 
     @GET("api/stack/menu")
     fun getStackMenu(): Observable<List<StackMenu>>

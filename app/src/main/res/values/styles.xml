@@ -10,6 +10,7 @@
         <item name="toolbarStyle">@style/NoSpaceActionBarTheme</item>
         <item name="searchViewStyle">@style/mySearchView</item>
         <item name="colorControlNormal">@color/colorControlNormal</item>
+        <item name="android:windowBackground">@color/bg_window</item>
     </style>
 
     <!--toolbar样式-->

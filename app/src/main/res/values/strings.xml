@@ -24,4 +24,5 @@
     <string name="text_book_discount">优惠购买</string>
     <string name="text_book_free_read">免费阅读</string>
     <string name="text_book_add_bookshelf">加入书架</string>
+    <string name="catalog">目录</string>
 </resources>

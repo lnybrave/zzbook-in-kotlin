@@ -30,5 +30,6 @@ data class Book(
         val price: Int,
         @SerializedName(value = "charge_mode")
         val chargeMode: Int,
-        var showType: Int
+        var showType: Int,
+        val kw: String
 ) : Serializable

@@ -4,6 +4,7 @@ import com.lnybrave.zzbook.bean.Ranking
 import com.lnybrave.zzbook.mvp.EmptyView
 import com.lnybrave.zzbook.mvp.ErrorView
 import com.lnybrave.zzbook.mvp.IPresenter
+import com.lnybrave.zzbook.mvp.LoadView
 import io.reactivex.Observable
 
 /**
@@ -11,7 +12,7 @@ import io.reactivex.Observable
  */
 interface RankingDetailContract {
 
-    interface View : EmptyView, ErrorView {
+    interface View : EmptyView, ErrorView, LoadView {
 
         fun setData(data: List<Ranking>)
     }

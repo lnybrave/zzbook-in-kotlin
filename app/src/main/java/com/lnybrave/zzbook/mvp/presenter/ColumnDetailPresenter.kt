@@ -4,6 +4,7 @@ import android.util.Log
 import com.lnybrave.zzbook.mvp.contract.ColumnDetailContract
 import com.lnybrave.zzbook.mvp.model.ColumnDetailModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -16,10 +17,20 @@ class ColumnDetailPresenter
     override fun getData(id: Int, offset: Int, limit: Int) {
         val subscribe = mDetailModel.getData(id, offset, limit)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe { mView.onLoadStart(this@ColumnDetailPresenter) }
                 .subscribe({
                     res ->
-                    mView.setData(res)
-                }, { e -> Log.e("lny", e.message) })
+                    if (!res.hasPrev() && res.results.isEmpty()) {
+                        mView.onEmpty(this@ColumnDetailPresenter)
+                    } else {
+                        mView.setData(res)
+                        mView.onLoadStop(this@ColumnDetailPresenter)
+                    }
+                }, { e ->
+                    Log.e("lny", e.message)
+                    mView.onError(this@ColumnDetailPresenter, e.message)
+                })
         addDisposable(subscribe)
     }
 }

@@ -2,6 +2,10 @@ package com.lnybrave.zzbook.mvp.contract
 
 import com.lnybrave.zzbook.bean.APIPage
 import com.lnybrave.zzbook.bean.MixedBean
+import com.lnybrave.zzbook.mvp.EmptyView
+import com.lnybrave.zzbook.mvp.ErrorView
+import com.lnybrave.zzbook.mvp.IPresenter
+import com.lnybrave.zzbook.mvp.LoadView
 import io.reactivex.Observable
 
 /**
@@ -9,7 +13,7 @@ import io.reactivex.Observable
  */
 interface ColumnDetailContract {
 
-    interface View {
+    interface View : EmptyView, ErrorView, LoadView {
 
         fun setData(page: APIPage<MixedBean>)
     }
@@ -19,8 +23,8 @@ interface ColumnDetailContract {
         fun getData(id: Int, offset: Int = 0, limit: Int = 10): Observable<APIPage<MixedBean>>
     }
 
-    interface Presenter {
+    interface Presenter : IPresenter {
 
-        fun getData(id: Int, offset: Int= 0, limit: Int= 10)
+        fun getData(id: Int, offset: Int = 0, limit: Int = 10)
     }
 }

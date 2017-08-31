@@ -190,10 +190,15 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
     }
 
     override fun onLoadStart(presenter: IPresenter) {
-        showLoading()
+        if (!refreshLayout.isRefreshing
+                && !refreshLayout.isLoading) {
+            showLoading()
+        }
     }
 
     override fun onLoadStop(presenter: IPresenter) {
+        refreshLayout.finishRefresh()
+        refreshLayout.finishLoadmore()
         showContent()
     }
 

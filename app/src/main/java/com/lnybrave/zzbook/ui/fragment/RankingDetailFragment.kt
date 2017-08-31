@@ -47,6 +47,8 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
+            setProgressActivity(progress)
+
             refreshLayout.setOnRefreshListener({ mPresenter.getData(rankingId) })
             refreshLayout.isEnableLoadmore = false
 
@@ -73,15 +75,6 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
         mPresenter.getData(rankingId)
     }
 
-    override fun setData(data: List<Ranking>) {
-        mList.clear()
-        if (data.isNotEmpty()) {
-            addRanking(mList, data)
-        }
-        mAdapter.notifyDataSetChanged()
-        refreshLayout.finishRefresh()
-    }
-
     override fun onError(presenter: IPresenter, message: String?) {
         val errorDrawable = IconDrawable(this.activity, Iconify.IconValue.zmdi_wifi_off)
                 .colorRes(android.R.color.white)
@@ -104,6 +97,15 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
                 "Please add things in the cart to continue.")
     }
 
+    override fun setData(data: List<Ranking>) {
+        mList.clear()
+        if (data.isNotEmpty()) {
+            addRanking(mList, data)
+        }
+        mAdapter.notifyDataSetChanged()
+        refreshLayout.finishRefresh()
+    }
+
     private fun addRanking(list: ArrayList<Any>, results: List<Ranking>) {
         for (ranking in results) {
             list.add(ranking)
@@ -113,6 +115,18 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
                 addRanking(mList, ranking.children)
             }
         }
+    }
+
+    override fun onLoadStart(presenter: IPresenter) {
+        if (!refreshLayout.isRefreshing && !refreshLayout.isLoading) {
+            showLoading()
+        }
+    }
+
+    override fun onLoadStop(presenter: IPresenter) {
+        refreshLayout.finishRefresh()
+        refreshLayout.finishLoadmore()
+        showContent()
     }
 
     override fun onDestroyView() {

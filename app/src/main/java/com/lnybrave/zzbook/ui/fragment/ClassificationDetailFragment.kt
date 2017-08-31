@@ -48,7 +48,7 @@ class ClassificationDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(),
 
         with(mBinding) {
             setProgressActivity(progress)
-            
+
             refreshLayout.isEnableRefresh = false
             refreshLayout.setOnLoadmoreListener { layout -> initData() }
 
@@ -97,10 +97,14 @@ class ClassificationDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(),
     }
 
     override fun onLoadStart(presenter: IPresenter) {
-        showLoading()
+        if (!refreshLayout.isRefreshing && !refreshLayout.isLoading) {
+            showLoading()
+        }
     }
 
     override fun onLoadStop(presenter: IPresenter) {
+        refreshLayout.finishRefresh()
+        refreshLayout.finishLoadmore()
         showContent()
     }
 

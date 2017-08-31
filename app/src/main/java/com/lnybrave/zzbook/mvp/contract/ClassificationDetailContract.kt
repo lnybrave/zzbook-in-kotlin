@@ -5,7 +5,7 @@ import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.mvp.EmptyView
 import com.lnybrave.zzbook.mvp.ErrorView
 import com.lnybrave.zzbook.mvp.IPresenter
-import com.lnybrave.zzbook.mvp.ProgressView
+import com.lnybrave.zzbook.mvp.LoadView
 import io.reactivex.Observable
 
 /**
@@ -13,7 +13,7 @@ import io.reactivex.Observable
  */
 interface ClassificationDetailContract {
 
-    interface View : EmptyView, ErrorView, ProgressView {
+    interface View : EmptyView, ErrorView, LoadView {
 
         fun setData(page: APIPage<Book>)
     }

@@ -114,11 +114,11 @@ class RankingActivity : ProgressActivity(), RankingContract.View {
                 skipIds)
     }
 
-    override fun onBegin(presenter: IPresenter) {
+    override fun onLoadStart(presenter: IPresenter) {
         showLoading(skipIds)
     }
 
-    override fun onEnd(presenter: IPresenter) {
+    override fun onLoadStop(presenter: IPresenter) {
         showContent()
     }
 

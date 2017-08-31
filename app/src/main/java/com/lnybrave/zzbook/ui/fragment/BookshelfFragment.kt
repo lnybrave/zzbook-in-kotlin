@@ -67,11 +67,11 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
         refreshLayout.finishRefresh()
     }
 
-    override fun onBegin(presenter: IPresenter) {
+    override fun onLoadStart(presenter: IPresenter) {
 
     }
 
-    override fun onEnd(presenter: IPresenter) {
+    override fun onLoadStop(presenter: IPresenter) {
         refreshLayout.finishRefresh()
     }
 

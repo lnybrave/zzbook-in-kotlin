@@ -118,11 +118,11 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
                 })
     }
 
-    override fun onBegin(presenter: IPresenter) {
+    override fun onLoadStart(presenter: IPresenter) {
         showLoading()
     }
 
-    override fun onEnd(presenter: IPresenter) {
+    override fun onLoadStop(presenter: IPresenter) {
         showContent()
     }
 

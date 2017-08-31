@@ -18,11 +18,11 @@ class BookDetailPresenter
         mModel.getData(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe { mView.onBegin(this@BookDetailPresenter) }
-                .doOnComplete { mView.onEnd(this@BookDetailPresenter) }
+                .doOnSubscribe { mView.onLoadStart(this@BookDetailPresenter) }
                 .subscribe({
                     res ->
                     mView.setData(res)
+                    mView.onLoadStop(this@BookDetailPresenter)
                 }, { e ->
                     Log.e("lny", e.message)
                     mView.onError(this@BookDetailPresenter, e.message)

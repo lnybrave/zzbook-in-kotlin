@@ -18,14 +18,15 @@ class RankingPresenter
         val subscribe = mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe { mView.onBegin(this@RankingPresenter) }
-                .doOnComplete { mView.onEnd(this@RankingPresenter) }
+                .doOnSubscribe { mView.onLoadStart(this@RankingPresenter) }
+                .doOnComplete { }
                 .subscribe({
                     res ->
-                    if (res.isNotEmpty()) {
-                        mView.setData(res)
-                    } else {
+                    if (res.isEmpty()) {
                         mView.onEmpty(this@RankingPresenter)
+                    } else {
+                        mView.setData(res)
+                        mView.onLoadStop(this@RankingPresenter)
                     }
                 }, { e ->
                     Log.e("lny", e.message)

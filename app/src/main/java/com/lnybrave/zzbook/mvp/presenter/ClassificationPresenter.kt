@@ -18,14 +18,14 @@ class ClassificationPresenter
         mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe { mView.onBegin(this@ClassificationPresenter) }
-                .doOnComplete { mView.onEnd(this@ClassificationPresenter) }
+                .doOnSubscribe { mView.onLoadStart(this@ClassificationPresenter) }
                 .subscribe({
                     res ->
-                    if (res.isNotEmpty()) {
-                        mView.setData(res)
-                    } else {
+                    if (res.isEmpty()) {
                         mView.onEmpty(this@ClassificationPresenter)
+                    } else {
+                        mView.setData(res)
+                        mView.onLoadStop(this@ClassificationPresenter)
                     }
                 }, { e ->
                     Log.e("lny", e.message)

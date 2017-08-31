@@ -96,11 +96,11 @@ class ClassificationDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(),
                 "Please add things in the cart to continue.")
     }
 
-    override fun onBegin(presenter: IPresenter) {
+    override fun onLoadStart(presenter: IPresenter) {
         showLoading()
     }
 
-    override fun onEnd(presenter: IPresenter) {
+    override fun onLoadStop(presenter: IPresenter) {
         showContent()
     }
 

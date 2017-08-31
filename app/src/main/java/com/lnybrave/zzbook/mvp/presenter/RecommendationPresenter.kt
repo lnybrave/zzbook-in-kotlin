@@ -18,13 +18,17 @@ class RecommendationPresenter
         val subscribe = mModel.getData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe { mView.onBegin(this@RecommendationPresenter) }
-                .doOnComplete { mView.onEnd(this@RecommendationPresenter) }
+                .doOnSubscribe { mView.onLoadStart(this@RecommendationPresenter) }
                 .subscribe({
                     res ->
-                    mView.setBannerList(res.banners)
-                    mView.setMenuList(res.menus)
-                    mView.setData(res.page)
+                    if (res.isEmpty()) {
+                        mView.onEmpty(this@RecommendationPresenter)
+                    } else {
+                        mView.setBannerList(res.banners)
+                        mView.setMenuList(res.menus)
+                        mView.setData(res.page)
+                        mView.onLoadStop(this@RecommendationPresenter)
+                    }
                 }, { e ->
                     Log.e("lny", e.message)
                     mView.onError(this@RecommendationPresenter, e.message)

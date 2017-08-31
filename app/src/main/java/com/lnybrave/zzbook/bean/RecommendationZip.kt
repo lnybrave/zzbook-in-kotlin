@@ -5,4 +5,13 @@ package com.lnybrave.zzbook.bean
  */
 class RecommendationZip(val banners: List<Banner>,
                         val menus: List<StackMenu>,
-                        val page: APIPage<MixedBean>)
+                        val page: APIPage<MixedBean>) {
+    fun isEmpty(): Boolean {
+        if (banners.isEmpty()
+                && menus.isEmpty()
+                && !page.hasPrev() && page.results.isEmpty()) {
+            return true
+        }
+        return false
+    }
+}

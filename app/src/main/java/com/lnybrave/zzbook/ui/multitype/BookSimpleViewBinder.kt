@@ -25,7 +25,7 @@ class BookSimpleViewBinder : ItemViewBinder<Book, BookSimpleViewBinder.ViewHolde
 
     override fun onBindViewHolder(holder: ViewHolder, book: Book) {
         holder.itemView.tvName.text = book.name
-        ImageUtils.loadBookCover(book.coverUrl, holder.itemView.ivCover)
+        ImageUtils.displayBookCover(book.coverUrl, holder.itemView.ivCover)
         holder.book = book
     }
 

@@ -24,7 +24,7 @@ class ClassificationSecondViewBinder : ItemViewBinder<Classification, Classifica
     }
 
     override fun onBindViewHolder(holder: ViewHolder, classification: Classification) {
-        ImageUtils.loadIcon(classification.icon, holder.itemView.ivIcon)
+        ImageUtils.displayIcon(classification.icon, holder.itemView.ivIcon)
         holder.itemView.tvName.text = classification.name
         holder.itemView.tvThirdList.text = classification.getChildrenList()
         holder.classification = classification

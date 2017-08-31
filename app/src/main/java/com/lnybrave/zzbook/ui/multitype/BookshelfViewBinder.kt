@@ -28,7 +28,7 @@ class BookshelfViewBinder : ItemViewBinder<Book, BookshelfViewBinder.ViewHolder>
         holder.itemView.tvStatus.text = "${book.status}"
         holder.itemView.tvChapterCount.text = "${book.chapterSize}章"
         holder.itemView.tvCatalog.text = book.wordSize
-        ImageUtils.loadBookCover(book.coverUrl, holder.itemView.ivCover)
+        ImageUtils.displayBookCover(book.coverUrl, holder.itemView.ivCover)
         holder.book = book
     }
 

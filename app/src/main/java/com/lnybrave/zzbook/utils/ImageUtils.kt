@@ -8,15 +8,15 @@ import com.squareup.picasso.Picasso
  */
 internal object ImageUtils {
 
-    fun loadBookCover(url: String?, view: ImageView) {
+    fun displayBookCover(url: String?, view: ImageView) {
         if (url != null) {
             Picasso.with(view.context).load(url).into(view)
         }
     }
 
-    fun loadIcon(url: String?, view: ImageView) {
+    fun displayIcon(url: String?, view: ImageView) {
         if (url != null) {
-            Picasso.with(view.context).load(url).into(view)
+            Picasso.with(view.context).load(url).fit().into(view)
         }
     }
 }

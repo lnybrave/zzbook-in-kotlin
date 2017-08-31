@@ -28,7 +28,7 @@ class BookComplexViewBinder : ItemViewBinder<Book, BookComplexViewBinder.ViewHol
         holder.itemView.tvDesc.text = book.desc
         holder.itemView.tvChapterCount.text = "${book.chapterSize}章"
         holder.itemView.tvCatalog.text = book.wordSize
-        ImageUtils.loadBookCover(book.coverUrl, holder.itemView.ivCover)
+        ImageUtils.displayBookCover(book.coverUrl, holder.itemView.ivCover)
         holder.book = book
     }
 

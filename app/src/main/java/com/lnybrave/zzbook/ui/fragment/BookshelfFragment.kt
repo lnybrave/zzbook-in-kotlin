@@ -67,6 +67,7 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
 
     override fun onError(presenter: IPresenter, message: String?) {
         refreshLayout.finishRefresh()
+        showContent()
     }
 
     override fun onLoadStart(presenter: IPresenter) {

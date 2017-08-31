@@ -47,7 +47,7 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
-            setProgressActivity(progress)
+            setupProgressWidget(progress)
 
             refreshLayout.setOnRefreshListener({ mPresenter.getData(rankingId) })
             refreshLayout.isEnableLoadmore = false

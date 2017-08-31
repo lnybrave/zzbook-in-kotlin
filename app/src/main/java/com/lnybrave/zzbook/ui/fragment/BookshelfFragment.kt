@@ -39,7 +39,7 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
-            setProgressActivity(progress)
+            setupProgressWidget(progress)
 
             refreshLayout.setOnRefreshListener({ mPresenter.getData() })
             refreshLayout.setOnLoadmoreListener({ mPresenter.getData() })

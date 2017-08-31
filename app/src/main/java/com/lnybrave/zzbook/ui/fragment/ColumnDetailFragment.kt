@@ -50,7 +50,7 @@ class ColumnDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnD
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
-            setProgressActivity(progress)
+            setupProgressWidget(progress)
 
             refreshLayout.setOnRefreshListener({ mPresenter.getData(columnId!!) })
             refreshLayout.setOnLoadmoreListener({ mPresenter.getData(columnId!!) })

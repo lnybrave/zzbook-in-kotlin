@@ -12,15 +12,15 @@ abstract class ProgressActivity : BaseActivity(), ProgressWidgetWrapper {
 
     private var progressWidgetWrapper: ProgressWidgetWrapper? = null
 
-    protected fun setProgressActivity(progressFrameLayout: ProgressFrameLayout) {
+    protected fun setupProgressWidget(progressFrameLayout: ProgressFrameLayout) {
         this.progressWidgetWrapper = ProgressWidget.wrapper(progressFrameLayout)
     }
 
-    protected fun setProgressActivity(progressLinearLayout: ProgressLinearLayout) {
+    protected fun setupProgressWidget(progressLinearLayout: ProgressLinearLayout) {
         this.progressWidgetWrapper = ProgressWidget.wrapper(progressLinearLayout)
     }
 
-    protected fun setProgressActivity(progressRelativeLayout: ProgressRelativeLayout) {
+    protected fun setupProgressWidget(progressRelativeLayout: ProgressRelativeLayout) {
         this.progressWidgetWrapper = ProgressWidget.wrapper(progressRelativeLayout)
     }
 

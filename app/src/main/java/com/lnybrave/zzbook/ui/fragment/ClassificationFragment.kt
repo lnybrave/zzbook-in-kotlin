@@ -42,7 +42,7 @@ class ClassificationFragment : BaseBindingFragment<ViewRecyclerBinding>(), Class
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {
-            setProgressActivity(progress)
+            setupProgressWidget(progress)
 
             refreshLayout.isEnableLoadmore = false
             refreshLayout.setOnRefreshListener({ layout -> mPresenter.getData() })

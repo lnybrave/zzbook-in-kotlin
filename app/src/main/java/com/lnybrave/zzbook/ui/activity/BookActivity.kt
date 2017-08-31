@@ -44,7 +44,7 @@ class BookActivity : ProgressActivity(), BookDetailContract.View {
         setupToolbar(toolbar)
         tvTitle.text = book.name
 
-        setProgressActivity(progress)
+        setupProgressWidget(progress)
         skipIds = ArrayList()
         skipIds.add(R.id.rl_toolbar)
 

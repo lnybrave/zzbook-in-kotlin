@@ -13,6 +13,6 @@ import javax.inject.Inject
 class SearchModel
 @Inject constructor(private val api: ZZBookApi) : SearchContract.Model {
     override fun getData(search: String, offset: Int, limit: Int): Observable<APIPage<Book>> {
-        return api.getSearch(search, offset, offset)
+        return api.getSearch(search, offset, limit)
     }
 }

@@ -7,16 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.lnybrave.zzbook.bean.APIPage
 import com.lnybrave.zzbook.bean.Book
-import com.lnybrave.zzbook.bean.Ranking
 import com.lnybrave.zzbook.databinding.ViewRecyclerBinding
 import com.lnybrave.zzbook.di.module.SearchModule
+import com.lnybrave.zzbook.mvp.IPresenter
 import com.lnybrave.zzbook.mvp.contract.SearchContract
 import com.lnybrave.zzbook.mvp.presenter.SearchPresenter
 import com.lnybrave.zzbook.ui.BaseBindingFragment
-import com.lnybrave.zzbook.ui.activity.RankingActivity
 import com.lnybrave.zzbook.ui.activity.SearchActivity
 import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
-import com.lnybrave.zzbook.ui.multitype.RankingTitleViewBinder
 import me.drakeet.multitype.MultiTypeAdapter
 import java.util.*
 import javax.inject.Inject
@@ -62,12 +60,28 @@ class SearchFragment : BaseBindingFragment<ViewRecyclerBinding>(), SearchContrac
         }
     }
 
+    override fun onEmpty(presenter: IPresenter) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onError(presenter: IPresenter, message: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun setData(results: APIPage<Book>) {
         mList.clear()
         if (results.results.isNotEmpty()) {
             mList.addAll(results.results)
         }
         mAdapter.notifyDataSetChanged()
+    }
+
+    override fun onLoadStart(presenter: IPresenter) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onLoadStop(presenter: IPresenter) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onDestroyView() {

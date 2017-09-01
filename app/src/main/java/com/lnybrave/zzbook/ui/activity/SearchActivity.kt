@@ -1,52 +1,55 @@
 package com.lnybrave.zzbook.ui.activity
 
-import android.content.Context
 import android.database.AbstractCursor
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.widget.SimpleCursorAdapter
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
-import android.text.Html
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
-import android.widget.TextView
 import com.lnybrave.zzbook.R
+import com.lnybrave.zzbook.bean.APIPage
 import com.lnybrave.zzbook.bean.Book
 import com.lnybrave.zzbook.bean.Search
 import com.lnybrave.zzbook.bean.SearchWord
 import com.lnybrave.zzbook.di.component.DaggerSearchActivityComponent
 import com.lnybrave.zzbook.di.component.SearchActivityComponent
 import com.lnybrave.zzbook.di.module.ActivityModule
+import com.lnybrave.zzbook.di.module.SearchActivityModule
 import com.lnybrave.zzbook.di.module.SearchHotModule
 import com.lnybrave.zzbook.di.module.SearchSuggestModule
 import com.lnybrave.zzbook.getAppComponent
+import com.lnybrave.zzbook.mvp.IPresenter
+import com.lnybrave.zzbook.mvp.contract.SearchContract
 import com.lnybrave.zzbook.mvp.contract.SearchHotContract
 import com.lnybrave.zzbook.mvp.contract.SearchSuggestContract
 import com.lnybrave.zzbook.mvp.presenter.SearchHotPresenter
+import com.lnybrave.zzbook.mvp.presenter.SearchPresenter
 import com.lnybrave.zzbook.mvp.presenter.SearchSuggestPresenter
-import com.lnybrave.zzbook.ui.BaseActivity
-import com.lnybrave.zzbook.ui.fragment.SearchFragment
-import com.lnybrave.zzbook.ui.multitype.BookComplexViewBinder
-import com.zhy.view.flowlayout.FlowLayout
-import com.zhy.view.flowlayout.TagAdapter
+import com.lnybrave.zzbook.ui.ProgressActivity
+import com.lnybrave.zzbook.ui.multitype.*
+import com.malinskiy.materialicons.IconDrawable
+import com.malinskiy.materialicons.Iconify
 import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.toolbar.*
 import me.drakeet.multitype.MultiTypeAdapter
 import javax.inject.Inject
 
 
-class SearchActivity : BaseActivity(), SearchHotContract.View {
+class SearchActivity : ProgressActivity(), SearchHotContract.View, SearchSuggestContract.View, SearchContract.View {
 
+    lateinit var skipIds: ArrayList<Int>
     lateinit var mainComponent: SearchActivityComponent
-    lateinit var suggestAdapter: SearchSuggestAdapter
-    @Inject lateinit var hotPresenter: SearchHotPresenter
+    lateinit var suggestAdapter: SimpleCursorAdapter
     @Inject lateinit var suggestPresenter: SearchSuggestPresenter
-    private lateinit var adapter: MultiTypeAdapter
-    private lateinit var searchView: SearchView
+    @Inject lateinit var hotPresenter: SearchHotPresenter
+    @Inject lateinit var mPresenter: SearchPresenter
+
+    private var mList: ArrayList<Any> = ArrayList()
+    private lateinit var mAdapter: MultiTypeAdapter
+
+    private val mHotCache: ArrayList<Any> = ArrayList()
+    private val mSuggestCache: ArrayList<SearchWord> = ArrayList()
+    private val mSearchCache: ArrayList<Book> = ArrayList()
+    private var offset: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,146 +60,228 @@ class SearchActivity : BaseActivity(), SearchHotContract.View {
     override fun initView() {
         setupToolbar(toolbar)
 
-        ll_history_words.visibility = View.GONE
-        ll_hot_words.visibility = View.GONE
+        setupSearchView(search_view)
 
+        skipIds = ArrayList()
+        skipIds.add(R.id.rl_toolbar)
+        setupProgressWidget(progress)
+
+        refreshLayout.isEnableRefresh = false
+        refreshLayout.setOnLoadmoreListener { _ -> search(suggestWord) }
+
+        mAdapter = MultiTypeAdapter(mList)
         rv_hot_books.layoutManager = LinearLayoutManager(this)
-        ll_hot_books.visibility = View.GONE
+        rv_hot_books.adapter = mAdapter
+        mAdapter.register(Book::class.java, BookComplexViewBinder())
+        mAdapter.register(SearchWordsTitle::class.java, SearchWordsTitleViewBinder())
+        val searchTagViewBinder = SearchTagViewBinder()
+        searchTagViewBinder.onTagClickListener = object : SearchTagViewBinder.OnTagClickListener {
+            override fun onTagClick(word: SearchWord) {
+                search_view.setQuery(word.word, true)
+            }
+        }
+        mAdapter.register(SearchTag::class.java, searchTagViewBinder)
 
-
-        adapter = MultiTypeAdapter()
-        rv_hot_books.adapter = adapter
-        adapter.register(Book::class.java, BookComplexViewBinder())
-
-        suggestAdapter = SearchSuggestAdapter(this)
         mainComponent = DaggerSearchActivityComponent.builder()
                 .appComponent(getAppComponent())
                 .activityModule(ActivityModule(this))
-                .searchSuggestModule(SearchSuggestModule(suggestAdapter))
+                .searchSuggestModule(SearchSuggestModule(this))
                 .searchHotModule(SearchHotModule(this))
+                .searchActivityModule(SearchActivityModule(this))
                 .build()
         mainComponent.inject(this)
+        initData()
+    }
+
+    private fun initData() {
         hotPresenter.getData()
     }
 
-    override fun setData(results: Search) {
-        if (results.words.isNotEmpty()) {
-            hotWordsLayout.adapter = object : TagAdapter<SearchWord>(results.words) {
-                override fun getView(parent: FlowLayout, position: Int, s: SearchWord): View {
-                    val tv = LayoutInflater.from(applicationContext).inflate(R.layout.item_search_word, historyLayout, false) as TextView
-                    tv.text = s.word
-                    return tv
-                }
-            }
-            hotWordsLayout.setOnTagClickListener { view, position, parent ->
-                searchView.setQuery(results.words[position].word, true)
-                true
-            }
-            ll_hot_words.visibility = View.VISIBLE
-        } else {
-            ll_hot_words.visibility = View.GONE
+    override fun setData(data: Search) {
+        mHotCache.clear()
+
+        if (data.words.isNotEmpty()) {
+            mHotCache.add(SearchWordsTitle("大家都在搜", data.words))
+            mHotCache.add(SearchTag(data.words))
         }
 
-        if (results.books.isNotEmpty()) {
-            adapter.items = results.books
-            adapter.notifyDataSetChanged()
-            ll_hot_books.visibility = View.VISIBLE
-        } else {
-            ll_hot_books.visibility = View.GONE
+        if (data.books.isNotEmpty()) {
+            mHotCache.add(SearchWordsTitle("热搜top榜", data.words))
+            mHotCache.addAll(data.books)
+        }
+
+        mList.addAll(mHotCache)
+        mAdapter.notifyDataSetChanged()
+    }
+
+    fun search(s: String) {
+        mPresenter.getData(s, offset)
+    }
+
+    override fun onEmpty(presenter: IPresenter) {
+        val emptyDrawable = IconDrawable(this, Iconify.IconValue.zmdi_shopping_basket)
+                .colorRes(android.R.color.white)
+
+        showEmpty(emptyDrawable,
+                "Empty Shopping Cart",
+                "Please add things in the cart to continue.",
+                skipIds)
+    }
+
+    override fun onError(presenter: IPresenter, message: String?) {
+        val errorDrawable = IconDrawable(this, Iconify.IconValue.zmdi_wifi_off)
+                .colorRes(android.R.color.white)
+
+        showError(errorDrawable,
+                "No Connection",
+                "We could not establish a connection with our servers. Please try again when you are connected to the internet.",
+                "重试",
+                View.OnClickListener {
+                    initData()
+                },
+                skipIds)
+    }
+
+    override fun setData(data: APIPage<Book>) {
+        if (!data.hasPrev()) {
+            mSearchCache.clear()
+            mList.clear()
+            offset = 0
+        }
+
+        refreshLayout.isEnableLoadmore = data.hasNext()
+
+        if (data.results.isNotEmpty()) {
+            mSearchCache.addAll(data.results)
+            mList.addAll(data.results)
+        }
+
+        offset += data.results.size
+        mAdapter.notifyDataSetChanged()
+    }
+
+    override fun onLoadStart(presenter: IPresenter) {
+        if (!refreshLayout.isRefreshing && !refreshLayout.isLoading) {
+            showLoading(skipIds)
         }
     }
 
-    fun searchBook(s: String) {
-        if (!isFinishing) {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment, SearchFragment.newInstance(s))
-                    .commitAllowingStateLoss()
-            llSearchWord.visibility = View.GONE
-        }
+    override fun onLoadStop(presenter: IPresenter) {
+        refreshLayout.finishRefresh()
+        refreshLayout.finishLoadmore()
+        showContent()
     }
 
     override fun onDestroy() {
+        mPresenter.unSubscribe()
+        suggestPresenter.unSubscribe()
+        hotPresenter.unSubscribe()
         super.onDestroy()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.search2, menu)
-        val search = menu?.findItem(R.id.item_search)
-        if (search != null) {
-            initSearchView(search)
-        }
-        return super.onCreateOptionsMenu(menu)
-    }
+    private fun setupSearchView(searchView: SearchView) {
+        searchView.setIconifiedByDefault(false)
+        searchView.queryHint = resources.getString(R.string.hint_search)
 
-    private fun initSearchView(menuItem: MenuItem) {
-        // 展开搜索框
-        menuItem.collapseActionView()
-        menuItem.expandActionView()
-
-        searchView = menuItem.actionView as SearchView
-        searchView.isIconified = false
-        // 设置搜索图标是否显示在搜索框内
-        searchView.setIconifiedByDefault(true)
-        searchView.clearFocus()
-        searchView.queryHint = Html.fromHtml("<font color = #999999>" + resources.getString(R.string.hint_search) + "</font>")
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (!query.isBlank()) {
-                    searchBook(query.trim())
+                    searchView.clearFocus()
+                    offset = 0
+                    search(query.trim())
+                    return false
                 }
                 return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (!newText.isBlank()) {
-                    suggestPresenter.getData(newText)
+                    if (mList.isNotEmpty()) {
+                        mList.clear()
+                        mAdapter.notifyDataSetChanged()
+                    }
+                    getSuggestList(newText)
                 } else {
-                    llSearchWord.visibility = View.VISIBLE
+                    // 没有焦点时，直接清空内容不会调此回调
+                    showHot()
                 }
                 return true
             }
         })
-        searchView.setOnCloseListener { true }
 
-        val editText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text) as EditText
-        editText.textSize = 14f
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            editText.setTextColor(resources.getColor(R.color.text_color_2, null))
-            editText.setHintTextColor(resources.getColor(R.color.text_hint, null))
-        } else {
-            editText.setTextColor(resources.getColor(R.color.text_color_2))
-            editText.setHintTextColor(resources.getColor(R.color.text_hint))
+        searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                if (searchView.query.isEmpty()) {
+                    showHot()
+                } else {
+                    showSuggest()
+                }
+            } else {
+                showSearch()
+            }
         }
 
+        //没有执行
+        searchView.setOnCloseListener {
+            showHot()
+            true
+        }
+
+        suggestAdapter = SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, null,
+                SearchActivity.SuggestionsCursor.mVisible,
+                SearchActivity.SuggestionsCursor.mViewIds, 0)
         searchView.suggestionsAdapter = suggestAdapter
+
         searchView.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
             override fun onSuggestionSelect(position: Int): Boolean {
                 return false
             }
 
             override fun onSuggestionClick(position: Int): Boolean {
-                val word = suggestAdapter.results.get(position).word
-                searchBook(word)
-                editText.setText(word)
-                editText.setSelection(word.length)
+                val item = suggestResults[position]
+                val word = item.word
+                searchView.setQuery(word, true)
                 return false
             }
         })
     }
 
-    class SearchSuggestAdapter(context: Context)
-        : SimpleCursorAdapter(context, android.R.layout.simple_list_item_1, null,
-            SearchActivity.SuggestionsCursor.mVisible,
-            SearchActivity.SuggestionsCursor.mViewIds, 0), SearchSuggestContract.View {
+    fun showHot() {
+        mList.clear()
+        mList.addAll(mHotCache)
+        mAdapter.notifyDataSetChanged()
+        showContent()
+    }
 
-        var results: ArrayList<SearchWord> = ArrayList()
+    fun showSuggest() {
+        mList.clear()
+        mList.addAll(mSuggestCache)
+        mAdapter.notifyDataSetChanged()
+        showContent()
+    }
 
-        override fun setData(results: List<SearchWord>) {
-            this.results.clear()
-            this.results.addAll(results)
-            this.changeCursor(SuggestionsCursor(this.results))
-            notifyDataSetChanged()
+    fun showSearch() {
+        mList.clear()
+        mList.addAll(mSearchCache)
+        mAdapter.notifyDataSetChanged()
+        showContent()
+    }
+
+    fun getSuggestList(word: String) {
+        if (suggestWord != word) {
+            suggestWord = word
+            suggestPresenter.getData(word)
         }
+    }
+
+    var suggestWord: String = ""
+    var suggestResults: ArrayList<SearchWord> = ArrayList()
+
+    override fun setData(data: List<SearchWord>) {
+        suggestResults.clear()
+        suggestResults.addAll(data)
+        suggestAdapter.changeCursor(SuggestionsCursor(suggestResults))
+        suggestAdapter.notifyDataSetChanged()
     }
 
     private class SuggestionsCursor(results: ArrayList<SearchWord>) : AbstractCursor() {

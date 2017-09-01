@@ -10,7 +10,7 @@ interface SearchHotContract {
 
     interface View {
 
-        fun setData(results: Search)
+        fun setData(data: Search)
     }
 
     interface Model {

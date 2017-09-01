@@ -10,7 +10,7 @@ interface SearchSuggestContract {
 
     interface View {
 
-        fun setData(results: List<SearchWord>)
+        fun setData(data: List<SearchWord>)
     }
 
     interface Model {

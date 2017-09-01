@@ -5,23 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lnybrave.zzbook.R
-import com.lnybrave.zzbook.bean.Topic
-import kotlinx.android.synthetic.main.item_topic_title.view.*
+import kotlinx.android.synthetic.main.item_search_words_title.view.*
 import me.drakeet.multitype.ItemViewBinder
 
 /**
  * Created by lny on 2017/7/29.
  */
-class TopicTitleViewBinder : ItemViewBinder<Topic, TopicTitleViewBinder.ViewHolder>() {
+class SearchWordsTitleViewBinder : ItemViewBinder<SearchWordsTitle, SearchWordsTitleViewBinder.ViewHolder>() {
 
     override fun onCreateViewHolder(
             inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
-        val root = inflater.inflate(R.layout.item_topic_title, parent, false)
+        val root = inflater.inflate(R.layout.item_search_words_title, parent, false)
         return ViewHolder(root)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, topic: Topic) {
-        holder.itemView.tvTitle.text = topic.name
+    override fun onBindViewHolder(holder: ViewHolder, searchWordsTitle: SearchWordsTitle) {
+        holder.itemView.tvTitle.text = searchWordsTitle.title
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

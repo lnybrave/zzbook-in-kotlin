@@ -8,7 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="toolbarStyle">@style/NoSpaceActionBarTheme</item>
-        <item name="searchViewStyle">@style/mySearchView</item>
+        <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView.App
+        </item>
         <item name="colorControlNormal">@color/colorControlNormal</item>
         <item name="android:windowBackground">@color/bg_window</item>
     </style>
@@ -51,14 +52,16 @@
         <item name="contentInsetStartWithNavigation">0dp</item>
     </style>
 
-    <style name="mySearchView" parent="Widget.AppCompat.Light.SearchView">
-        <item name="android:textAppearance">@style/SearchViewTextAppearance</item>
+    <!--修改searchView字体颜色、大小-->
+    <style name="Widget.AppCompat.AutoCompleteTextView.App">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textAppearance">@style/AutoCompleteTextAppearance</item>
     </style>
 
-    <style name="SearchViewTextAppearance" parent="android:TextAppearance">
-        <item name="android:textColor">@color/text_color_2</item>
-        <item name="android:textColorHint">@color/text_hint</item>
-        <item name="android:textColorHighlight">@color/text_hint</item>
+    <style name="AutoCompleteTextAppearance" parent="android:TextAppearance">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/text_color_9</item>
+        <item name="android:textColorHighlight">@color/text_color_9</item>
         <item name="android:textSize">14sp</item>
     </style>
 

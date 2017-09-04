@@ -1,8 +1,6 @@
 package com.lnybrave.zzbook.ui.activity
 
-import android.database.AbstractCursor
 import android.os.Bundle
-import android.support.v4.widget.SimpleCursorAdapter
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.View
@@ -38,17 +36,18 @@ class SearchActivity : ProgressActivity(), SearchHotContract.View, SearchSuggest
 
     lateinit var skipIds: ArrayList<Int>
     lateinit var mainComponent: SearchActivityComponent
-    lateinit var suggestAdapter: SimpleCursorAdapter
-    @Inject lateinit var suggestPresenter: SearchSuggestPresenter
-    @Inject lateinit var hotPresenter: SearchHotPresenter
-    @Inject lateinit var mPresenter: SearchPresenter
 
-    private var mList: ArrayList<Any> = ArrayList()
-    private lateinit var mAdapter: MultiTypeAdapter
+    private val mHot: ArrayList<Any> = ArrayList()
+    private lateinit var mHotAdapter: MultiTypeAdapter
+    @Inject lateinit var mHotPresenter: SearchHotPresenter
 
-    private val mHotCache: ArrayList<Any> = ArrayList()
-    private val mSuggestCache: ArrayList<SearchWord> = ArrayList()
-    private val mSearchCache: ArrayList<Book> = ArrayList()
+    private val mSuggest: ArrayList<SearchWord> = ArrayList()
+    private lateinit var mSuggestAdapter: MultiTypeAdapter
+    @Inject lateinit var mSuggestPresenter: SearchSuggestPresenter
+
+    private val mSearch: ArrayList<Any> = ArrayList()
+    private lateinit var mSearchAdapter: MultiTypeAdapter
+    @Inject lateinit var mSearchPresenter: SearchPresenter
     private var offset: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,25 +61,16 @@ class SearchActivity : ProgressActivity(), SearchHotContract.View, SearchSuggest
 
         setupSearchView(search_view)
 
+
         skipIds = ArrayList()
         skipIds.add(R.id.rl_toolbar)
         setupProgressWidget(progress)
 
-        refreshLayout.isEnableRefresh = false
-        refreshLayout.setOnLoadmoreListener { _ -> search(suggestWord) }
+        setupHotViews()
 
-        mAdapter = MultiTypeAdapter(mList)
-        rv_hot_books.layoutManager = LinearLayoutManager(this)
-        rv_hot_books.adapter = mAdapter
-        mAdapter.register(Book::class.java, BookComplexViewBinder())
-        mAdapter.register(SearchWordsTitle::class.java, SearchWordsTitleViewBinder())
-        val searchTagViewBinder = SearchTagViewBinder()
-        searchTagViewBinder.onTagClickListener = object : SearchTagViewBinder.OnTagClickListener {
-            override fun onTagClick(word: SearchWord) {
-                search_view.setQuery(word.word, true)
-            }
-        }
-        mAdapter.register(SearchTag::class.java, searchTagViewBinder)
+        setupSuggestViews()
+
+        setupSearchViews()
 
         mainComponent = DaggerSearchActivityComponent.builder()
                 .appComponent(getAppComponent())
@@ -90,32 +80,83 @@ class SearchActivity : ProgressActivity(), SearchHotContract.View, SearchSuggest
                 .searchActivityModule(SearchActivityModule(this))
                 .build()
         mainComponent.inject(this)
+
         initData()
+
+        val kw = intent.getStringExtra("kw")
+        if (kw != null && kw.isNotEmpty()) {
+            search_view.setQuery(kw, true)
+        }
+    }
+
+    private fun setupHotViews() {
+        mHotAdapter = MultiTypeAdapter(mHot)
+        rv_hot.layoutManager = LinearLayoutManager(this)
+        rv_hot.adapter = mHotAdapter
+        mHotAdapter.register(Book::class.java, BookComplexViewBinder())
+        mHotAdapter.register(SearchTitle::class.java, SearchTitleViewBinder())
+        val searchTagViewBinder = SearchTagViewBinder()
+        searchTagViewBinder.onTagClickListener = object : SearchTagViewBinder.OnTagClickListener {
+            override fun onTagClick(word: SearchWord) {
+                search_view.setQuery(word.word, true)
+            }
+        }
+        mHotAdapter.register(SearchTag::class.java, searchTagViewBinder)
+    }
+
+    private fun setupSuggestViews() {
+        mSuggestAdapter = MultiTypeAdapter(mSuggest)
+        rv_suggest.layoutManager = LinearLayoutManager(this)
+        rv_suggest.adapter = mSuggestAdapter
+        mSuggestAdapter.register(Book::class.java, BookComplexViewBinder())
+        mSuggestAdapter.register(SearchTitle::class.java, SearchTitleViewBinder())
+        val searchSuggestViewBinder = SearchSuggestViewBinder()
+        searchSuggestViewBinder.onItemClickListener = object : SearchSuggestViewBinder.OnItemClickListener {
+            override fun onItemClick(word: SearchWord) {
+                search_view.setQuery(word.word, false)
+                search(word.word)
+            }
+        }
+        mSuggestAdapter.register(SearchWord::class.java, searchSuggestViewBinder)
+    }
+
+    private fun setupSearchViews() {
+        refreshLayout.isEnableRefresh = false
+        refreshLayout.setOnLoadmoreListener { _ -> searchMore() }
+
+        mSearchAdapter = MultiTypeAdapter(mSearch)
+        rv_search.layoutManager = LinearLayoutManager(this)
+        rv_search.adapter = mSearchAdapter
+        mSearchAdapter.register(Book::class.java, BookComplexViewBinder())
+        mSearchAdapter.register(Integer::class.java, SearchCountViewBinder())
     }
 
     private fun initData() {
-        hotPresenter.getData()
+        mHotPresenter.getData()
     }
 
     override fun setData(data: Search) {
-        mHotCache.clear()
+        mHot.clear()
 
         if (data.words.isNotEmpty()) {
-            mHotCache.add(SearchWordsTitle("大家都在搜", data.words))
-            mHotCache.add(SearchTag(data.words))
+            mHot.add(SearchTitle("大家都在搜", data.words))
+            mHot.add(SearchTag(data.words))
         }
 
         if (data.books.isNotEmpty()) {
-            mHotCache.add(SearchWordsTitle("热搜top榜", data.words))
-            mHotCache.addAll(data.books)
+            mHot.add(SearchTitle("热搜top榜", data.words))
+            mHot.addAll(data.books)
         }
 
-        mList.addAll(mHotCache)
-        mAdapter.notifyDataSetChanged()
+        mHotAdapter.notifyDataSetChanged()
     }
 
-    fun search(s: String) {
-        mPresenter.getData(s, offset)
+    override fun setData(data: List<SearchWord>) {
+        mSuggest.clear()
+        if (data.isNotEmpty()) {
+            mSuggest.addAll(data)
+        }
+        mSuggestAdapter.notifyDataSetChanged()
     }
 
     override fun onEmpty(presenter: IPresenter) {
@@ -144,20 +185,20 @@ class SearchActivity : ProgressActivity(), SearchHotContract.View, SearchSuggest
 
     override fun setData(data: APIPage<Book>) {
         if (!data.hasPrev()) {
-            mSearchCache.clear()
-            mList.clear()
+            mSearch.clear()
             offset = 0
+            mSearch.add(data.count)
         }
 
         refreshLayout.isEnableLoadmore = data.hasNext()
 
         if (data.results.isNotEmpty()) {
-            mSearchCache.addAll(data.results)
-            mList.addAll(data.results)
+            mSearch.addAll(data.results)
         }
 
         offset += data.results.size
-        mAdapter.notifyDataSetChanged()
+        mSearchAdapter.notifyDataSetChanged()
+        search_view.clearFocus()
     }
 
     override fun onLoadStart(presenter: IPresenter) {
@@ -173,9 +214,9 @@ class SearchActivity : ProgressActivity(), SearchHotContract.View, SearchSuggest
     }
 
     override fun onDestroy() {
-        mPresenter.unSubscribe()
-        suggestPresenter.unSubscribe()
-        hotPresenter.unSubscribe()
+        mHotPresenter.unSubscribe()
+        mSuggestPresenter.unSubscribe()
+        mSearchPresenter.unSubscribe()
         super.onDestroy()
     }
 
@@ -187,7 +228,6 @@ class SearchActivity : ProgressActivity(), SearchHotContract.View, SearchSuggest
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (!query.isBlank()) {
                     searchView.clearFocus()
-                    offset = 0
                     search(query.trim())
                     return false
                 }
@@ -196,14 +236,10 @@ class SearchActivity : ProgressActivity(), SearchHotContract.View, SearchSuggest
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (!newText.isBlank()) {
-                    if (mList.isNotEmpty()) {
-                        mList.clear()
-                        mAdapter.notifyDataSetChanged()
-                    }
-                    getSuggestList(newText)
+                    suggest(newText)
                 } else {
                     // 没有焦点时，直接清空内容不会调此回调
-                    showHot()
+                    showHotLayout()
                 }
                 return true
             }
@@ -212,137 +248,87 @@ class SearchActivity : ProgressActivity(), SearchHotContract.View, SearchSuggest
         searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 if (searchView.query.isEmpty()) {
-                    showHot()
-                } else {
-                    showSuggest()
+                    showHotLayout()
                 }
             } else {
-                showSearch()
+                showSearchLayout()
             }
         }
 
         //没有执行
         searchView.setOnCloseListener {
-            showHot()
+            showHotLayout()
             true
         }
-
-        suggestAdapter = SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, null,
-                SearchActivity.SuggestionsCursor.mVisible,
-                SearchActivity.SuggestionsCursor.mViewIds, 0)
-        searchView.suggestionsAdapter = suggestAdapter
-
-        searchView.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
-            override fun onSuggestionSelect(position: Int): Boolean {
-                return false
-            }
-
-            override fun onSuggestionClick(position: Int): Boolean {
-                val item = suggestResults[position]
-                val word = item.word
-                searchView.setQuery(word, true)
-                return false
-            }
-        })
     }
 
-    fun showHot() {
-        mList.clear()
-        mList.addAll(mHotCache)
-        mAdapter.notifyDataSetChanged()
+    fun showHotLayout() {
+        rv_hot.visibility = View.VISIBLE
+        rv_suggest.visibility = View.GONE
+        refreshLayout.visibility = View.GONE
         showContent()
     }
 
-    fun showSuggest() {
-        mList.clear()
-        mList.addAll(mSuggestCache)
-        mAdapter.notifyDataSetChanged()
+    fun showSuggestLayout() {
+        rv_hot.visibility = View.GONE
+        rv_suggest.visibility = View.VISIBLE
+        refreshLayout.visibility = View.GONE
         showContent()
     }
 
-    fun showSearch() {
-        mList.clear()
-        mList.addAll(mSearchCache)
-        mAdapter.notifyDataSetChanged()
+    fun showSearchLayout() {
+        rv_hot.visibility = View.GONE
+        rv_suggest.visibility = View.GONE
+        refreshLayout.visibility = View.VISIBLE
         showContent()
     }
 
-    fun getSuggestList(word: String) {
-        if (suggestWord != word) {
-            suggestWord = word
-            suggestPresenter.getData(word)
+    var suggestWrapper: SuggestWrapper = SuggestWrapper()
+
+    fun suggest(word: String) {
+        showSuggestLayout()
+        if (suggestWrapper.cache != word) {
+            if (!word.startsWith(suggestWrapper.cache)) {
+                mSuggest.clear()
+                mSuggestAdapter.notifyDataSetChanged()
+            }
+            suggestWrapper.suggest(word)
         }
     }
 
-    var suggestWord: String = ""
-    var suggestResults: ArrayList<SearchWord> = ArrayList()
+    inner class SuggestWrapper {
 
-    override fun setData(data: List<SearchWord>) {
-        suggestResults.clear()
-        suggestResults.addAll(data)
-        suggestAdapter.changeCursor(SuggestionsCursor(suggestResults))
-        suggestAdapter.notifyDataSetChanged()
-    }
+        var cache: String = ""
 
-    private class SuggestionsCursor(results: ArrayList<SearchWord>) : AbstractCursor() {
-
-        private val mResults: ArrayList<String> = ArrayList()
-
-        init {
-            val it = results.iterator()
-            while (it.hasNext()) {
-                mResults.add(it.next().word)
-            }
-        }
-
-        override fun getCount(): Int {
-            return mResults.size
-        }
-
-        override fun getColumnNames(): Array<String> {
-            return SuggestionsCursor.mFields
-        }
-
-        override fun getLong(column: Int): Long {
-            if (column == 0) {
-                return position.toLong()
-            }
-            throw UnsupportedOperationException("unimplemented")
-        }
-
-        override fun getString(column: Int): String {
-            if (column == 1) {
-                return mResults[position]
-            }
-            throw UnsupportedOperationException("unimplemented")
-        }
-
-        override fun getShort(column: Int): Short {
-            throw UnsupportedOperationException("unimplemented")
-        }
-
-        override fun getInt(column: Int): Int {
-            throw UnsupportedOperationException("unimplemented")
-        }
-
-        override fun getFloat(column: Int): Float {
-            throw UnsupportedOperationException("unimplemented")
-        }
-
-        override fun getDouble(column: Int): Double {
-            throw UnsupportedOperationException("unimplemented")
-        }
-
-        override fun isNull(column: Int): Boolean {
-            return false
-        }
-
-        companion object {
-
-            val mFields = arrayOf("_id", "result")
-            val mVisible = arrayOf("result")
-            val mViewIds = intArrayOf(android.R.id.text1)
+        fun suggest(s: String) {
+            cache = s
+            mSuggestPresenter.getData(s)
         }
     }
 
+    var searchWrapper: SearchWrapper = SearchWrapper()
+
+    fun search(s: String) {
+        offset = 0
+        showSearchLayout()
+        searchWrapper.search(s)
+    }
+
+    fun searchMore() {
+        searchWrapper.search()
+    }
+
+    inner class SearchWrapper {
+
+        var cache: String = ""
+
+        fun search(s: String) {
+            cache = s
+            mSearchPresenter.getData(cache, offset)
+        }
+
+        fun search() {
+            mSearchPresenter.getData(cache, offset)
+        }
+    }
 }

@@ -15,7 +15,7 @@ interface SearchContract {
 
     interface View : EmptyView, ErrorView, LoadView {
 
-        fun setData(results: APIPage<Book>)
+        fun setData(data: APIPage<Book>)
     }
 
     interface Model {

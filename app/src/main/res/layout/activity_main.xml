@@ -42,9 +42,8 @@
                 android:id="@+id/navigationView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@color/colorPrimary"
-                app:itemIconTint="@color/colorAccent"
-                app:itemTextColor="@color/colorAccent"
+                app:itemIconTint="@color/colorPrimary"
+                app:itemTextColor="@color/colorPrimary"
                 app:menu="@menu/bottom" />
         </LinearLayout>
 

@@ -8,8 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="toolbarStyle">@style/NoSpaceActionBarTheme</item>
-        <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView.App
-        </item>
+        <item name="autoCompleteTextViewStyle">@style/AppAutoCompleteTextView</item>
         <item name="colorControlNormal">@color/colorControlNormal</item>
         <item name="android:windowBackground">@color/bg_window</item>
     </style>
@@ -53,15 +52,14 @@
     </style>
 
     <!--修改searchView字体颜色、大小-->
-    <style name="Widget.AppCompat.AutoCompleteTextView.App">
-        <item name="android:textColor">@color/colorAccent</item>
+    <style name="AppAutoCompleteTextView" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textColor">@color/text_white</item>
         <item name="android:textAppearance">@style/AutoCompleteTextAppearance</item>
     </style>
 
     <style name="AutoCompleteTextAppearance" parent="android:TextAppearance">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textColorHint">@color/text_color_9</item>
-        <item name="android:textColorHighlight">@color/text_color_9</item>
+        <item name="android:textColorHint">@color/text_color_6</item>
+        <item name="android:textColorHighlight">@color/text_color_6</item>
         <item name="android:textSize">14sp</item>
     </style>
 

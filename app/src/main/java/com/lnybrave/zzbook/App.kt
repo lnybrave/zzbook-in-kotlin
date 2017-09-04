@@ -26,7 +26,7 @@ class App : Application() {
         super.onCreate()
 
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(DefaultRefreshHeaderCreater { context, layout ->
-            layout?.setPrimaryColorsId(R.color.colorPrimary, android.R.color.darker_gray)
+            layout?.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white)
             ClassicsHeader(context).setSpinnerStyle(SpinnerStyle.Translate)
         })
 

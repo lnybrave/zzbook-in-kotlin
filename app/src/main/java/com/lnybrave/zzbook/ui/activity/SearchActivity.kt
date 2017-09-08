@@ -53,7 +53,6 @@ class SearchActivity : ProgressActivity(), SearchHotContract.View, SearchSuggest
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        initView()
     }
 
     override fun initView() {
@@ -131,7 +130,7 @@ class SearchActivity : ProgressActivity(), SearchHotContract.View, SearchSuggest
         mSearchAdapter.register(Integer::class.java, SearchCountViewBinder())
     }
 
-    private fun initData() {
+    override fun initData() {
         mHotPresenter.getData()
     }
 

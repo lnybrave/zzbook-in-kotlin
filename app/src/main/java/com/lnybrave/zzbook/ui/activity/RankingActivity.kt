@@ -34,8 +34,6 @@ class RankingActivity : ProgressActivity(), RankingContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ranking)
-        initView()
-        initData()
     }
 
     override fun initView() {
@@ -55,7 +53,7 @@ class RankingActivity : ProgressActivity(), RankingContract.View {
         mainComponent.plus(RankingModule(this)).inject(this)
     }
 
-    fun initData() {
+    override fun initData() {
         mPresenter.getData()
     }
 

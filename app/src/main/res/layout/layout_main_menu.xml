@@ -57,72 +57,64 @@
 
                 <LinearLayout
                     android:id="@+id/ll_messages"
-                    style="@style/SideMenuItem">
+                    style="@style/SideMenu.Item">
 
                     <ImageView
-                        style="@style/SideMenuItemIcon"
+                        style="@style/SideMenu.ItemIcon"
                         android:src="@drawable/ic_sidemenu_messages" />
 
-                    <LinearLayout style="@style/SideMenuItemLayout">
+                    <LinearLayout style="@style/SideMenu.ItemLayout">
 
                         <TextView
-                            style="@style/SideMenuItemText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/SideMenu.ItemName"
                             android:text="@string/text_messages" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/ll_my_tracks"
-                    style="@style/SideMenuItem">
+                    style="@style/SideMenu.Item">
 
                     <ImageView
-                        style="@style/SideMenuItemIcon"
+                        style="@style/SideMenu.ItemIcon"
                         android:src="@drawable/ic_sidemenu_my_tracks" />
 
-                    <LinearLayout style="@style/SideMenuItemLayout">
+                    <LinearLayout style="@style/SideMenu.ItemLayout">
 
                         <TextView
-                            style="@style/SideMenuItemText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/SideMenu.ItemName"
                             android:text="@string/text_my_tracks" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/ll_feedback"
-                    style="@style/SideMenuItem">
+                    style="@style/SideMenu.Item">
 
                     <ImageView
-                        style="@style/SideMenuItemIcon"
+                        style="@style/SideMenu.ItemIcon"
                         android:src="@drawable/ic_sidemenu_feedback" />
 
-                    <LinearLayout style="@style/SideMenuItemLayout">
+                    <LinearLayout style="@style/SideMenu.ItemLayout">
 
                         <TextView
-                            style="@style/SideMenuItemText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/SideMenu.ItemName"
                             android:text="@string/text_feedback" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/ll_about_us"
-                    style="@style/SideMenuItem">
+                    style="@style/SideMenu.Item">
 
                     <ImageView
-                        style="@style/SideMenuItemIcon"
+                        style="@style/SideMenu.ItemIcon"
                         android:src="@drawable/ic_sidemenu_about_us" />
 
-                    <LinearLayout style="@style/SideMenuItemLayout">
+                    <LinearLayout style="@style/SideMenu.ItemLayout">
 
                         <TextView
-                            style="@style/SideMenuItemText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/SideMenu.ItemName"
                             android:text="@string/text_about_us" />
                     </LinearLayout>
                 </LinearLayout>
@@ -141,9 +133,7 @@
 
         <TextView
             android:id="@+id/tv_setting"
-            style="@style/SideMenuItemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/SideMenu.ItemName"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:background="@drawable/zz_bg_list_selector"
@@ -155,9 +145,7 @@
 
         <TextView
             android:id="@+id/tv_day_night_mode"
-            style="@style/SideMenuItemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/SideMenu.ItemName"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/zz_bg_list_selector"

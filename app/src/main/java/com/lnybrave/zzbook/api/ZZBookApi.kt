@@ -55,9 +55,9 @@ interface ZZBookApi {
     @GET("api/stack/classification")
     fun getClassification(@Query("parent") parent: Int?): Observable<List<Classification>>
 
-    @GET("api/stack/classification/{parent_id}/{id}/books")
-    fun getClassificationBooks(@Path("parent_id") parentId: Int,
-                               @Path("id") id: Int,
+    @GET("api/stack/classification/{id}/books")
+    fun getClassificationBooks(@Path("id") id: Int,
+                               @Query("item_id") itemId: Int?,
                                @Query("offset") offset: Int?,
                                @Query("limit") limit: Int?): Observable<APIPage<Book>>
 

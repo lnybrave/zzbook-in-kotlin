@@ -36,8 +36,6 @@ class BookDetailActivity : ProgressActivity(), BookDetailContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_detail)
         book = intent.getSerializableExtra("book") as Book
-        initView()
-        initData()
     }
 
     override fun initView() {
@@ -61,7 +59,7 @@ class BookDetailActivity : ProgressActivity(), BookDetailContract.View {
         mainComponent.plus(BookDetailModule(this)).inject(this)
     }
 
-    fun initData() {
+    override fun initData() {
         mPresenter.getData(book.id)
     }
 

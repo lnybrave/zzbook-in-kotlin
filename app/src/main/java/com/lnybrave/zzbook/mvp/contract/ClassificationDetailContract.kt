@@ -20,7 +20,7 @@ interface ClassificationDetailContract {
 
     interface Model {
 
-        fun getData(firstId: Int, secondId: Int, offset: Int, limit: Int): Observable<APIPage<Book>>
+        fun getData(firstId: Int, secondId: Int?, offset: Int, limit: Int): Observable<APIPage<Book>>
     }
 
     interface Presenter : IPresenter {

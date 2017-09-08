@@ -1,20 +1,35 @@
 package com.lnybrave.zzbook.ui.activity
 
-import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
+import com.lnybrave.zzbook.BuildConfig
 import com.lnybrave.zzbook.R
-import com.lnybrave.zzbook.ui.BaseActivity
-import kotlinx.android.synthetic.main.toolbar.*
+import me.drakeet.multitype.Items
+import me.drakeet.support.about.*
 
-class AboutActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about)
-        initView()
+class AboutActivity : AbsAboutActivity() {
+
+    override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
+        icon.setImageResource(R.mipmap.ic_launcher)
+        slogan.text = "About Page By drakeet"
+        version.text = "v" + BuildConfig.VERSION_NAME
     }
 
-    override fun initView() {
-        setupToolbar(toolbar)
-        tvTitle.text = resources.getString(R.string.title_about)
+    override fun onItemsCreated(items: Items) {
+        items.add(Category("介绍与帮助"))
+        items.add(Card(getString(R.string.card_content), "分享"))
+        items.add(Line())
+
+        items.add(Category("Developers"))
+        items.add(Contributor(R.drawable.avatar_drakeet, "drakeet", "Developer & designer", "http://weibo.com/drak11t"))
+        items.add(Contributor(R.drawable.avatar_drakeet, "黑猫酱", "Developer", "https://drakeet.me"))
+        items.add(Contributor(R.drawable.avatar_drakeet, "小艾大人", "Developer"))
+        items.add(Line())
+
+        items.add(Category("Open Source Licenses"))
+        items.add(License("MultiType", "drakeet", License.APACHE_2, "https://github.com/drakeet/MultiType"))
+        items.add(License("about-page", "drakeet", License.APACHE_2, "https://github.com/drakeet/about-page"))
     }
+
 }

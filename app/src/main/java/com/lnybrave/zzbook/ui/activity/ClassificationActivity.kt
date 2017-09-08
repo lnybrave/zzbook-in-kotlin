@@ -18,7 +18,6 @@ class ClassificationActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_classification)
-        initView()
     }
 
     override fun initView() {

@@ -16,7 +16,7 @@ internal object ImageUtils {
 
     fun displayIcon(url: String?, view: ImageView) {
         if (url != null) {
-            Picasso.with(view.context).load(url).fit().into(view)
+            Picasso.with(view.context).load(url).into(view)
         }
     }
 }

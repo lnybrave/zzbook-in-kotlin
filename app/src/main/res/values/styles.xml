@@ -64,7 +64,12 @@
     </style>
 
     <!--主页面-->
-    <style name="SideMenuItem">
+    <style name="SideMenu">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="SideMenu.Item">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/zz_bg_list_selector</item>
@@ -72,14 +77,14 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-    <style name="SideMenuItemIcon">
+    <style name="SideMenu.ItemIcon">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
     </style>
 
-    <style name="SideMenuItemLayout">
+    <style name="SideMenu.ItemLayout">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
@@ -89,9 +94,155 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
-    <style name="SideMenuItemText">
+    <style name="SideMenu.ItemName">
         <item name="android:textColor">@color/text_color_9</item>
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <!--用户信息-->
+    <style name="Account">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Account.Classification">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:divider">@drawable/zz_divider</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:showDividers">middle</item>
+    </style>
+
+    <style name="Account.Item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/zz_bg_list_selector</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingTop">16dp</item>
+    </style>
+
+    <style name="Account.ItemName">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Account.ItemTips">
+        <item name="android:textColor">@color/text_color_6</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Account.ItemValue">
+        <item name="android:textColor">@color/text_color_6</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!--设置页面-->
+    <style name="Settings">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Settings.Classification">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:divider">@drawable/zz_divider</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:showDividers">middle</item>
+    </style>
+
+    <style name="Settings.Item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/zz_bg_list_selector</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingTop">16dp</item>
+    </style>
+
+    <style name="Settings.ItemName">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Settings.ItemTips">
+        <item name="android:textColor">@color/text_color_6</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Settings.ItemValue">
+        <item name="android:textColor">@color/text_color_6</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!--登录-->
+    <style name="Login">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Login.EditText">
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+    </style>
+
+    <style name="Login.Button">
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Login.Label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/text_color_6</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!--重置密码-->
+    <style name="RetrievePassword">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="RetrievePassword.EditText">
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+    </style>
+
+    <style name="RetrievePassword.Button">
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

@@ -16,7 +16,7 @@ class ClassificationDetailPresenter
     : ClassificationDetailContract.Presenter, BasePresenter() {
 
     override fun getData(firstId: Int, secondId: Int, offset: Int, limit: Int) {
-        val subscribe = mModel.getData(firstId, secondId, offset, limit)
+        val subscribe = mModel.getData(firstId, if (secondId == 0) null else secondId, offset, limit)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe { mView.onLoadStart(this@ClassificationDetailPresenter) }

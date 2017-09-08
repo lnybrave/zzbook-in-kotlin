@@ -14,7 +14,6 @@ import com.lnybrave.zzbook.di.component.DaggerMainComponent
 import com.lnybrave.zzbook.di.component.MainComponent
 import com.lnybrave.zzbook.di.module.ActivityModule
 import com.lnybrave.zzbook.getAppComponent
-import com.lnybrave.zzbook.toast
 import com.lnybrave.zzbook.ui.BaseBindingActivity
 import com.lnybrave.zzbook.ui.fragment.BookshelfFragment
 import com.lnybrave.zzbook.ui.fragment.ClassificationFragment
@@ -101,12 +100,12 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     }
 
     private fun initSideMenu() {
-        ll_user_info.setOnClickListener { toast("user info") }
-        ll_messages.setOnClickListener { toast("message") }
-        ll_my_tracks.setOnClickListener { toast("track") }
-        ll_feedback.setOnClickListener { toast("feedback") }
+        ll_user_info.setOnClickListener { startActivity(Intent(applicationContext, AccountActivity::class.java)) }
+        ll_messages.setOnClickListener { startActivity(Intent(applicationContext, MessagesActivity::class.java)) }
+        ll_my_tracks.setOnClickListener { startActivity(Intent(applicationContext, MyTracksActivity::class.java)) }
+        ll_feedback.setOnClickListener { startActivity(Intent(applicationContext, FeedbackActivity::class.java)) }
         ll_about_us.setOnClickListener { startActivity(Intent(applicationContext, AboutActivity::class.java)) }
-        tv_setting.setOnClickListener { toast("setting") }
+        tv_setting.setOnClickListener { startActivity(Intent(applicationContext, SettingsActivity::class.java)) }
         tv_day_night_mode.setOnClickListener {
             if (tv_day_night_mode.text == resources.getString(R.string.text_day)) {
                 tv_day_night_mode.setText(R.string.text_night)

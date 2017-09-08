@@ -18,7 +18,6 @@ class ColumnActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_column)
-        initView()
     }
 
     override fun initView() {

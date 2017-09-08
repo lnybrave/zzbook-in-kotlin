@@ -29,7 +29,16 @@
         <activity android:name=".ui.activity.BookDetailActivity" />
         <activity android:name=".ui.activity.ReaderActivity" />
         <activity android:name=".ui.activity.ClassificationDetailActivity" />
-        <activity android:name=".ui.activity.CatalogActivity"></activity>
+        <activity android:name=".ui.activity.CatalogActivity" />
+        <activity android:name=".ui.activity.AccountActivity" />
+        <activity android:name=".ui.activity.FeedbackActivity" />
+        <activity android:name=".ui.activity.MyTracksActivity" />
+        <activity android:name=".ui.activity.MessagesActivity" />
+        <activity android:name=".ui.activity.SettingsActivity" />
+        <activity android:name=".ui.activity.LoginActivity" />
+        <activity
+            android:name=".ui.activity.RetrievePasswordActivity"
+            android:launchMode="singleTop"></activity>
     </application>
 
 </manifest>

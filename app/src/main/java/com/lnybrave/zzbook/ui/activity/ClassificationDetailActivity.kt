@@ -25,7 +25,6 @@ class ClassificationDetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_classification_detail)
-        initView()
     }
 
     override fun initView() {

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.lnybrave.zzbook.ui.activity.SettingsActivity">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/zz_divider_12dp"
+            android:orientation="vertical"
+            android:showDividers="beginning|middle|end">
+
+            <LinearLayout style="@style/Settings.Classification">
+
+                <LinearLayout style="@style/Settings.Item">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Settings.ItemName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_push" />
+
+                        <TextView
+                            style="@style/Settings.ItemTips"
+                            android:text="开启推送后会及时向您推荐优质内容" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_clear_cache"
+                    style="@style/Settings.Item">
+
+                    <TextView
+                        style="@style/Settings.ItemName"
+                        android:text="@string/text_clear_cache" />
+
+                    <TextView
+                        android:id="@+id/tv_cache_size"
+                        style="@style/Settings.ItemValue"
+                        android:drawableEnd="@drawable/ic_arrow_right_light"
+                        android:drawablePadding="3dp"
+                        android:drawableRight="@drawable/ic_arrow_right_light" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout style="@style/Settings.Classification">
+
+                <LinearLayout style="@style/Settings.Item">
+
+                    <TextView
+                        style="@style/Settings.ItemName"
+                        android:text="@string/text_theme" />
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@color/colorPrimary" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/Settings.Item">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Settings.ItemName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_no_image_mode" />
+
+                        <TextView
+                            style="@style/Settings.ItemTips"
+                            android:text="2G/3G/4G网络不加载网络图片" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/Settings.Item">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Settings.ItemName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_wifi_auto_download" />
+
+                        <TextView
+                            style="@style/Settings.ItemTips"
+                            android:text="wifi网络下会自动缓存图书可阅读的章节" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/Settings.Item"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Settings.ItemName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_brightness_control" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_brightness_down" />
+
+                        <android.support.v7.widget.AppCompatSeekBar
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_brightness_up" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout style="@style/Settings.Classification">
+
+                <LinearLayout
+                    android:id="@+id/ll_check_version"
+                    style="@style/Settings.Item">
+
+                    <TextView
+                        style="@style/Settings.ItemName"
+                        android:text="@string/text_check_version" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_right_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_good_opinion"
+                    style="@style/Settings.Item">
+
+                    <TextView
+                        style="@style/Settings.ItemName"
+                        android:text="@string/text_good_opinion" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_right_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_welcome_page"
+                    style="@style/Settings.Item">
+
+                    <TextView
+                        style="@style/Settings.ItemName"
+                        android:text="@string/text_welcome_page" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_right_light" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout style="@style/Settings.Classification">
+
+                <LinearLayout style="@style/Settings.Item">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/Settings.ItemName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_close_ad" />
+
+                        <TextView
+                            style="@style/Settings.ItemTips"
+                            android:text="关闭广告后将不会显示闪屏广告、阅读页面底部广告" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

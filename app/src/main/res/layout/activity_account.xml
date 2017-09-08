@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.lnybrave.zzbook.ui.activity.AccountActivity">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/zz_divider_12dp"
+                android:orientation="vertical"
+                android:showDividers="beginning|middle|end">
+
+                <LinearLayout style="@style/Account.Classification">
+
+                    <LinearLayout
+                        android:id="@+id/ll_avatar"
+                        style="@style/Settings.Item">
+
+                        <TextView
+                            style="@style/Account.ItemName"
+                            android:text="@string/text_avatar" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_avatar"
+                            android:layout_width="@dimen/avatar_size_48dp"
+                            android:layout_height="@dimen/avatar_size_48dp"
+                            android:src="@drawable/default_avatar"
+                            app:civ_border_color="#FFFFFF"
+                            app:civ_border_width="2dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_nickname"
+                        style="@style/Settings.Item">
+
+                        <TextView
+                            style="@style/Account.ItemName"
+                            android:text="@string/text_nickname" />
+
+                        <TextView
+                            android:id="@+id/tv_nickname"
+                            style="@style/Account.ItemValue"
+                            android:text="@string/text_no_value" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Account.Item">
+
+                        <TextView
+                            style="@style/Account.ItemName"
+                            android:text="@string/text_account" />
+
+                        <TextView
+                            android:id="@+id/tv_account"
+                            style="@style/Account.ItemValue" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_modify_password"
+                        style="@style/Settings.Item">
+
+                        <TextView
+                            style="@style/Account.ItemName"
+                            android:text="@string/text_modify_password" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_arrow_right_light" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout style="@style/Account.Classification">
+
+                    <LinearLayout
+                        android:id="@+id/ll_bind_wechat"
+                        style="@style/Settings.Item">
+
+                        <TextView
+                            style="@style/Account.ItemName"
+                            android:text="@string/text_wechat" />
+
+
+                        <TextView
+                            style="@style/Account.ItemValue"
+                            android:text="@string/text_no_bind" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_bind_email"
+                        style="@style/Settings.Item">
+
+                        <TextView
+                            style="@style/Account.ItemName"
+                            android:text="@string/text_email" />
+
+                        <TextView
+                            style="@style/Account.ItemValue"
+                            android:text="@string/text_no_bind" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="64dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/text_logout" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

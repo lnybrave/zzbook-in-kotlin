@@ -66,4 +66,5 @@
     <string name="text_confirm">确定</string>
     <string name="hint_input_password">请输入密码</string>
     <string name="hint_input_password_again">请再次输入密码</string>
+    <string name="text_feedback_type">反馈类型</string>
 </resources>

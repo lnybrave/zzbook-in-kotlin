@@ -3,4 +3,10 @@
     <dimen name="text_size">14sp</dimen>
     <dimen name="text_sp_12">12sp</dimen>
     <dimen name="avatar_size_48dp">48dp</dimen>
+    <dimen name="item_message_img_height">100dp</dimen>
+    <dimen name="ts_item_message_time">12sp</dimen>
+    <dimen name="ts_item_message_title">16sp</dimen>
+    <dimen name="ts_item_my_track_title">16sp</dimen>
+    <dimen name="ts_item_my_track_time">14sp</dimen>
+    <dimen name="item_my_track_title_margin_right">20dp</dimen>
 </resources>

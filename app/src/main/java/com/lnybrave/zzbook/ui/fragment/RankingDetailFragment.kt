@@ -65,9 +65,14 @@ class RankingDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), Rankin
         if (activity is RankingActivity) {
             val a: RankingActivity = activity as RankingActivity
             a.mainComponent.plus(RankingDetailModule(this)).inject(this)
-            initData()
         } else {
             throw IllegalArgumentException("is not RankingActivity")
+        }
+    }
+
+    override fun onUserVisible(firstVisible: Boolean) {
+        if (firstVisible) {
+            initData()
         }
     }
 

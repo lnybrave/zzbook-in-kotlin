@@ -24,6 +24,4 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : ProgressFragment() {
 
     abstract fun createDataBinding(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): B
 
-    abstract fun initView()
-
 }

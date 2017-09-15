@@ -1,7 +1,6 @@
 package com.lnybrave.zzbook.ui
 
 import android.graphics.drawable.Drawable
-import android.support.v4.app.Fragment
 import android.view.View
 import com.lnybrave.zzbook.ui.progress.ProgressWidget
 import com.lnybrave.zzbook.ui.progress.ProgressWidgetWrapper
@@ -9,7 +8,7 @@ import com.vlonjatg.progressactivity.ProgressFrameLayout
 import com.vlonjatg.progressactivity.ProgressLinearLayout
 import com.vlonjatg.progressactivity.ProgressRelativeLayout
 
-abstract class ProgressFragment : Fragment(), ProgressWidgetWrapper {
+abstract class ProgressFragment : LazyFragment(), ProgressWidgetWrapper {
 
     private var progressWidgetWrapper: ProgressWidgetWrapper? = null
 

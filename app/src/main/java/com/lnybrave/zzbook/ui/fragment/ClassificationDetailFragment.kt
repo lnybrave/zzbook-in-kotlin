@@ -64,9 +64,14 @@ class ClassificationDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(),
         if (activity is ClassificationDetailActivity) {
             val a: ClassificationDetailActivity = activity as ClassificationDetailActivity
             a.mainComponent.plus(ClassificationDetailModule(this)).inject(this)
-            initData()
         } else {
             throw IllegalArgumentException("is not ClassificationDetailActivity")
+        }
+    }
+
+    override fun onUserVisible(firstVisible: Boolean) {
+        if (firstVisible) {
+            initData()
         }
     }
 

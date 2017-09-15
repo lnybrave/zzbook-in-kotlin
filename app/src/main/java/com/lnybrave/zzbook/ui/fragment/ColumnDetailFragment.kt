@@ -81,9 +81,14 @@ class ColumnDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(), ColumnD
         if (activity is ColumnActivity) {
             val a: ColumnActivity = activity as ColumnActivity
             a.mainComponent.plus(ColumnDetailModule(this)).inject(this)
-            initData()
         } else {
             throw IllegalArgumentException("is not ColumnActivity")
+        }
+    }
+
+    override fun onUserVisible(firstVisible: Boolean) {
+        if (firstVisible) {
+            initData()
         }
     }
 

@@ -60,6 +60,12 @@ class SearchFragment : BaseBindingFragment<ViewRecyclerBinding>(), SearchContrac
         }
     }
 
+    override fun onUserVisible(firstVisible: Boolean) {
+        if (firstVisible) {
+            mPresenter.getData(keyword)
+        }
+    }
+
     override fun onEmpty(presenter: IPresenter) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

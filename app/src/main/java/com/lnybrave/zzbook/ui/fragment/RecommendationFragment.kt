@@ -90,9 +90,14 @@ class RecommendationFragment : BaseBindingFragment<FragmentRecommendationBinding
         if (activity is MainActivity) {
             val a: MainActivity = activity as MainActivity
             a.mainComponent.plus(RecommendationModule(this)).inject(this)
-            initData()
         } else {
             throw IllegalArgumentException("is not MainActivity")
+        }
+    }
+
+    override fun onUserVisible(firstVisible: Boolean) {
+        if (firstVisible) {
+            initData()
         }
     }
 

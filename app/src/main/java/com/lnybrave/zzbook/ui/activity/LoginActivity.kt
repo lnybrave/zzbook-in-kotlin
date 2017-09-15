@@ -2,6 +2,7 @@ package com.lnybrave.zzbook.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import com.lnybrave.zzbook.R
 import com.lnybrave.zzbook.ui.BaseActivity
@@ -27,10 +28,19 @@ class LoginActivity : BaseActivity() {
             ll_register.visibility = View.GONE
         }
         btn_login.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            showProgressDialog()
+            Handler().postDelayed({
+                hideProgressDialog()
+                startActivity(Intent(this, MainActivity::class.java))
+            }, 1000)
+
         }
         btn_register.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            showProgressDialog()
+            Handler().postDelayed({
+                hideProgressDialog()
+                startActivity(Intent(this, MainActivity::class.java))
+            }, 1000)
         }
     }
 }

@@ -59,9 +59,14 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
         if (activity is MainActivity) {
             val a: MainActivity = activity as MainActivity
             a.mainComponent.plus(BookshelfModule(this)).inject(this)
-            mPresenter.getData()
         } else {
             throw IllegalArgumentException("is not MainActivity")
+        }
+    }
+
+    override fun onUserVisible(firstVisible: Boolean) {
+        if (firstVisible) {
+            mPresenter.getData()
         }
     }
 

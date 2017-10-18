@@ -2,14 +2,20 @@ package com.lnybrave.zzbook.ui
 
 import android.app.ProgressDialog
 import android.content.DialogInterface
+import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.View
 
 abstract class BaseFragment : Fragment() {
 
     private var progressDialog: ProgressDialog? = null
 
-    abstract fun initView()
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView(view)
+    }
 
+    abstract fun initView(view: View?)
 
     fun showProgressDialog() {
         showProgressDialog("请稍后")

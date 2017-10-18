@@ -34,8 +34,8 @@ class BookDetailActivity : ProgressActivity(), BookDetailContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_book_detail)
         book = intent.getSerializableExtra("book") as Book
+        setContentView(R.layout.activity_book_detail)
     }
 
     override fun initView() {

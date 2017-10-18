@@ -12,8 +12,8 @@ class CatalogActivity : ProgressActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_catalog)
         book = intent.getSerializableExtra("book") as Book
+        setContentView(R.layout.activity_catalog)
     }
 
     override fun initView() {

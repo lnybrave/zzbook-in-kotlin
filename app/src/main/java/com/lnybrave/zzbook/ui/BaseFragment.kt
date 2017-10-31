@@ -18,10 +18,12 @@ abstract class BaseFragment : Fragment() {
     abstract fun initView(view: View?)
 
     fun showProgressDialog() {
-        showProgressDialog("请稍后")
+        showProgressDialog("请稍后...")
     }
 
-    fun showProgressDialog(message: String, cancelable: Boolean = false, cancelListener: DialogInterface.OnCancelListener? = null) {
+    fun showProgressDialog(message: String,
+                                     cancelable: Boolean = false,
+                                     cancelListener: DialogInterface.OnCancelListener? = null) {
         if (progressDialog == null && activity != null) {
             progressDialog = ProgressDialog(activity)
         }

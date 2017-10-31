@@ -33,7 +33,7 @@ class BookshelfFragment : BaseBindingFragment<ViewRecyclerBinding>(), BookshelfC
         return ViewRecyclerBinding.inflate(inflater, container, false)
     }
 
-    override fun initView() {
+    override fun initView(view: View?) {
         initTitle()
 
         mAdapter = MultiTypeAdapter(mList)

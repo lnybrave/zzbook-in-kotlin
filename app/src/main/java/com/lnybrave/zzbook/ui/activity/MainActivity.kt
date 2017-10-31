@@ -1,7 +1,6 @@
 package com.lnybrave.zzbook.ui.activity
 
 import android.content.Intent
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
@@ -9,12 +8,11 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.View
 import com.lnybrave.zzbook.R
-import com.lnybrave.zzbook.databinding.ActivityMainBinding
 import com.lnybrave.zzbook.di.component.DaggerMainComponent
 import com.lnybrave.zzbook.di.component.MainComponent
 import com.lnybrave.zzbook.di.module.ActivityModule
 import com.lnybrave.zzbook.getAppComponent
-import com.lnybrave.zzbook.ui.BaseBindingActivity
+import com.lnybrave.zzbook.ui.BaseActivity
 import com.lnybrave.zzbook.ui.fragment.BookshelfFragment
 import com.lnybrave.zzbook.ui.fragment.ClassificationFragment
 import com.lnybrave.zzbook.ui.fragment.RecommendationFragment
@@ -22,19 +20,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_main_menu.*
 
 
-class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity() {
 
     lateinit var bookshelfFragment: BookshelfFragment
     lateinit var recommendationFragment: RecommendationFragment
     lateinit var classificationFragment: ClassificationFragment
 
-    lateinit var mFragments: MutableList<Fragment>
+    var mFragments: MutableList<Fragment> = ArrayList()
     var selectedPosition: Int = 0
 
     lateinit var mainComponent: MainComponent
 
-    override fun createDataBinding(savedInstanceState: Bundle?): ActivityMainBinding {
-        return DataBindingUtil.setContentView(this, R.layout.activity_main)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
     }
 
     override fun initView() {
@@ -120,7 +119,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     }
 
     private fun initFragments() {
-        mFragments = ArrayList()
         bookshelfFragment = BookshelfFragment.newInstance()
         recommendationFragment = RecommendationFragment.newInstance()
         classificationFragment = ClassificationFragment.newInstance()

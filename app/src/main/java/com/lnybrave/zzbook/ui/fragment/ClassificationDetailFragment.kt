@@ -43,7 +43,7 @@ class ClassificationDetailFragment : BaseBindingFragment<ViewRecyclerBinding>(),
         return ViewRecyclerBinding.inflate(inflater, container, false)
     }
 
-    override fun initView() {
+    override fun initView(view: View?) {
         mAdapter = MultiTypeAdapter(mList)
 
         with(mBinding) {

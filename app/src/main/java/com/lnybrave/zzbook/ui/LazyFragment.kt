@@ -63,7 +63,7 @@ abstract class LazyFragment : BaseFragment() {
         }
     }
 
-    @Synchronized fun initPrepare() {
+    private fun initPrepare() {
         if (isPrepared) {
             onUserVisible(true)
         } else {
